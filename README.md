@@ -41,7 +41,7 @@ We also encourage you to think of these requirements as a starting point, and ju
 ###### TimeLine
 - Nov 22
     - [x]design UI
-    - []write out needed data
+    - [x]write out needed data
     - []finish welcome screen and user prompt difficulty screen
     - []finish image upload screen
     - []persistant data?
@@ -85,3 +85,9 @@ We also encourage you to think of these requirements as a starting point, and ju
 - startedGame = false; //state --> sound? 
 - finishedGame = false; //state (try again button, give up button)
 - wins = 0; //number of wins, how many words guessed successfully
+- image uplaod 
+- leaderboard scores
+- sound
+- if key letter is pressed? : false
+- uselessHint: ""
+
