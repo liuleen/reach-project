@@ -47,26 +47,26 @@ export default StyleSheet.create({
         paddingLeft: 18,
         paddingRight: 18,
       },
-      customBackgroundDialog: {
+    customBackgroundDialog: {
         opacity: 0.5,
         width: WIDTH
       },
-      dialogStyle: {
+    dialogStyle: {
         backgroundColor: 'black',
         width: WIDTH,
-        height: 200
+        height: 250
       },
-      levelContainer: {
+    levelContainer: {
         paddingTop: 10,
         backgroundColor: 'black',
         justifyContent: 'center',
         paddingHorizontal: 10,
     },
     dialogButton: {
-        width: WIDTH - 55,
-        height: 5,
-        backgroundColor: 'green',
+        width: WIDTH - 100,
+        height: 50,
+        backgroundColor: 'lime',
         justifyContent: 'center',
-        borderRadius: 15,
+        borderRadius: 10
     }
   });

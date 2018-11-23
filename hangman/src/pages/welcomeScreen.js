@@ -19,11 +19,6 @@ import Dialog, {
 } from 'react-native-popup-dialog';
 import AutoTypingText from 'react-native-auto-typing-text';
 
-// const App = createStackNavigator({
-//     Welcome: {screen: WelcomeScreen},
-//     Game: {screen: GameScreen},
-// });
-
 export default class index extends React.Component {
     constructor(props) {
         super(props);
@@ -95,6 +90,17 @@ export default class index extends React.Component {
                             backgroundStyle={styles.customBackgroundDialog}
                             dialogStyle={styles.dialogStyle}
                             visible={this.state.customBackgroundDialog}
+
+                            actions={[
+                                <DialogButton
+                                    text="PLAY"
+                                    onPress={() => {
+                                        this.setState({ customBackgroundDialog: false})
+                                    }}
+                                    key="button-1"
+                                    style={styles.dialogButton}
+                                />,
+                            ]}
                         >
                             <DialogContent>
                                 <View style={styles.dialogContentView}>
@@ -135,17 +141,9 @@ export default class index extends React.Component {
                                             }}
                                             value={this.state.level}
                                         />
-                                    </View>
-                                </View>
+                                    </View>               
+                                </View>             
                             </DialogContent>
-                            <DialogButton
-                                text="PLAY"
-                                onPress={() => {
-                                    
-                                }}
-                                key="button-1"
-                                style={styles.dialogButton}
-                                />
                         </Dialog>
                     </View>
                 </View>
