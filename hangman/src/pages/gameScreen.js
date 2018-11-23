@@ -5,7 +5,7 @@ import {
  } from 'react-native';
 
 import { Image, Text, View } from 'react-native-animatable'
-import styles from '../styles/levelStyles';
+import styles from '../styles/gameStyles';
 // import bgImg from '../images/hangman.gif';
 // import metrics from '../config/metrics';
 // import AutoTypingText from 'react-native-auto-typing-text';

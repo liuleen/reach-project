@@ -44,13 +44,8 @@ export default StyleSheet.create({
         textAlign: 'center'
     },
     dialogContentView: {
-        // flex: 1,
         paddingLeft: 18,
         paddingRight: 18,
-        // backgroundColor: '#000',
-        // opacity: 0.4,
-        // alignItems: 'center',
-        // justifyContent: 'center',
       },
       customBackgroundDialog: {
         opacity: 0.5,
@@ -59,13 +54,12 @@ export default StyleSheet.create({
       dialogStyle: {
         backgroundColor: 'black',
         width: WIDTH,
-        height: 300
+        height: 180
       },
-      dialogText: {
-        color: 'white',
-        fontSize: 10,
-        fontWeight: 'bold',
-        textAlign: 'center'
-      }
+      levelContainer: {
+        paddingTop: 10,
+        backgroundColor: 'black',
+        justifyContent: 'center',
+        paddingHorizontal: 10,
+    },
   });
-  

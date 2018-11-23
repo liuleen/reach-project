@@ -1,35 +1,72 @@
 import React from 'react';
+import RNPickerSelect from 'react-native-picker-select';
 
 import {  
     Alert,
     Button,
-    TouchableOpacity
- } from 'react-native';
+    TouchableOpacity,
+    TextInput,
+    StyleSheet,
+} from 'react-native';
 
+import {createStackNavigator} from 'react-navigation';
 import { Image, Text, View } from 'react-native-animatable'
 import styles from '../styles/welcomeStyles';
 import bgImg from '../images/hangman.gif';
 import Dialog, { 
-    DialogTitle,
     DialogContent,
-    DialogButton,
-    SlideAnimation,
-    ScaleAnimation,
 } from 'react-native-popup-dialog';
 import AutoTypingText from 'react-native-auto-typing-text';
 
-// import levelScreen from './levelScreen'
+// const App = createStackNavigator({
+//     Welcome: {screen: WelcomeScreen},
+//     Game: {screen: GameScreen},
+// });
 
 export default class index extends React.Component {
     constructor(props) {
         super(props);
+
+        this.inputRefs = {};
+
+        this.state = {
+            level: undefined,
+            items: [
+                {
+                    label: 'Noob',
+                    value: 'easy',
+                },
+                {
+                    label: 'Rookie',
+                    value: 'medium'
+                },
+                {
+                    label: 'Expert',
+                    value: 'hard',
+                },
+                {
+                    label: 'Master',
+                    value: 'challenge',
+                },
+            ],          
+        };
     }
 
     state = {
         customBackgroundDialog: false,
     };
 
+    // componentDidMount() {
+    //     // if the component is using the optional `value` prop, the parent
+    //     // has the abililty to both set the initial value and also update it
+    //     setTimeout(() => {
+    //         this.setState({
+    //         });
+    //     }, 1000);
+    // }
+
     render(){
+        // const {navigate} = this.props.navigation;
         return(
             <View style={styles.container}>
                 <View style={styles.logoContainer}>
@@ -42,12 +79,12 @@ export default class index extends React.Component {
                     />
                     <AutoTypingText
                         text={`HANG MAN`}
-                        charMovingTime={200}
-                        delay={200}
+                        charMovingTime={150}
+                        delay={150}
                         style={styles.logoText}
                         onComplete={() => { console.log('woohoo'); }}
                     />
-                    <View animation={'fadeInUpBig'} delay={2000} duration={400}>
+                    <View animation={'fadeInUpBig'} delay={2000} duration={300}>
                         <TouchableOpacity
                             style={styles.button}
                             onPress={() => {
@@ -65,23 +102,56 @@ export default class index extends React.Component {
                             onTouchOutside={() => {
                                 this.setState({ customBackgroundDialog: false });
                             }}
+                            //zIndex controls which components display on top of others. The higher the number, the more on top
                             zIndex={1000}
                             backgroundStyle={styles.customBackgroundDialog}
                             dialogStyle={styles.dialogStyle}
-                            dialogTitle={
-                                <DialogTitle
-                                    title="PLEASE CHOOSE A LEVEL"
-                                    hasTitleBar={false}
-                                    textStyle={styles.dialogText}
-                                />
-                            }
                             visible={this.state.customBackgroundDialog}
                         >
-                            <View style={styles.dialogContentView}>
-                                <Text style={styles.dialogText}>Custom backgroundStyle</Text>
-                            </View>
+                            <DialogContent>
+                                <View style={styles.dialogContentView}>
+                                    <View style={styles.levelContainer}>
+                                        <Text>Choose a Username</Text>
+                                        <TextInput
+                                            ref={(el) => {
+                                                this.inputRefs.name = el;
+                                            }}
+                                            placeholder="username"
+                                            returnKeyType="next"
+                                            enablesReturnKeyAutomatically
+                                            onSubmitEditing={() => {
+                                                this.inputRefs.picker.togglePicker();
+                                            }}
+                                            style={pickerSelectStyles.inputIOS}
+                                            blurOnSubmit={false}
+                                        />
+
+                                        <View style={{ paddingVertical: 5 }} />
+
+                                        <Text>Choose a Level</Text>
+                                        <RNPickerSelect
+                                            placeholder={{
+                                                label: 'Select a level...',
+                                                value: null,
+                                            }}
+                                            items={this.state.items}
+                                            onValueChange={(value) => {}}
+                                            style={{ ...pickerSelectStyles }}
+                                            ref={(el) => {
+                                                this.inputRefs.picker = el;
+                                            }}
+                                            onSubmitEditing={(value) => {
+                                                this.setState({
+                                                    level: value,
+                                                });
+                                                // ()=>navigate('Game', {level: level})
+                                            }}
+                                            value={this.state.level}
+                                        />
+                                    </View>
+                                </View>
+                            </DialogContent>
                         </Dialog>
-                   
                     </View>
                 </View>
             </View>
@@ -89,3 +159,17 @@ export default class index extends React.Component {
     }
 
 }
+
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+        fontSize: 16,
+        paddingTop: 13,
+        paddingHorizontal: 10,
+        paddingBottom: 12,
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 4,
+        backgroundColor: 'white',
+        color: 'black',
+    },
+});
