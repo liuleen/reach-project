@@ -1,8 +1,9 @@
 import React from 'react';
 
 import {  
-    TouchableOpacity,
-    StatusBar,
+    Alert,
+    Button,
+    TouchableOpacity
  } from 'react-native';
 
 import { Image, Text, View } from 'react-native-animatable'
@@ -11,13 +12,11 @@ import bgImg from '../images/hangman.gif';
 import metrics from '../config/metrics';
 import AutoTypingText from 'react-native-auto-typing-text';
 
-export default class Index extends React.Component {
+// import levelScreen from './levelScreen'
+
+export default class index extends React.Component {
     constructor(props) {
         super(props);
-    }
-
-    conponentDidMount() {
-        StatusBar.setHidden(true);
     }
 
     render(){
@@ -38,11 +37,16 @@ export default class Index extends React.Component {
                         style={styles.logoText}
                         onComplete={() => { console.log('woohoo'); }}
                     />
-                    <TouchableOpacity style={styles.start}>
-                        <Text>START</Text>
-                    </TouchableOpacity>
+                    <View animation={'fadeInUpBig'} delay={2000} duration={400}>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={this.onPress}
+                        >
+                            <Text style={styles.buttonText}> START </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-             </View>
+            </View>
         )
     }
 

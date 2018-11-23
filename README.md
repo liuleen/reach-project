@@ -42,7 +42,8 @@ We also encourage you to think of these requirements as a starting point, and ju
 - Nov 22
     - [x]design UI
     - [x]write out needed data
-    - []finish welcome screen and user prompt difficulty screen
+    - [x]finish welcome screen UI
+    - []user prompt difficulty screen
     - []finish image upload screen
     - []persistant data?
 - Nov 23-24

@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import {
   StyleSheet, 
+  Text
 } from 'react-native';
 
 import Welcome from './src/pages/welcomeScreen';
 
-state = {
-  chooseDifficulty: false //has the app completed the welcome animation
-}
+// state = {
+//   chooseDifficulty: false //has the app completed the welcome animation
+// }
 /**
  * The root component of the application.
  * In this component I am handling the entire application state.
