@@ -67,6 +67,9 @@ export default StyleSheet.create({
         height: 50,
         backgroundColor: 'lime',
         justifyContent: 'center',
-        borderRadius: 10
+        borderRadius: 10,
+        marginLeft: 45,
+        marginRight: 45,
+        marginTop: 13
     }
   });
