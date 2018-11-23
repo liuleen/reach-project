@@ -54,7 +54,7 @@ export default StyleSheet.create({
       dialogStyle: {
         backgroundColor: 'black',
         width: WIDTH,
-        height: 180
+        height: 200
       },
       levelContainer: {
         paddingTop: 10,
@@ -62,4 +62,11 @@ export default StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: 10,
     },
+    dialogButton: {
+        width: WIDTH - 55,
+        height: 5,
+        backgroundColor: 'green',
+        justifyContent: 'center',
+        borderRadius: 15,
+    }
   });

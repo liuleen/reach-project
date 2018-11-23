@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 
 import Welcome from './src/pages/welcomeScreen';
+// import AppNavigator from './src/pages/appNavigator';
 
 // state = {
 //   chooseDifficulty: false //has the app completed the welcome animation

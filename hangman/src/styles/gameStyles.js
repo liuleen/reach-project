@@ -2,10 +2,8 @@ import {
     StyleSheet, 
 } from 'react-native';
 
-import metrics from '../config/metrics'
-
 /**
- * css stylesheet for the levels selection screen 
+ * css stylesheet for the main game screen 
  */
 
 export default StyleSheet.create({

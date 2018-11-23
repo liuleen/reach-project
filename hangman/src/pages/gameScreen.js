@@ -7,11 +7,10 @@ import {
 import { Image, Text, View } from 'react-native-animatable'
 import styles from '../styles/gameStyles';
 // import bgImg from '../images/hangman.gif';
-// import metrics from '../config/metrics';
 // import AutoTypingText from 'react-native-auto-typing-text';
 import { Login } from 'react-native-md-motion-buttons';
 
-export default class LevelScreen extends React.Component {
+export default class GameScreen extends React.Component {
     render() {
         return (
             <View style={[StyleSheet.absoluteFill, styles.container]}>

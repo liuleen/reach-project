@@ -15,6 +15,7 @@ import styles from '../styles/welcomeStyles';
 import bgImg from '../images/hangman.gif';
 import Dialog, { 
     DialogContent,
+    DialogButton
 } from 'react-native-popup-dialog';
 import AutoTypingText from 'react-native-auto-typing-text';
 
@@ -48,25 +49,12 @@ export default class index extends React.Component {
                     label: 'Master',
                     value: 'challenge',
                 },
-            ],          
+            ],
+            customBackgroundDialog: false,          
         };
     }
 
-    state = {
-        customBackgroundDialog: false,
-    };
-
-    // componentDidMount() {
-    //     // if the component is using the optional `value` prop, the parent
-    //     // has the abililty to both set the initial value and also update it
-    //     setTimeout(() => {
-    //         this.setState({
-    //         });
-    //     }, 1000);
-    // }
-
     render(){
-        // const {navigate} = this.props.navigation;
         return(
             <View style={styles.container}>
                 <View style={styles.logoContainer}>
@@ -84,7 +72,7 @@ export default class index extends React.Component {
                         style={styles.logoText}
                         onComplete={() => { console.log('woohoo'); }}
                     />
-                    <View animation={'fadeInUpBig'} delay={2000} duration={300}>
+                    <View animation={'fadeInUpBig'} delay={1500} duration={300}>
                         <TouchableOpacity
                             style={styles.button}
                             onPress={() => {
@@ -144,13 +132,20 @@ export default class index extends React.Component {
                                                 this.setState({
                                                     level: value,
                                                 });
-                                                // ()=>navigate('Game', {level: level})
                                             }}
                                             value={this.state.level}
                                         />
                                     </View>
                                 </View>
                             </DialogContent>
+                            <DialogButton
+                                text="PLAY"
+                                onPress={() => {
+                                    
+                                }}
+                                key="button-1"
+                                style={styles.dialogButton}
+                                />
                         </Dialog>
                     </View>
                 </View>
