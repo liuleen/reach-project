@@ -27,7 +27,6 @@ export default StyleSheet.create({
     },
     start: {
         textAlign: 'center',
-        color: 'red',
         marginBottom: 5,
     },
   });
