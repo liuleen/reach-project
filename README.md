@@ -50,14 +50,20 @@ We also encourage you to think of these requirements as a starting point, and ju
 - Nov 23-24
     - []pass variables from welcome screen to game screen
     - []input field filled in for both required
+    - []what happens when you lose?
+    - []set word function from api
     - []function for API call to GET /words 
     - []design/setup game screen UI
     - []fill in word function
     - []support of full words guesses
     - []animated keyboard w/ {red/green} functionality
 - Nov 25-26
+    - []dashes
+    - []animation
+    - []function to fill in animation
+    - []function check used words
+    - []function subtract lives
     - []give up button that routes to welcome screen
-    - []hangman animation
     - []useless hint
     - []sound for start button, image taking, cheering, booing, give up
     - []# of wins

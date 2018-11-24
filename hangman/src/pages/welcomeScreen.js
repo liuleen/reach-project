@@ -45,7 +45,7 @@ export default class WelcomeScreen extends React.Component {
                 },
             ],
             dialog: false,   
-            username: ""       
+            username: ''       
         };
     }
 
