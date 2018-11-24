@@ -94,12 +94,13 @@ export default class WelcomeScreen extends React.Component {
                             actions={[
                                 <DialogButton
                                     text="PLAY"
-                                    onPress={() => 
-                                        this.props.navigation.navigate('GameScreen')
-                                    }
-                                    onPress={() => 
-                                        this.setState({ dialog: false})
-                                    }
+                                    onPress={() => {
+                                        this.props.navigation.navigate('GameScreen'),
+                                        this.setState({dialog: false})
+                                    }}
+                                    // onPress={() => 
+                                    //     this.setState({ dialog: false})
+                                    // }
                                     key="button-1"
                                     style={styles.dialogButton}
                                 />,
