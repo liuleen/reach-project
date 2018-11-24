@@ -23,10 +23,10 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     logoText: {
-        fontSize: 100,
+        fontSize: 65,
         fontWeight: "bold",
         textAlign: 'center',
-        // margin: 10,
+        marginTop: 10,
         color: "black",
     },
     button: {

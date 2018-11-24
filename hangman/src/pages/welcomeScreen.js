@@ -1,15 +1,13 @@
 import React from 'react';
 import RNPickerSelect from 'react-native-picker-select';
 
-import {  
-    Alert,
-    Button,
+import { 
     TouchableOpacity,
     TextInput,
     StyleSheet,
 } from 'react-native';
 
-import {createStackNavigator} from 'react-navigation';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { Image, Text, View } from 'react-native-animatable'
 import styles from '../styles/welcomeStyles';
 import bgImg from '../images/hangman.gif';
@@ -19,7 +17,8 @@ import Dialog, {
 } from 'react-native-popup-dialog';
 import AutoTypingText from 'react-native-auto-typing-text';
 
-export default class index extends React.Component {
+export default class WelcomeScreen extends React.Component {
+
     constructor(props) {
         super(props);
 
@@ -45,13 +44,14 @@ export default class index extends React.Component {
                     value: 'challenge',
                 },
             ],
-            customBackgroundDialog: false,          
+            dialog: false,   
+            username: ''       
         };
     }
 
     render(){
         return(
-            <View style={styles.container}>
+            <View style={styles.container} behavior="padding">
                 <View style={styles.logoContainer}>
                     <Image
                         animation={'slideInDown'}
@@ -61,7 +61,7 @@ export default class index extends React.Component {
                         source={bgImg}
                     />
                     <AutoTypingText
-                        text={`HANG MAN`}
+                        text={`HANGMAN`}
                         charMovingTime={150}
                         delay={150}
                         style={styles.logoText}
@@ -72,31 +72,34 @@ export default class index extends React.Component {
                             style={styles.button}
                             onPress={() => {
                                 this.setState({
-                                    customBackgroundDialog: true,                                
+                                    dialog: true,                                
                                 });
                             }}
                         >
                             <Text style={styles.buttonText}> START </Text>
                         </TouchableOpacity>
                         <Dialog
-                            onDismiss={() => {
-                                this.setState({ customBackgroundDialog: false });
-                            }}
+                            // onDismiss={() => {
+                            //     this.setState({ dialog: false });
+                            // }}
                             onTouchOutside={() => {
-                                this.setState({ customBackgroundDialog: false });
+                                this.setState({ dialog: false });
                             }}
                             //zIndex controls which components display on top of others. The higher the number, the more on top
                             zIndex={1000}
-                            backgroundStyle={styles.customBackgroundDialog}
+                            backgroundStyle={styles.dialog}
                             dialogStyle={styles.dialogStyle}
-                            visible={this.state.customBackgroundDialog}
+                            visible={this.state.dialog}
 
                             actions={[
                                 <DialogButton
                                     text="PLAY"
-                                    onPress={() => {
-                                        this.setState({ customBackgroundDialog: false})
-                                    }}
+                                    onPress={() => 
+                                        this.props.navigation.navigate('GameScreen')
+                                    }
+                                    onPress={() => 
+                                        this.setState({ dialog: false})
+                                    }
                                     key="button-1"
                                     style={styles.dialogButton}
                                 />,
@@ -144,6 +147,7 @@ export default class index extends React.Component {
                                     </View>               
                                 </View>             
                             </DialogContent>
+                            <KeyboardSpacer/>
                         </Dialog>
                     </View>
                 </View>

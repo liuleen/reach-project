@@ -43,27 +43,26 @@ We also encourage you to think of these requirements as a starting point, and ju
     - [x]design UI
     - [x]write out needed data
     - [x]finish welcome screen UI
-    - []user prompt difficulty screen
+    - [x]user prompt difficulty screen
+    - []route to game screen wit PLAY button
     - []finish image upload screen
     - []persistant data?
 - Nov 23-24
     - []function for API call to GET /words 
     - []design/setup game screen UI
     - []fill in word function
-    - []support of full words guesses
-    - []animated keyboard w/ {red/green} funtionality
+    - []support of full wo rds guesses
+    - []animated keyboard w/ {red/green} functionality
 - Nov 25-26
     - []give up button that routes to welcome screen
     - []hangman animation
     - []useless hint
-    - []emotional support meme
     - []sound for start button, image taking, cheering, booing, give up
     - []# of wins
     - []alert how many lives left
 - Nov 27-28
     - []timer
     - []challenge level with increasing difficulty and timer
-    - []annoying hurry sound
 - Nov 29-30 
     - []maybe implement leaderboard?
     - []finishing touches and cool components
