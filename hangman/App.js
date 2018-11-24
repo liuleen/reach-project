@@ -24,12 +24,12 @@ export default class App extends Component {
 
   render() {
     return (
-      <AppStackNavigator/>
+      <Hangman/>
     )
   }
 }
 
-const AppStackNavigator = new StackNavigator({
+const Hangman = new StackNavigator({
   WelcomeScreen:{
     screen: WelcomeScreen
   },

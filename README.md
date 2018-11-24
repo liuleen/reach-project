@@ -44,14 +44,16 @@ We also encourage you to think of these requirements as a starting point, and ju
     - [x]write out needed data
     - [x]finish welcome screen UI
     - [x]user prompt difficulty screen
-    - []route to game screen wit PLAY button
+    - [x]route to game screen wit PLAY button
     - []finish image upload screen
     - []persistant data?
 - Nov 23-24
+    - []pass variables from welcome screen to game screen
+    - []input field filled in for both required
     - []function for API call to GET /words 
     - []design/setup game screen UI
     - []fill in word function
-    - []support of full wo rds guesses
+    - []support of full words guesses
     - []animated keyboard w/ {red/green} functionality
 - Nov 25-26
     - []give up button that routes to welcome screen

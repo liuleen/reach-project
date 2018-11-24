@@ -45,7 +45,7 @@ export default class WelcomeScreen extends React.Component {
                 },
             ],
             dialog: false,   
-            username: ''       
+            username: ""       
         };
     }
 
@@ -98,9 +98,6 @@ export default class WelcomeScreen extends React.Component {
                                         this.props.navigation.navigate('GameScreen'),
                                         this.setState({dialog: false})
                                     }}
-                                    // onPress={() => 
-                                    //     this.setState({ dialog: false})
-                                    // }
                                     key="button-1"
                                     style={styles.dialogButton}
                                 />,
