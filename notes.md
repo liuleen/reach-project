@@ -46,7 +46,7 @@ We also encourage you to think of these requirements as a starting point, and ju
     - [x]route to game screen with PLAY button
     - []finish image upload screen [optional]
 - Nov 23-24
-    - []pass variables from welcome screen to game screen
+    - [x]pass variables from welcome screen to game screen
     - []input field filled in for both required
     - []get word function from api
     - []get word based on difficulty from api
@@ -103,3 +103,4 @@ Component State	Storing data in the state of your components is the simplest way
 #fix
 - dialog input navigation is wrong
 - fix picker style
+- implement jest
