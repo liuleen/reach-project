@@ -26,27 +26,9 @@ export default class WelcomeScreen extends React.Component {
         this.inputRefs = {};
         this.inputRef = React.createRef()
         this.state = {
-            level: undefined,
-            // items: [
-            //     {
-            //         label: 'Noob',
-            //         value: 'easy',
-            //     },
-            //     {
-            //         label: 'Rookie',
-            //         value: 'medium'
-            //     },
-            //     {
-            //         label: 'Expert',
-            //         value: 'hard',
-            //     },
-            //     {
-            //         label: 'Master',
-            //         value: 'challenge',
-            //     },
-            // ],
-            dialog: false,   
-            username: ''     
+            "level": undefined,
+            "dialog": false,   
+            "username": ''     
         };
     }
 

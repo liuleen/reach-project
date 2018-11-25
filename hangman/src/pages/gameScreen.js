@@ -4,7 +4,7 @@ import {
     Text,
     View,
     Button,
-    TouchableOpacity
+    TouchableOpacity,
  } from 'react-native';
 
 import styles from '../styles/gameStyles';
@@ -20,7 +20,12 @@ export default class GameScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            secretWord: '',
+            "secretWord": '',
+            // "numOfTries": 6,
+            // "usedChars": [],
+            // "unusedChars": [],
+            // "answer": "",
+
         }
     }
 
@@ -29,8 +34,8 @@ export default class GameScreen extends React.Component {
             .then((response) => {
                 let wordArray = response._bodyText.split('\n');
                 let word = wordArray[Math.floor(Math.random() * (wordArray.length -1))];
-                this.setState({secretWord: word})
-                console.log("this is le secret word: ", secretWord);
+                this.setState({"secretWord": word})
+                // console.log("this is le secret word: ", secretWord);
             })
             .catch((error) =>{
                 console.error(error);
@@ -51,13 +56,20 @@ export default class GameScreen extends React.Component {
             </TouchableOpacity>
             
                 
-            <Text>SecretWord: </Text>
+            <Text>SecretWord: {this.state.secretWord}</Text>
             <Text>level: {level}</Text>
             <Text>username: {username}</Text>
           </View>
         );
     }
     keyboardRender() {
+        return(
+            <View>
+                <Text>
+                    hi
+                </Text>
+            </View>
+        )
 
     }
 }
