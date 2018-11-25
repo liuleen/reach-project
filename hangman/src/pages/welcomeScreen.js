@@ -1,5 +1,4 @@
 import React from 'react';
-import RNPickerSelect from 'react-native-picker-select';
 
 import { 
     TouchableOpacity,
@@ -105,33 +104,12 @@ export default class WelcomeScreen extends React.Component {
                                             // onSubmitEditing={() => {
                                             //     this.inputRefs.level.focus();
                                             // }}
-                                            style={pickerSelectStyles.inputIOS}
+                                            style={styles.inputIOS}
                                             blurOnSubmit={true}
                                         />
 
                                         <View style={{ paddingVertical: 5 }} />
-
-                                        <Text>Choose a Level</Text>
-                                        {/* <RNPickerSelect
-                                            placeholder={{
-                                                label: 'Select a level...',
-                                                value: null,
-                                            }}
-                                            items={this.state.items}
-                                            onValueChange={(value) => {}}
-                                            style={{ ...pickerSelectStyles }}
-                                            ref={(el) => {
-                                                this.inputRefs.picker = el;
-                                            }}
-                                            onDonePress={(value) => {
-                                                console.log(value)
-                                                console.log("here")
-                                                this.setState({
-                                                    level: value,
-                                                });
-                                            }}
-                                            value={this.state.level}
-                                        /> */}
+                                        
                                         <View styles={styles.container}>
                                             <Picker
                                                 // ref ={(ref) => {this.inputRefs.level = ref}}
@@ -140,12 +118,12 @@ export default class WelcomeScreen extends React.Component {
                                                 selectedValue={this.state.level}
                                                 onValueChange={(itemValue,itemIndex) => this.setState({level:itemValue})}
                                                 >
+                                                <Picker.Item label="Select a level" value=""/>
                                                 <Picker.Item label="Noob" value="easy"/>
                                                 <Picker.Item label="Novice" value="medium" />
                                                 <Picker.Item label="Expert" value="hard"/>
                                                 <Picker.Item label="Master" value="challenge"/>
-                                            </Picker>
-                                            {/* <Text style={styles.text}>{this.state.level}</Text> */}
+                                            </Picker>                                        
                                         </View>
                                     </View>               
                                 </View>             
@@ -160,16 +138,16 @@ export default class WelcomeScreen extends React.Component {
 
 }
 
-const pickerSelectStyles = StyleSheet.create({
-    inputIOS: {
-        fontSize: 16,
-        paddingTop: 13,
-        paddingHorizontal: 10,
-        paddingBottom: 12,
-        borderWidth: 1,
-        borderColor: 'gray',
-        borderRadius: 4,
-        backgroundColor: 'white',
-        color: 'black',
-    },
-});
+// const pickerSelectStyles = StyleSheet.create({
+//     inputIOS: {
+//         fontSize: 16,
+//         paddingTop: 13,
+//         paddingHorizontal: 10,
+//         paddingBottom: 12,
+//         borderWidth: 1,
+//         borderColor: 'gray',
+//         borderRadius: 4,
+//         backgroundColor: 'white',
+//         color: 'black',
+//     },
+// });
