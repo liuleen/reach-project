@@ -52,13 +52,13 @@ export default StyleSheet.create({
         width: WIDTH
       },
     dialogStyle: {
-        backgroundColor: 'black',
+        backgroundColor: 'white',
         width: WIDTH,
-        height: 250
+        height: 450
       },
     levelContainer: {
         paddingTop: 10,
-        backgroundColor: 'black',
+        backgroundColor: 'white',
         justifyContent: 'center',
         paddingHorizontal: 10,
     },
@@ -71,5 +71,8 @@ export default StyleSheet.create({
         marginLeft: 45,
         marginRight: 45,
         marginTop: 13
+    },
+    pickerStyle: {
+        marginTop:10,
     }
   });

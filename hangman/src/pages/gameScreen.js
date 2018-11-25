@@ -23,33 +23,40 @@ export default class GameScreen extends React.Component {
             secretWord: ''
         }
     }
-    async fetchSecretWord() {
-        try{
-            console.log("pedro")
-            let response = await fetch('http://app.linkedin-reach.io/words');
-            console.log(response);
-            console.log("eileen")
-            let responseJson = await response.json();
-            console.log(responseJson.words)
-            // this.setState({
-            //     secretWord: responseJson['words']
-            // })
-        } catch (err) {
-            console.log("hi")
-            console.error(err);
-        }
-    }
 
+    // async fetchSecretWord() {
+    //     try{
+    //         let response = await fetch('http://app.linkedin-reach.io/words');
+    //         console.log(response);
+    //         let responseJson = await response.json();
+    //         console.log(responseJson.words)
+    //         // this.setState({
+    //         //     secretWord: responseJson['words']
+    //         // })
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    // }
     
     render() {
+        
+        const { navigation } = this.props;
+        const level = navigation.getParam('level', 'no-level');
+        const username = navigation.getParam('username', 'no-username');
+
         return (
           <View style={styles.container}>
             <TouchableOpacity style={styles.button} onPress={() => { this.fetchSecretWord() }}>
               <Text>Click Me</Text>
             </TouchableOpacity>
             <Text>SecretWord: {this.state.secretWord}</Text>
+            <Text>level: {level}</Text>
+            <Text>username: {username}</Text>
           </View>
         );
+    }
+    keyboardRender() {
+
     }
 }
     

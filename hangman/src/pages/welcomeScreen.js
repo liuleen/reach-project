@@ -5,6 +5,7 @@ import {
     TouchableOpacity,
     TextInput,
     StyleSheet,
+    Picker
 } from 'react-native';
 
 import KeyboardSpacer from 'react-native-keyboard-spacer';
@@ -23,33 +24,34 @@ export default class WelcomeScreen extends React.Component {
         super(props);
 
         this.inputRefs = {};
-
+        this.inputRef = React.createRef()
         this.state = {
             level: undefined,
-            items: [
-                {
-                    label: 'Noob',
-                    value: 'easy',
-                },
-                {
-                    label: 'Rookie',
-                    value: 'medium'
-                },
-                {
-                    label: 'Expert',
-                    value: 'hard',
-                },
-                {
-                    label: 'Master',
-                    value: 'challenge',
-                },
-            ],
+            // items: [
+            //     {
+            //         label: 'Noob',
+            //         value: 'easy',
+            //     },
+            //     {
+            //         label: 'Rookie',
+            //         value: 'medium'
+            //     },
+            //     {
+            //         label: 'Expert',
+            //         value: 'hard',
+            //     },
+            //     {
+            //         label: 'Master',
+            //         value: 'challenge',
+            //     },
+            // ],
             dialog: false,   
-            username: ''       
+            username: ''     
         };
     }
 
     render(){
+        console.log(this.state)
         return(
             <View style={styles.container} behavior="padding">
                 <View style={styles.logoContainer}>
@@ -95,7 +97,10 @@ export default class WelcomeScreen extends React.Component {
                                 <DialogButton
                                     text="PLAY"
                                     onPress={() => {
-                                        this.props.navigation.navigate('GameScreen'),
+                                        this.props.navigation.navigate('GameScreen', {
+                                            level: this.state.level,
+                                            username: this.state.username
+                                        } ),
                                         this.setState({dialog: false})
                                     }}
                                     key="button-1"
@@ -114,17 +119,18 @@ export default class WelcomeScreen extends React.Component {
                                             placeholder="username"
                                             returnKeyType="next"
                                             enablesReturnKeyAutomatically
-                                            onSubmitEditing={() => {
-                                                this.inputRefs.picker.togglePicker();
-                                            }}
+                                            onChangeText={(username) => this.setState({username})}
+                                            // onSubmitEditing={() => {
+                                            //     this.inputRefs.level.focus();
+                                            // }}
                                             style={pickerSelectStyles.inputIOS}
-                                            blurOnSubmit={false}
+                                            blurOnSubmit={true}
                                         />
 
                                         <View style={{ paddingVertical: 5 }} />
 
                                         <Text>Choose a Level</Text>
-                                        <RNPickerSelect
+                                        {/* <RNPickerSelect
                                             placeholder={{
                                                 label: 'Select a level...',
                                                 value: null,
@@ -135,13 +141,30 @@ export default class WelcomeScreen extends React.Component {
                                             ref={(el) => {
                                                 this.inputRefs.picker = el;
                                             }}
-                                            onSubmitEditing={(value) => {
+                                            onDonePress={(value) => {
+                                                console.log(value)
+                                                console.log("here")
                                                 this.setState({
                                                     level: value,
                                                 });
                                             }}
                                             value={this.state.level}
-                                        />
+                                        /> */}
+                                        <View styles={styles.container}>
+                                            <Picker
+                                                // ref ={(ref) => {this.inputRefs.level = ref}}
+                                                withRef={true}
+                                                style={styles.pickerStyle}
+                                                selectedValue={this.state.level}
+                                                onValueChange={(itemValue,itemIndex) => this.setState({level:itemValue})}
+                                                >
+                                                <Picker.Item label="Noob" value="easy"/>
+                                                <Picker.Item label="Novice" value="medium" />
+                                                <Picker.Item label="Expert" value="hard"/>
+                                                <Picker.Item label="Master" value="challenge"/>
+                                            </Picker>
+                                            {/* <Text style={styles.text}>{this.state.level}</Text> */}
+                                        </View>
                                     </View>               
                                 </View>             
                             </DialogContent>
