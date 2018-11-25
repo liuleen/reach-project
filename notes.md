@@ -48,12 +48,10 @@ We also encourage you to think of these requirements as a starting point, and ju
 - Nov 23-24
     - [x]pass variables from welcome screen to game screen
     - []input field filled in for both required
-    - []get word function from api
+    - [x]get word function from api
     - []get word based on difficulty from api
-    - []design/setup game screen UI
-    - []fill in word function
     - []support of full words guesses
-    - []animated keyboard w/ {red/green} functionality
+    - [x]animated keyboard w/ {red/green} functionality
 - Nov 25-26
     - []dashes
     - []animation
@@ -63,9 +61,10 @@ We also encourage you to think of these requirements as a starting point, and ju
     - []give up button that routes to welcome screen
     - []hint
     - []sound for start button, image taking, cheering, booing, give up
-    - []# of wins
     - []you lose, try again button
 - Nov 27-28
+    - []keyboard styling
+    - []dropdown styling
     - []timer
     - []challenge level with increasing difficulty and timer (guess word        with letters given)
 - Nov 29-30 
@@ -102,5 +101,4 @@ Component State	Storing data in the state of your components is the simplest way
 
 #fix
 - dialog input navigation is wrong
-- fix picker style
 - implement jest
