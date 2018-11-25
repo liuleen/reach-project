@@ -52,6 +52,7 @@ We also encourage you to think of these requirements as a starting point, and ju
     - []get word based on difficulty from api
     - []support of full words guesses
     - [x]animated keyboard w/ {red/green} functionality
+    - []validate letters
 - Nov 25-26
     - []dashes
     - []animation
@@ -63,6 +64,8 @@ We also encourage you to think of these requirements as a starting point, and ju
     - []sound for start button, image taking, cheering, booing, give up
     - []you lose, try again button
 - Nov 27-28
+    - []comment code
+    - []write readme
     - []keyboard styling
     - []dropdown styling
     - []timer
