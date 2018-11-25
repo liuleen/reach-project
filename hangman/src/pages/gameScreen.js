@@ -21,9 +21,9 @@ export default class GameScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            "secretWord": 'stumpy',
-            "numOfTries": 6,
-            "leftChars": ["s","t","u","m","p","y"],
+            "secretWord": "asophagus",
+            "lives": 6,
+            "leftChars": [],
             "guessedChars": [],
             "currentChar": '',
             "answer": "",
@@ -31,17 +31,24 @@ export default class GameScreen extends React.Component {
         }
     }
 
+    // componentWillMount(){
+    //     return fetch('http://app.linkedin-reach.io/words?difficulty=5&count=6')
+    //         .then((response) => {
+    //             let wordArray = response._bodyText.split('\n');
+    //             let word = wordArray[Math.floor(Math.random() * (wordArray.length -1))];
+    //             this.setState({
+    //                 "secretWord": word
+    //             })
+    //             console.log("this is le secret word: ", this.state.secretWord);
+    //         })
+    //         .catch((error) =>{
+    //             console.error(error);
+    //         }
+    //     );
+    // }
+
     componentDidMount(){
-        return fetch('http://app.linkedin-reach.io/words?difficulty=5&count=6')
-            .then((response) => {
-                let wordArray = response._bodyText.split('\n');
-                let word = wordArray[Math.floor(Math.random() * (wordArray.length -1))];
-                this.setState({"secretWord": word})
-                // console.log("this is le secret word: ", secretWord);
-            })
-            .catch((error) =>{
-                console.error(error);
-            });
+        this.init();
     }
     
     //to see if char has been used, if yes do action, push letter in guessed chars
@@ -53,11 +60,51 @@ export default class GameScreen extends React.Component {
     //if secretWord returns false: numberofTries--,
         //draw next animation
         //if numberofTries == 0; gameover alert
+    init(){
+        let secretWord = this.state.secretWord;
+        console.log("this is secret word in init: ", secretWord)
+        // let leftChars = Array(secretWord.length);
+        let leftChars = [];
+        for(let i = 0; i < secretWord.length; i++){
+            console.log("this is test")
+            leftChars.push("_");
+        }
+        console.log("this is array of leftchars:", leftChars)
+        this.setState({
+            leftChars
+        })
+    }
+    validateLetter(guessedChars, letter){
+        guessedChars.push(letter);
+        let leftChars = this.state.leftChars;
+        let secretWord = this.state.secretWord;
+        let lives = this.state.lives;
+        if(secretWord.toUpperCase().indexOf(letter)!=-1){
+            for(let i = 0; i < secretWord.length; i++){
+                if(secretWord[i].toUpperCase() == letter)
+                    leftChars[i] = letter;
+            }
+            if(leftChars.join("").toLowerCase == secretWord){
+                console.log("winner")
+            }
+        }
+        else{
+            lives = lives - 1;
+            if(lives == 0){
+                console.log("you lost")
+            }
+        }
+        this.setState({
+            leftChars,
+            lives,
+            guessedChars,
+        })
+    }
 
     onKeyPress(letter){
         let guessedChars = this.state.guessedChars;
         if(guessedChars.indexOf(letter)==-1){
-          this.validate(guessedChars,letter);
+          this.validateLetter(guessedChars, letter);
         }else{
           return;
         }
