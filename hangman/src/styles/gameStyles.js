@@ -9,6 +9,7 @@ import {
 export default StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
@@ -137,6 +138,19 @@ export default StyleSheet.create({
     fontWeight:"500",
     justifyContent:"flex-end",
     width:"100%"
+  },
+  giveUp: {
+    height: 20,
+    marginLeft: 200,
+    marginBottom:60,
+    borderColor: "black"
+  },
+  giveUpTxt: {
+    fontSize:40,
+    fontWeight: "bold",
+  },
+  contentContainer: {
+    flex: 1
   }
 });
   

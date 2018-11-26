@@ -4,12 +4,12 @@ import {
     TouchableOpacity,
     TextInput,
     StyleSheet,
-    Picker,
-    Alert
+    Alert,
+    Picker
 } from 'react-native';
 
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-import { Image, Text, View } from 'react-native-animatable'
+import { Image, Text, View } from 'react-native-animatable';
 import styles from '../styles/welcomeStyles';
 import bgImg from '../images/hangman.gif'; 
 import Dialog, { 
@@ -68,7 +68,10 @@ export default class WelcomeScreen extends React.Component {
                             style={styles.button}
                             onPress={() => {
                                 this.setState({
-                                    dialog: true,                                
+                                    "dialog": true,
+                                    "username": "",
+                                    "levelError": "",
+                                    "nameError": ""                              
                                 });
                             }}
                         >

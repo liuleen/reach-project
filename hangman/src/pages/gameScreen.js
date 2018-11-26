@@ -5,7 +5,7 @@ import {
     View,
     Button,
     TouchableOpacity,
-    TouchableHighlight
+    TouchableHighlight,
  } from 'react-native';
 
 import styles from '../styles/gameStyles';
@@ -18,37 +18,46 @@ import {
 } from 'react-native-svg';
 
 export default class GameScreen extends React.Component {
-    constructor(props) {
+    constructor(props) { //constructor method
         super(props);
         this.state = {
-            "secretWord": "asophagus",
+            "secretWord": "",
             "lives": 6,
             "correctChars": [],
             "guessedChars": [],
             "currentChar": '',
             "answer": "",
+            "gameMode": 0,
+            "level": ""
 
         }
     }
 
-    // componentWillMount(){
-    //     return fetch('http://app.linkedin-reach.io/words?difficulty=5&count=6')
-    //         .then((response) => {
-    //             let wordArray = response._bodyText.split('\n');
-    //             let word = wordArray[Math.floor(Math.random() * (wordArray.length -1))];
-    //             this.setState({
-    //                 "secretWord": word
-    //             })
-    //             console.log("this is le secret word: ", this.state.secretWord);
-    //         })
-    //         .catch((error) =>{
-    //             console.error(error);
-    //         }
-    //     );
-    // }
+    componentWillMount(){
+        let gameMode = this.findLevel()
+        console.log("this is gameMode: ", gameMode)
+        return fetch(`http://app.linkedin-reach.io/words?difficulty=${gameMode}`)
+            .then((response) => {
+                let wordArray = response._bodyText.split('\n');
+                let word = wordArray[Math.floor(Math.random() * (wordArray.length -1))];
+                this.setState({
+                    "secretWord": word
+                })
+                console.log("this is le secret word: ", this.state.secretWord);
+            })
+            .then(() => {
+                this.init();
+            })
+            .catch((error) =>{
+                console.error(error);
+            }
+        );
+    }
 
-    componentDidMount(){
-        this.init();
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            level: nextProps.level
+        });
     }
     
     //to see if char has been used, if yes do action, push letter in guessed chars
@@ -61,13 +70,31 @@ export default class GameScreen extends React.Component {
         //draw next animation
         //if numberofTries == 0; gameover alert
     
+    findLevel(){
+        const { navigation } = this.props;
+        const level = navigation.getParam('level', 'no-level');
+        let gameMode;
+
+        console.log("this is the level:", level)
+        if(level == "easy"){
+            gameMode = Math.ceil(Math.random() * 3);
+        }else if(level == "medium"){
+            gameMode = 3 + Math.ceil(Math.random() * 3);
+        }else if(level == "hard"){
+            gameMode = 6 + Math.ceil(Math.random() * 3);
+        }else{
+            // navigate
+            gameMode = 4;
+        }
+        console.log("random number: ", gameMode)
+        return gameMode;
+    }
+
     init(){
         let secretWord = this.state.secretWord;
         console.log("this is secret word in init: ", secretWord)
-        // let correctChars = Array(secretWord.length);
         let correctChars = [];
         for(let i = 0; i < secretWord.length; i++){
-            console.log("this is test")
             correctChars.push("_");
         }
         console.log("this is array of correctChars:", correctChars)
@@ -75,8 +102,10 @@ export default class GameScreen extends React.Component {
             correctChars
         })
     }
+
     validateLetter(guessedChars, letter){
         guessedChars.push(letter);
+        console.log("this is array of guessedChars:", guessedChars)
         let correctChars = this.state.correctChars;
         let secretWord = this.state.secretWord;
         let lives = this.state.lives;
@@ -112,7 +141,11 @@ export default class GameScreen extends React.Component {
         // console.log("this is the pressed letter: ", letter);
     }
     
-    render() {
+    // static navigationOptions = {
+    //     title: ,
+    //   };
+
+    render() { //render method
         const keysRows = [
             ["A","B","C","D","E","F","G","H","I","J"],
             ["K","L","M","N","O","P","Q","R","S"],
@@ -121,7 +154,6 @@ export default class GameScreen extends React.Component {
         const { navigation } = this.props;
         const level = navigation.getParam('level', 'no-level');
         const username = navigation.getParam('username', 'no-username');
-
         
         return (
             <View style={styles.container}>
@@ -130,63 +162,73 @@ export default class GameScreen extends React.Component {
                     <Text>level: {level}</Text>
                     <Text>username: {username}</Text>
                 </View>
-
-                 <View style={styles.dashes}>
-                    {this.state.correctChars.map((letter,index)=>{
-                        return(
-                            <View style={styles.dashItemContainer} key={index}>
-                                <Text style={styles.dashItem}>
-                                    {letter}
-                                    {/* _ */}
-                                </Text>
-                            </View>
-                        )
-                    })}
-                </View>
-                
-                <View style={styles.keyboard}>
-                    {keysRows.map((keys,rowIndex)=>{
-                        return(
-                            <View key={rowIndex} style={styles.keyboardRow}>
-                                {keys.map((letter,index)=>{
-                                    if(letter==" "){
-                                        return (
-                                            <Text key={index}> </Text>
-                                        )
-                                    }else if(this.state.correctChars.indexOf(letter)!=-1){
-                                        return(
-                                            <View style={styles.keyItemUsed} key={index}>
-                                                <Text key={index} style={styles.usedKey}>
-                                                    {letter}
-                                                </Text>
-                                            </View>
+                {/* <View>
+                    <Text>
+                        LIVES: 6
+                    </Text>
+                </View> */}
+                <View styles={styles.contentContainer}>
+                    <View style={styles.dashes}>
+                        {this.state.correctChars.map((letter,index)=>{
+                            return(
+                                <View style={styles.dashItemContainer} key={index}>
+                                    <Text style={styles.dashItem}>
+                                        {letter}
+                                    </Text>
+                                </View>
+                            )
+                        })}
+                    </View>
+                    
+                    <View style={styles.keyboard}>
+                        {keysRows.map((keys,rowIndex)=>{
+                            return(
+                                <View key={rowIndex} style={styles.keyboardRow}>
+                                    {keys.map((letter,index)=>{
+                                        if(letter==" "){
+                                            return (
+                                                <Text key={index}> </Text>
                                             )
-                                    }else if(this.state.correctChars.indexOf(letter)==-1 && this.state.guessedChars.indexOf(letter)!=-1){
-                                        return(
-                                            <View style={styles.keyItemUsedWrong} key={index}>
-                                                <Text key={index} style={styles.usedKey}>
-                                                    {letter}
-                                                </Text>
-                                            </View>
-                                            )
-                                    }else{
-                                        return(
-                                            <TouchableOpacity 
-                                                onPress={this.onKeyPress.bind(this, letter)} 
-                                                style={styles.keyItem} 
-                                                key={index}>
-                                                    <Text style={styles.letter}>
+                                        }else if(this.state.correctChars.indexOf(letter)!=-1){
+                                            return(
+                                                <View style={styles.keyItemUsed} key={index}>
+                                                    <Text key={index} style={styles.usedKey}>
                                                         {letter}
                                                     </Text>
-                                            </TouchableOpacity>
-                                        )
-                                    }
-                                
-                                })}
-                             </View>
-                        )
-                    })}
+                                                </View>
+                                                )
+                                        }else if(this.state.correctChars.indexOf(letter)==-1 && this.state.guessedChars.indexOf(letter)!=-1){
+                                            return(
+                                                <View style={styles.keyItemUsedWrong} key={index}>
+                                                    <Text key={index} style={styles.usedKey}>
+                                                        {letter}
+                                                    </Text>
+                                                </View>
+                                                )
+                                        }else{
+                                            return(
+                                                <TouchableOpacity 
+                                                    onPress={this.onKeyPress.bind(this, letter)} 
+                                                    style={styles.keyItem} 
+                                                    key={index}>
+                                                        <Text style={styles.letter}>
+                                                            {letter}
+                                                        </Text>
+                                                </TouchableOpacity>
+                                            )
+                                        }
+                                    
+                                    })}
+                                 </View>
+                            )
+                        })}
 
+                    </View>
+                </View>
+                <View style={styles.giveUp}>
+                    <TouchableOpacity>
+                        <Text style={styles.giveUpTxt}>GIVE UP</Text>
+                    </TouchableOpacity> 
                 </View>
             </View>
         );

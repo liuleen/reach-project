@@ -55,25 +55,42 @@ We also encourage you to think of these requirements as a starting point, and ju
     - [x]function check used letters
     - [x]function to fill in word with letters guessed
 - Nov 25-26
+    - [x]reset state when START button pressed for back button feature
     - []animation hangman
     - [x]keyboard press colors
     - [x]keyboard can't press faded colors
     - []function subtract lives (display heart with number of lives)
-    - []give up button that routes to welcome screen
+    - []give up button that 555555routes to welcome screen
     - []hint
+    - []timer
     - []sound for start button, image taking, cheering, booing, give up
     - []you lose, try again button
-    - []get word based on difficulty from api
+    - [x]get word based on difficulty from api
     - []support of full words guesses
 - Nov 27-28
     - []comment code
+    - []speed
     - []write readme
-    - []keyboard styling
-    - []dropdown styling
-    - []timer
+    - []welcome screen UI
+        - []ANIMATION
+        - []TITLE ANIMATION
+        - []DROP DOWN LEVEL SELECTION
+        - []USER NAME
+        - []BUTTONS START
+        - []BUTTONS PLAY
+    - []Game screen UI
+        - []KEYBOARD
+        - []LIVES LEFT
+        - []HINT
+        - []HANGMAN
+        - []TIMER
+        - []GAMEOVER
+        - []YOU WIN
+        - []GIVE UP
     - []challenge level with increasing difficulty and timer (guess word with letters given)
 - Nov 29-30 
     - []maybe implement leaderboard?
+    - []5star rate
 - Dec 1-2
     - []user test
     - []check for bugs
