@@ -23,10 +23,21 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     logoText: {
-        fontSize: 65,
+        fontSize: 60,
         fontWeight: "bold",
         textAlign: 'center',
-        marginTop: 10,
+        marginTop: 25,
+        color: "black",
+        borderBottomColor: "black",
+    },
+    // logoImg:{
+    //     height:100,
+    //     width:100
+    // },
+    dashText: {
+        fontSize: 55,
+        fontWeight: "bold",
+        textAlign: 'center',
         color: "black",
     },
     button: {
@@ -48,17 +59,17 @@ export default StyleSheet.create({
         paddingRight: 18,
       },
     customBackgroundDialog: {
-        opacity: 0.5,
+        opacity: .3,
         width: WIDTH
       },
     dialogStyle: {
-        backgroundColor: 'white',
+        backgroundColor: 'black',
         width: WIDTH,
-        height: 450
+        height: 450,
       },
     levelContainer: {
         paddingTop: 10,
-        backgroundColor: 'white',
+        backgroundColor: 'black',
         justifyContent: 'center',
         paddingHorizontal: 10,
     },
@@ -70,10 +81,12 @@ export default StyleSheet.create({
         borderRadius: 10,
         marginLeft: 45,
         marginRight: 45,
-        marginTop: 13
+        marginTop: 25
     },
     pickerStyle: {
-        marginTop:10,
+    },
+    pickerText: {
+        color: "white"
     },
     inputIOS: {
         fontSize: 16,
@@ -86,4 +99,9 @@ export default StyleSheet.create({
         backgroundColor: 'white',
         color: 'black',
     },
+    usernameText: {
+        marginTop: 10,
+        marginBottom: 10,
+        color: "white"
+    }
   });

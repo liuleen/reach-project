@@ -4,13 +4,14 @@ import {
     TouchableOpacity,
     TextInput,
     StyleSheet,
-    Picker
+    Picker,
+    Alert
 } from 'react-native';
 
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { Image, Text, View } from 'react-native-animatable'
 import styles from '../styles/welcomeStyles';
-import bgImg from '../images/hangman.gif';
+import bgImg from '../images/hangman.gif'; 
 import Dialog, { 
     DialogContent,
     DialogButton
@@ -27,12 +28,19 @@ export default class WelcomeScreen extends React.Component {
         this.state = {
             "level": undefined,
             "dialog": false,   
-            "username": ''     
+            "username": '',
+            "nameError": "",
+            "levelError": ""   
         };
     }
 
+    // componentDidMount(){
+    //     this.init()
+    // }
+
     render(){
         console.log(this.state)
+
         return(
             <View style={styles.container} behavior="padding">
                 <View style={styles.logoContainer}>
@@ -45,12 +53,17 @@ export default class WelcomeScreen extends React.Component {
                     />
                     <AutoTypingText
                         text={`HANGMAN`}
-                        charMovingTime={150}
-                        delay={150}
+                        charMovingTime={300}
+                        delay={250}
                         style={styles.logoText}
-                        onComplete={() => { console.log('woohoo'); }}
                     />
-                    <View animation={'fadeInUpBig'} delay={1500} duration={300}>
+                    <AutoTypingText
+                        text={` -  -  -  -  -  -  -`}
+                        charMovingTime={5}
+                        delay={5}
+                        style={styles.dashText}
+                    />         
+                    <View animation={'fadeInUpBig'} delay={2800} duration={300}>
                         <TouchableOpacity
                             style={styles.button}
                             onPress={() => {
@@ -78,11 +91,17 @@ export default class WelcomeScreen extends React.Component {
                                 <DialogButton
                                     text="PLAY"
                                     onPress={() => {
-                                        this.props.navigation.navigate('GameScreen', {
-                                            level: this.state.level,
-                                            username: this.state.username
-                                        } ),
-                                        this.setState({dialog: false})
+                                        if (this.state.username.trim() === "") {
+                                            this.setState(() => ({ nameError: "Username required." }));
+                                        } else if (this.state.level == undefined || this.state.level == "") {
+                                            this.setState(() => ({ levelError: "Level required." }));
+                                        } else{
+                                            this.props.navigation.navigate('GameScreen', {
+                                                level: this.state.level,
+                                                username: this.state.username
+                                            } )
+                                            this.setState({dialog: false})
+                                        }
                                     }}
                                     key="button-1"
                                     style={styles.dialogButton}
@@ -92,7 +111,7 @@ export default class WelcomeScreen extends React.Component {
                             <DialogContent>
                                 <View style={styles.dialogContentView}>
                                     <View style={styles.levelContainer}>
-                                        <Text>Choose a Username</Text>
+                                        <Text style={styles.usernameText}>Choose a Username</Text>
                                         <TextInput
                                             ref={(el) => {
                                                 this.inputRefs.name = el;
@@ -107,8 +126,9 @@ export default class WelcomeScreen extends React.Component {
                                             style={styles.inputIOS}
                                             blurOnSubmit={true}
                                         />
-
-                                        <View style={{ paddingVertical: 5 }} />
+                                        {!!this.state.nameError && (
+                                            <Text style={{ color: "red" }}>{this.state.nameError}</Text>
+                                        )}
                                         
                                         <View styles={styles.container}>
                                             <Picker
@@ -118,12 +138,15 @@ export default class WelcomeScreen extends React.Component {
                                                 selectedValue={this.state.level}
                                                 onValueChange={(itemValue,itemIndex) => this.setState({level:itemValue})}
                                                 >
-                                                <Picker.Item label="Select a level" value=""/>
-                                                <Picker.Item label="Noob" value="easy"/>
-                                                <Picker.Item label="Novice" value="medium" />
-                                                <Picker.Item label="Expert" value="hard"/>
-                                                <Picker.Item label="Master" value="challenge"/>
-                                            </Picker>                                        
+                                                <Picker.Item color= "white" label="Select a level" value=""/>
+                                                <Picker.Item color= "white" label="Noob" value="easy"/>
+                                                <Picker.Item color= "white" label="Novice" value="medium" />
+                                                <Picker.Item color= "white" label="Expert" value="hard"/>
+                                                <Picker.Item color= "white" label="Master" value="challenge"/>
+                                            </Picker>
+                                            {!!this.state.levelError && (
+                                            <Text style={{ color: "red" }}>{this.state.levelError}</Text>
+                                        )}                                       
                                         </View>
                                     </View>               
                                 </View>             
@@ -137,17 +160,3 @@ export default class WelcomeScreen extends React.Component {
     }
 
 }
-
-// const pickerSelectStyles = StyleSheet.create({
-//     inputIOS: {
-//         fontSize: 16,
-//         paddingTop: 13,
-//         paddingHorizontal: 10,
-//         paddingBottom: 12,
-//         borderWidth: 1,
-//         borderColor: 'gray',
-//         borderRadius: 4,
-//         backgroundColor: 'white',
-//         color: 'black',
-//     },
-// });

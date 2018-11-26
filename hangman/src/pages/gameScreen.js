@@ -23,7 +23,7 @@ export default class GameScreen extends React.Component {
         this.state = {
             "secretWord": "asophagus",
             "lives": 6,
-            "leftChars": [],
+            "correctChars": [],
             "guessedChars": [],
             "currentChar": '',
             "answer": "",
@@ -55,36 +55,37 @@ export default class GameScreen extends React.Component {
     // validateLetter()
     //check if letter exists in secretWordString
     // isInSecretWord()
-    //if secretWord returns true: update leftChars pop out of leftChars, update dash--> render if in secretWord
+    //if secretWord returns true: update correctChars pop out of correctChars, update dash--> render if in secretWord
         //if answer == secret: winner
     //if secretWord returns false: numberofTries--,
         //draw next animation
         //if numberofTries == 0; gameover alert
+    
     init(){
         let secretWord = this.state.secretWord;
         console.log("this is secret word in init: ", secretWord)
-        // let leftChars = Array(secretWord.length);
-        let leftChars = [];
+        // let correctChars = Array(secretWord.length);
+        let correctChars = [];
         for(let i = 0; i < secretWord.length; i++){
             console.log("this is test")
-            leftChars.push("_");
+            correctChars.push("_");
         }
-        console.log("this is array of leftchars:", leftChars)
+        console.log("this is array of correctChars:", correctChars)
         this.setState({
-            leftChars
+            correctChars
         })
     }
     validateLetter(guessedChars, letter){
         guessedChars.push(letter);
-        let leftChars = this.state.leftChars;
+        let correctChars = this.state.correctChars;
         let secretWord = this.state.secretWord;
         let lives = this.state.lives;
         if(secretWord.toUpperCase().indexOf(letter)!=-1){
             for(let i = 0; i < secretWord.length; i++){
                 if(secretWord[i].toUpperCase() == letter)
-                    leftChars[i] = letter;
+                    correctChars[i] = letter;
             }
-            if(leftChars.join("").toLowerCase == secretWord){
+            if(correctChars.join("").toLowerCase == secretWord){
                 console.log("winner")
             }
         }
@@ -95,7 +96,7 @@ export default class GameScreen extends React.Component {
             }
         }
         this.setState({
-            leftChars,
+            correctChars,
             lives,
             guessedChars,
         })
@@ -121,6 +122,7 @@ export default class GameScreen extends React.Component {
         const level = navigation.getParam('level', 'no-level');
         const username = navigation.getParam('username', 'no-username');
 
+        
         return (
             <View style={styles.container}>
                 <View >  
@@ -130,7 +132,7 @@ export default class GameScreen extends React.Component {
                 </View>
 
                  <View style={styles.dashes}>
-                    {this.state.leftChars.map((letter,index)=>{
+                    {this.state.correctChars.map((letter,index)=>{
                         return(
                             <View style={styles.dashItemContainer} key={index}>
                                 <Text style={styles.dashItem}>
@@ -151,9 +153,17 @@ export default class GameScreen extends React.Component {
                                         return (
                                             <Text key={index}> </Text>
                                         )
-                                    }else if(this.state.leftChars.indexOf(letter)!=-1){
+                                    }else if(this.state.correctChars.indexOf(letter)!=-1){
                                         return(
-                                            <View style={styles.keyItem} key={index}>
+                                            <View style={styles.keyItemUsed} key={index}>
+                                                <Text key={index} style={styles.usedKey}>
+                                                    {letter}
+                                                </Text>
+                                            </View>
+                                            )
+                                    }else if(this.state.correctChars.indexOf(letter)==-1 && this.state.guessedChars.indexOf(letter)!=-1){
+                                        return(
+                                            <View style={styles.keyItemUsedWrong} key={index}>
                                                 <Text key={index} style={styles.usedKey}>
                                                     {letter}
                                                 </Text>

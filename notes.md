@@ -47,29 +47,31 @@ We also encourage you to think of these requirements as a starting point, and ju
     - []finish image upload screen [optional]
 - Nov 23-24
     - [x]pass variables from welcome screen to game screen
-    - []input field filled in for both required
+    - [x]input field filled in for both required
     - [x]get word function from api
-    - []get word based on difficulty from api
-    - []support of full words guesses
-    - [x]animated keyboard w/ {red/green} functionality
-    - []validate letters
+    - [x]keyboard
+    - [x]validate letters
+    - [x]dashes
+    - [x]function check used letters
+    - [x]function to fill in word with letters guessed
 - Nov 25-26
-    - []dashes
-    - []animation
-    - []function to fill in word
-    - []function check used words
+    - []animation hangman
+    - [x]keyboard press colors
+    - [x]keyboard can't press faded colors
     - []function subtract lives (display heart with number of lives)
     - []give up button that routes to welcome screen
     - []hint
     - []sound for start button, image taking, cheering, booing, give up
     - []you lose, try again button
+    - []get word based on difficulty from api
+    - []support of full words guesses
 - Nov 27-28
     - []comment code
     - []write readme
     - []keyboard styling
     - []dropdown styling
     - []timer
-    - []challenge level with increasing difficulty and timer (guess word        with letters given)
+    - []challenge level with increasing difficulty and timer (guess word with letters given)
 - Nov 29-30 
     - []maybe implement leaderboard?
 - Dec 1-2
@@ -105,3 +107,8 @@ Component State	Storing data in the state of your components is the simplest way
 #fix
 - dialog input navigation is wrong
 - implement jest
+- points: depending on how many lives left
+
+#questions
+- how does it recognize that the key can't be pressed anymore
+- what does the key represent in dialog, why do i need it (child props?)

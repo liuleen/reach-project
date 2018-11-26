@@ -53,8 +53,28 @@ export default StyleSheet.create({
     // maxHeight: 20,
     // maxWidth: 20
   },
+  keyItemUsed: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding:15,
+    margin:2,
+    borderWidth: .5,
+    borderColor: "black",
+    backgroundColor: "#b3ffb3"
+  },
+  keyItemUsedWrong: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding:15,
+    margin:2,
+    borderWidth: .5,
+    borderColor: "black",
+    backgroundColor: "#ff9999"
+  },
   usedKey:{
-    color:"grey",
+    color:"#cccccc",
     fontSize:20,
     width:20,
     justifyContent: 'center',
