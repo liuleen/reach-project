@@ -7,6 +7,7 @@ import {
 import WelcomeScreen from './src/pages/welcomeScreen';
 import {StackNavigator} from 'react-navigation';
 import GameScreen from './src/pages/gameScreen';
+import HurrayScreen from './src/pages/hurrayScreen';
 
 /**
  * The root component of the application.
@@ -35,5 +36,8 @@ const Hangman = new StackNavigator({
   },
   GameScreen:{
     screen: GameScreen
+  },
+  HurrayScreen:{
+    screen: HurrayScreen
   }
 })

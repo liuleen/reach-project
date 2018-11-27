@@ -60,15 +60,16 @@ We also encourage you to think of these requirements as a starting point, and ju
     - [x]keyboard press colors
     - [x]keyboard can't press faded colors
     - []function subtract lives (display heart with number of lives)
-    - []give up button that 555555routes to welcome screen
+    - []give up button that routes to welcome screen
     - []hint
     - []timer
-    - []sound for start button, image taking, cheering, booing, give up
-    - []you lose, try again button
+    - []you lose, try again 
+    - []you win, play again 
     - [x]get word based on difficulty from api
     - []support of full words guesses
 - Nov 27-28
     - []comment code
+    - []sound for start button, image taking, cheering, booing, give up
     - []speed
     - []write readme
     - []welcome screen UI

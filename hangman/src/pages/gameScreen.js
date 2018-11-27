@@ -4,11 +4,17 @@ import {
     Text,
     View,
     Button,
+    Image,
+    Alert,
     TouchableOpacity,
     TouchableHighlight,
+    ImageBackground,
  } from 'react-native';
 
 import styles from '../styles/gameStyles';
+import bgImg from '../images/water.gif';
+import Hangman from '../images/corgi.gif';
+import balloon from '../images/balloon1.gif';
 import { 
     Svg,
     Circle,
@@ -16,6 +22,7 @@ import {
     Line,
     Rect 
 } from 'react-native-svg';
+import { TextInput } from 'react-native-gesture-handler';
 
 export default class GameScreen extends React.Component {
     constructor(props) { //constructor method
@@ -28,8 +35,8 @@ export default class GameScreen extends React.Component {
             "currentChar": '',
             "answer": "",
             "gameMode": 0,
-            "level": ""
-
+            "level": "",
+            "fullWord": ""
         }
     }
 
@@ -54,12 +61,6 @@ export default class GameScreen extends React.Component {
         );
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            level: nextProps.level
-        });
-    }
-    
     //to see if char has been used, if yes do action, push letter in guessed chars
     // validateLetter()
     //check if letter exists in secretWordString
@@ -69,7 +70,7 @@ export default class GameScreen extends React.Component {
     //if secretWord returns false: numberofTries--,
         //draw next animation
         //if numberofTries == 0; gameover alert
-    
+
     findLevel(){
         const { navigation } = this.props;
         const level = navigation.getParam('level', 'no-level');
@@ -114,14 +115,32 @@ export default class GameScreen extends React.Component {
                 if(secretWord[i].toUpperCase() == letter)
                     correctChars[i] = letter;
             }
-            if(correctChars.join("").toLowerCase == secretWord){
-                console.log("winner")
-            }
+            if(correctChars.join("").toLowerCase() == secretWord){
+                // Alert.alert(
+                //     'You Win!!',
+                //     '',
+                //     [
+                //       {text: 'Play Again', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                //       {text: 'Cancel', onPress: () => console.log('OK Pressed')},
+                //     ],
+                //     { cancelable: false }
+                // )
+                // this._confettiView.startConfetti();
+                this.props.navigation.navigate('HurrayScreen')}
         }
         else{
             lives = lives - 1;
+            console.log("number of lives left", lives)
             if(lives == 0){
-                console.log("you lost")
+                Alert.alert(
+                    'GAME OVER',
+                    '',
+                    [
+                      {text: 'Try Again?', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                      {text: 'Cancel', onPress: () => console.log('OK Pressed')},
+                    ],
+                    { cancelable: false }
+                  )
             }
         }
         this.setState({
@@ -141,9 +160,9 @@ export default class GameScreen extends React.Component {
         // console.log("this is the pressed letter: ", letter);
     }
     
-    // static navigationOptions = {
-    //     title: ,
-    //   };
+    static navigationOptions = {
+        header: null
+      };
 
     render() { //render method
         const keysRows = [
@@ -156,18 +175,28 @@ export default class GameScreen extends React.Component {
         const username = navigation.getParam('username', 'no-username');
         
         return (
-            <View style={styles.container}>
-                <View >  
-                    <Text>SecretWord: {this.state.secretWord}</Text>
-                    <Text>level: {level}</Text>
-                    <Text>username: {username}</Text>
-                </View>
-                {/* <View>
-                    <Text>
-                        LIVES: 6
-                    </Text>
-                </View> */}
-                <View styles={styles.contentContainer}>
+            <ImageBackground source={bgImg} style={styles.imgContainer}>
+                <View style={styles.container}>
+                    {/* <View style={styles.information}>  
+                        <Text>SecretWord: {this.state.secretWord}</Text>
+                        <Text>level: {level}</Text>
+                        <Text>username: {username}</Text>
+                    </View> */}
+                    <View style={styles.information}>
+                        <Text>
+                            LIVES:{this.state.lives} 
+                        </Text>
+                    </View>
+                    <View>
+                        <Image
+                            source={balloon}
+                            style={{height:100, width:100}}
+                        />
+                        <Image
+                            source={Hangman}
+                            style={{height:100, width:100}}
+                        />
+                    </View>
                     <View style={styles.dashes}>
                         {this.state.correctChars.map((letter,index)=>{
                             return(
@@ -219,18 +248,25 @@ export default class GameScreen extends React.Component {
                                         }
                                     
                                     })}
-                                 </View>
+                                </View>
                             )
                         })}
-
                     </View>
                 </View>
-                <View style={styles.giveUp}>
+                <View style={styles.footerButtons}>
+                    <TouchableOpacity>
+                        <Text style={styles.helpTxt}>HELP!!</Text>
+                    </TouchableOpacity> 
+                    <TextInput
+                        style={styles.fullWord}
+                        onChangeText={(text) => this.setState({fullWord})}
+                        value={this.state.text}
+                    />
                     <TouchableOpacity>
                         <Text style={styles.giveUpTxt}>GIVE UP</Text>
                     </TouchableOpacity> 
                 </View>
-            </View>
+            </ImageBackground>
         );
     }
 }

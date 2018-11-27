@@ -10,7 +10,6 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -31,7 +30,7 @@ export default StyleSheet.create({
   },
   keyboard: {
     flex: 1,
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     justifyContent: 'center',
     flexDirection:"column",
     // position: "fixed"
@@ -51,6 +50,7 @@ export default StyleSheet.create({
     margin:2,
     borderWidth: .5,
     borderColor: "black",
+    backgroundColor: "black"
     // maxHeight: 20,
     // maxWidth: 20
   },
@@ -82,8 +82,9 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   letter:{
-    color:"black",
+    color:"white",
     fontSize:20,
+    fontWeight: "bold",
     width:20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -113,10 +114,9 @@ export default StyleSheet.create({
   },
   dashItem:{
     width:20,
-    color: '#841584',
-    fontSize:20,
-    borderBottomWidth:1,
-    borderBottomColor:"black"
+    color: 'white',
+    fontWeight: "bold",
+    fontSize:25,
   },
   dashBlankItem:{
     width:20,
@@ -139,18 +139,45 @@ export default StyleSheet.create({
     justifyContent:"flex-end",
     width:"100%"
   },
-  giveUp: {
+  footerButtons: {
     height: 20,
-    marginLeft: 200,
     marginBottom:60,
-    borderColor: "black"
+    borderColor: "black",
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   giveUpTxt: {
-    fontSize:40,
+    fontSize:20,
+    fontWeight: "bold",
+  },
+  helpTxt: {
+    fontSize:20,
     fontWeight: "bold",
   },
   contentContainer: {
     flex: 1
+  },
+  imgContainer: {
+    flex: 1,
+    width: null,
+    height: null,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+  },
+  information: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 40
+  },
+  fullWord: {
+    height: 40, 
+    width: 200,
+    borderColor: 'black',
+    borderWidth: 5
   }
 });
   
