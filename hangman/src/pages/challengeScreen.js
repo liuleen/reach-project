@@ -2,14 +2,11 @@ import React from 'react';
 import {  
     Text,
     View,
-    Button,
     Animated,
     Image,
     Alert,
     TouchableOpacity,
-    TouchableHighlight,
     ImageBackground,
-    Modal
  } from 'react-native';
 
 import styles from '../styles/gameStyles';
@@ -23,36 +20,31 @@ import {
     Line,
     Rect 
 } from 'react-native-svg';
-import { TextInput } from 'react-native-gesture-handler';
 
-export default class GameScreen extends React.Component {
+export default class ChallengeScreen extends React.Component {
     constructor(props) { //constructor method
         super(props);
         this.state = {
             "secretWord": "",
-            "lives": 6,
+            "lives": 1,
             "correctChars": [],
             "guessedChars": [],
             "gameMode": 0,
             "level": "",
-            "fullWord": "",
             "modalVisible": false,
             "previousScore":0,
             "secretArray": [],
+            "timer": 60
         }
     }
 
     componentWillMount(){
-        let gameMode = this.findLevel()
-        console.log("this is gameMode: ", gameMode)
-        return fetch(`http://app.linkedin-reach.io/words?difficulty=${gameMode}`)
+        return fetch(`http://app.linkedin-reach.io/words?difficulty=5&minLength>=5`)
             .then((response) => {
                 let wordArray = response._bodyText.split('\n');
-                // let word = wordArray[Math.floor(Math.random() * (wordArray.length -1))];
                 this.setState({
                     "secretArray": wordArray
                 })
-                console.log("this is le secret array: ", this.state.secretArray);
             })
             .then(() => {
                 this.init();
@@ -63,32 +55,10 @@ export default class GameScreen extends React.Component {
         );
     }
 
-    checkFullWord(){
-        if(this.state.secretWord == this.state.fullWord.toLowerCase()){
-            this.NewGame();
-        }else{
-            this.setState({
-                "lives": this.state.lives - 1
-            })
-        }
-    }
-
-    findLevel(){
-        const { navigation } = this.props;
-        const level = navigation.getParam('level', 'no-level');
-        const username = navigation.getParam('username', 'no-username');
-        let gameMode;
-
-        console.log("this is the level:", level)
-        if(level == "easy"){
-            gameMode = Math.ceil(Math.random() * 3);
-        }else if(level == "medium"){
-            gameMode = 3 + Math.ceil(Math.random() * 3);
-        }else{
-            gameMode = 6 + Math.ceil(Math.random() * 3);
-        }
-        console.log("random number: ", gameMode)
-        return gameMode;
+    componentDidMount() {
+        setInterval(() => {
+          this.setState({count: this.state.count - 1})
+        }, 0)
     }
 
     init(){
@@ -97,7 +67,17 @@ export default class GameScreen extends React.Component {
         console.log("this is secret word in init: ", secretWord)
         let correctChars = [];
         for(let i = 0; i < secretWord.length; i++){
-            correctChars.push("_");
+            correctChars[i] = secretWord[i].toUpperCase();
+        }
+        let randomIndex = Math.floor(Math.random() * secretWord.length);
+        console.log("randomIndex", randomIndex)
+        let char = correctChars[randomIndex];
+        console.log("char: ", char)
+        for(let i = 0; i < secretWord.length; i++){
+            console.log("correct char :", correctChars[i])
+            if(correctChars[i] == char){
+                correctChars[i] = '_';
+            }
         }
         console.log("this is array of correctChars:", correctChars)
         this.setState({
@@ -107,18 +87,15 @@ export default class GameScreen extends React.Component {
     }
 
     NewGame() {
-        console.log("Reset")
         let newScore = this.state.previousScore + this.state.lives;
         let secretArrayLength = this.state.secretArray.length
         let secretWord = this.state.secretArray[Math.floor(Math.random() * (secretArrayLength))];
-        console.log("new score", newScore)
         this.setState({
             "previousScore": newScore,
             secretWord,
-            "lives": 6,
+            "lives": 1,
             "correctChars": [],
             "guessedChars": [],
-            "fullWord": "",
             "modalVisible": false,
         })
         this.init();
@@ -130,10 +107,9 @@ export default class GameScreen extends React.Component {
         this.setState({
             "previousScore": 0,
             secretWord,
-            "lives": 6,
+            "lives": 1,
             "correctChars": [],
             "guessedChars": [],
-            "fullWord": "",
             "modalVisible": false,
         })
         this.init();
@@ -145,7 +121,6 @@ export default class GameScreen extends React.Component {
         let correctChars = this.state.correctChars;
         let secretWord = this.state.secretWord;
         let lives = this.state.lives;
-        console.log("secret word in validateletter:", secretWord)
         if(secretWord.toUpperCase().indexOf(letter)!=-1){
             for(let i = 0; i < secretWord.length; i++){
                 if(secretWord[i].toUpperCase() == letter)
@@ -153,7 +128,6 @@ export default class GameScreen extends React.Component {
             }
         }else{
             lives = lives - 1;
-            console.log("number of lives left", lives)
             if(lives == 0){
                 Alert.alert(
                     'GAME OVER',
@@ -172,18 +146,7 @@ export default class GameScreen extends React.Component {
             guessedChars,
         })
         if(correctChars.join("").toLowerCase() == secretWord){
-            console.log("lives: ", this.state.lives)
             this.NewGame();
-            console.log("this is state not in reset", this.state)
-            // Alert.alert(
-            //     'You Win!!',
-            //     '',
-            //     [
-            //       {text: 'Play Again', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-            //       {text: 'Cancel', onPress: () => console.log('OK Pressed')},
-            //     ],
-            //     { cancelable: false }
-            // )
         }
     }
 
@@ -200,10 +163,6 @@ export default class GameScreen extends React.Component {
         header: null
     };
 
-    setModalVisible(visible) {
-        this.setState({modalVisible: visible});
-    }
-
     render() { //render method
         const keysRows = [
             ["A","B","C","D","E","F","G","H","I","J"],
@@ -211,32 +170,20 @@ export default class GameScreen extends React.Component {
             [" ","T","U","V","W","X","Y","Z"," "]]
         
         const { navigation } = this.props;
-        const level = navigation.getParam('level', 'no-level');
-        const username = navigation.getParam('username', 'no-username');
-        
+       
         return (
             <ImageBackground source={bgImg} style={styles.imgContainer}>
                 <View style={styles.container}>
-                    {/* <View style={styles.information}>  
-                        <Text>SecretWord: {this.state.secretWord}</Text>
-                        <Text>level: {level}</Text>
-                        <Text>username: {username}</Text>
-                    </View> */}
                     <View style={styles.information}>
                         <Text>
                             LIVES:{this.state.lives} 
                         </Text>
                         <Text>
                             SCORE:{this.state.previousScore}
-                            {console.log(this.state)} 
                         </Text>
                     </View>
                     <View>
                         <View style={styles.balloon}>
-                            <Animated.Image
-                                source={balloon}
-                                style={{height: 100, width: 100}}
-                            />
                             <Animated.Image
                                 source={balloon}
                                 style={{height: 100, width: 100}}
@@ -306,44 +253,6 @@ export default class GameScreen extends React.Component {
                         <TouchableOpacity>
                             <Text style={styles.helpTxt}>HINT</Text>
                         </TouchableOpacity> 
-                        <View>
-                            <Modal
-                                animationType="slide"
-                                transparent={false}
-                                visible={this.state.modalVisible}
-                                onRequestClose={() => {
-                                    Alert.alert('Modal has been closed.');
-                            }}>
-                            <View style={{marginTop:300}}>
-                                <View>
-                                <TextInput 
-                                    style={styles.fullWord}
-                                    placeholder="I know the word!"
-                                    onChangeText={(fullWord) => this.setState({fullWord})}
-                                    blurOnSubmit={true}/>
-                                <TouchableHighlight
-                                    onPress={() => {
-                                        this.checkFullWord()
-                                        this.setModalVisible(!this.state.modalVisible);
-                                    }}>
-                                    <Text>Submit</Text>
-                                </TouchableHighlight>
-                                <TouchableHighlight
-                                    onPress={() => {
-                                        this.setModalVisible(!this.state.modalVisible);
-                                    }}>
-                                    <Text>Nevermind</Text>
-                                </TouchableHighlight>
-                                </View>
-                            </View>
-                            </Modal>
-                            <TouchableHighlight
-                                onPress={() => {
-                                    this.setModalVisible(true);
-                                }}>
-                                <Text>I know the Word!</Text>
-                            </TouchableHighlight>
-                        </View>
                         <TouchableOpacity>
                             <Text 
                                 style={styles.giveUpTxt}
@@ -357,14 +266,12 @@ export default class GameScreen extends React.Component {
                                         ],
                                         { cancelable: false }
                                     )
-                                }}
-                            >
+                                }}>
                                 GIVE UP
                             </Text>
                         </TouchableOpacity> 
                     </View>
                 </View>
-                
             </ImageBackground>
         );
     }

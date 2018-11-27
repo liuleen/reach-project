@@ -96,7 +96,13 @@ export default class WelcomeScreen extends React.Component {
                                             this.setState(() => ({ nameError: "Username required." }));
                                         } else if (this.state.level == undefined || this.state.level == "") {
                                             this.setState(() => ({ levelError: "Level required." }));
-                                        } else{
+                                        } else if(this.state.level == "challenge"){
+                                            this.props.navigation.navigate('ChallengeScreen', {
+                                                level: this.state.level,
+                                                username: this.state.username
+                                            } )
+                                            this.setState({dialog: false})
+                                        }else{
                                             this.props.navigation.navigate('GameScreen', {
                                                 level: this.state.level,
                                                 username: this.state.username
