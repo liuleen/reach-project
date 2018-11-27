@@ -55,12 +55,6 @@ export default class ChallengeScreen extends React.Component {
         );
     }
 
-    componentDidMount() {
-        setInterval(() => {
-          this.setState({count: this.state.count - 1})
-        }, 0)
-    }
-
     init(){
         let secretArrayLength = this.state.secretArray.length
         let secretWord = this.state.secretArray[Math.floor(Math.random() * (secretArrayLength))];
@@ -84,6 +78,9 @@ export default class ChallengeScreen extends React.Component {
             correctChars,
             secretWord
         })
+        setInterval(() => {
+            this.setState({timer: this.state.timer - 1})
+          }, 1000)
     }
 
     NewGame() {
@@ -129,15 +126,16 @@ export default class ChallengeScreen extends React.Component {
         }else{
             lives = lives - 1;
             if(lives == 0){
+                let score = this.state.previousScore
                 Alert.alert(
                     'GAME OVER',
-                    '',
+                    'Good Job! you scored ' + score + ' points!',
                     [
-                      {text: 'Try Again?', onPress: () => this.resetGame()},
-                      {text: 'Cancel', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
+                    {text: 'Try Again?', onPress: () => this.resetGame()},
+                    {text: 'Cancel', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
                     ],
                     { cancelable: false }
-                  )
+                )
             }
         }
         this.setState({
@@ -151,6 +149,7 @@ export default class ChallengeScreen extends React.Component {
     }
 
     onKeyPress(letter){
+        this.timer();
         let guessedChars = this.state.guessedChars;
         if(guessedChars.indexOf(letter)==-1){
           this.validateLetter(guessedChars, letter);
@@ -159,6 +158,20 @@ export default class ChallengeScreen extends React.Component {
         }
     }
     
+    timer(){
+        if(this.state.timer == 0){
+            Alert.alert(
+                'GAME OVER',
+                '',
+                [
+                  {text: 'Try Again?', onPress: () => this.resetGame()},
+                  {text: 'Cancel', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
+                ],
+                { cancelable: false }
+              )
+        }
+    }
+
     static navigationOptions = {
         header: null
     };
@@ -181,6 +194,9 @@ export default class ChallengeScreen extends React.Component {
                         <Text>
                             SCORE:{this.state.previousScore}
                         </Text>
+                        {/* <Text style={{color: "black", fontSize: 32}}>
+                            {this.state.timer}
+                        </Text> */}
                     </View>
                     <View>
                         <View style={styles.balloon}>
@@ -251,7 +267,18 @@ export default class ChallengeScreen extends React.Component {
                     </View>
                     <View style={styles.footerButtons}>
                         <TouchableOpacity>
-                            <Text style={styles.helpTxt}>HINT</Text>
+                            <Text 
+                                style={styles.helpTxt}
+                                onPress={() => {
+                                    Alert.alert(
+                                        'You only have 1 letter left',
+                                        '',
+                                        [
+                                          {text: 'Thanks'},
+                                        ],
+                                        { cancelable: false }
+                                    )
+                                }}>HINT</Text>
                         </TouchableOpacity> 
                         <TouchableOpacity>
                             <Text 

@@ -132,6 +132,9 @@ Component State	Storing data in the state of your components is the simplest way
 #questions
 - how does it recognize that the key can't be pressed anymore
 - what does the key represent in dialog, why do i need it (child props?)
+- await/async
+- try catch
+- lifecycle of component
 
 //to see if char has been used, if yes do action, push letter in guessed chars
     // validateLetter()

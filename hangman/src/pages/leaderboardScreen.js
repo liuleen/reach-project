@@ -1,30 +1,44 @@
 import React, {Component} from 'react';
 import {
   StyleSheet,
-  View
+  View,
+  AsyncStorage
 } from 'react-native';
  
 import Confetti from 'react-native-confetti';
  
-export default class HurrayScreen extends React.Component {
+export default class LeaderboardScreen extends React.Component {
   componentDidMount() {
     if(this._confettiView) {
        this._confettiView.startConfetti();
     }
   }
  
-  componentWillUnmount ()
-  {
-      if (this._confettiView)
-      {
-          this._confettiView.stopConfetti();
-      }
-  }
- 
 static navigationOptions =  {
-    headerLeft: null
+    title: "Leader Board"
 }
-  render() {
+
+_storeData = async () => {
+  try {
+    await AsyncStorage.setItem(this.state.username, this.state.previousScore);
+  } catch (error) {
+    // Error saving data
+  }
+}
+
+_retrieveData = async () => {
+  try {
+    const value = await AsyncStorage.getItem('TASKS');
+    if (value !== null) {
+      // We have data!!
+      console.log(value);
+    }
+   } catch (error) {
+     // Error retrieving data
+   }
+}
+
+render() {
     return <View style={styles.container}>
       <Confetti ref={(node) => this._confettiView = node}/>
     </View>
