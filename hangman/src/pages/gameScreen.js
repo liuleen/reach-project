@@ -38,8 +38,8 @@ export default class GameScreen extends React.Component {
             "fullWord": "",
             "modalVisible": false,
             "previousScore":0,
+            "secretArray": [],
         }
-        // this.resetGame= this.resetGame.bind(this);
     }
 
     componentWillMount(){
@@ -48,11 +48,11 @@ export default class GameScreen extends React.Component {
         return fetch(`http://app.linkedin-reach.io/words?difficulty=${gameMode}`)
             .then((response) => {
                 let wordArray = response._bodyText.split('\n');
-                let word = wordArray[Math.floor(Math.random() * (wordArray.length -1))];
+                // let word = wordArray[Math.floor(Math.random() * (wordArray.length -1))];
                 this.setState({
-                    "secretWord": word
+                    "secretArray": wordArray
                 })
-                console.log("this is le secret word: ", this.state.secretWord);
+                console.log("this is le secret array: ", this.state.secretArray);
             })
             .then(() => {
                 this.init();
@@ -94,7 +94,8 @@ export default class GameScreen extends React.Component {
     }
 
     init(){
-        let secretWord = this.state.secretWord;
+        let secretArrayLength = this.state.secretArray.length
+        let secretWord = this.state.secretArray[Math.floor(Math.random() * (secretArrayLength))];
         console.log("this is secret word in init: ", secretWord)
         let correctChars = [];
         for(let i = 0; i < secretWord.length; i++){
@@ -102,24 +103,28 @@ export default class GameScreen extends React.Component {
         }
         console.log("this is array of correctChars:", correctChars)
         this.setState({
-            correctChars
+            correctChars,
+            secretWord
         })
     }
 
     resetGame() {
         console.log("Reset")
         let newScore = this.state.previousScore + this.state.lives;
+        let secretArrayLength = this.state.secretArray.length
+        let secretWord = this.state.secretArray[Math.floor(Math.random() * (secretArrayLength))];
         console.log("new score", newScore)
         this.setState({
             "previousScore": newScore,
-            "secretWord": "",
+            secretWord,
             "lives": 6,
             "correctChars": [],
             "guessedChars": [],
             "fullWord": "",
             "modalVisible": false,
         })
-        console.log(this.state)
+        this.init();
+        // console.log(this.state)
     }
 
     validateLetter(guessedChars, letter){
@@ -128,6 +133,7 @@ export default class GameScreen extends React.Component {
         let correctChars = this.state.correctChars;
         let secretWord = this.state.secretWord;
         let lives = this.state.lives;
+        console.log("secret word in validateletter:", secretWord)
         if(secretWord.toUpperCase().indexOf(letter)!=-1){
             for(let i = 0; i < secretWord.length; i++){
                 if(secretWord[i].toUpperCase() == letter)
@@ -281,7 +287,7 @@ export default class GameScreen extends React.Component {
                     </View>
                     <View style={styles.footerButtons}>
                         <TouchableOpacity>
-                            <Text style={styles.helpTxt}>HELP!!</Text>
+                            <Text style={styles.helpTxt}>HELP</Text>
                         </TouchableOpacity> 
                         <View>
                             <Modal

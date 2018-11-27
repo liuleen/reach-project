@@ -64,10 +64,11 @@ We also encourage you to think of these requirements as a starting point, and ju
     - []hint
     - []timer
     - [x]you lose, try again 
-    - []you win, play again 
+    - [x]you win, play again 
     - [x]get word based on difficulty from api
     - [x]support of full words guesses
 - Nov 27-28
+    - []refactor the code
     - []comment code
     - []sound for start button, image taking, cheering, booing, give up
     - []speed
