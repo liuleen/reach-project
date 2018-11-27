@@ -34,9 +34,9 @@ export default class WelcomeScreen extends React.Component {
         };
     }
 
-    // componentDidMount(){
-    //     this.init()
-    // }
+    static navigationOptions = {
+        header: null
+    };
 
     render(){
         console.log(this.state)
@@ -145,7 +145,7 @@ export default class WelcomeScreen extends React.Component {
                                                 <Picker.Item color= "white" label="Noob" value="easy"/>
                                                 <Picker.Item color= "white" label="Novice" value="medium" />
                                                 <Picker.Item color= "white" label="Expert" value="hard"/>
-                                                <Picker.Item color= "white" label="Master" value="challenge"/>
+                                                <Picker.Item color= "white" label="Challenge" value="challenge"/>
                                             </Picker>
                                             {!!this.state.levelError && (
                                             <Text style={{ color: "red" }}>{this.state.levelError}</Text>

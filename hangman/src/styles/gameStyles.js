@@ -168,7 +168,7 @@ export default StyleSheet.create({
   },
   information: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 40

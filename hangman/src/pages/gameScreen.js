@@ -1,14 +1,15 @@
 import React from 'react';
 import {  
-    StyleSheet,
     Text,
     View,
     Button,
+    Animated,
     Image,
     Alert,
     TouchableOpacity,
     TouchableHighlight,
     ImageBackground,
+    Modal
  } from 'react-native';
 
 import styles from '../styles/gameStyles';
@@ -32,12 +33,13 @@ export default class GameScreen extends React.Component {
             "lives": 6,
             "correctChars": [],
             "guessedChars": [],
-            "currentChar": '',
-            "answer": "",
             "gameMode": 0,
             "level": "",
-            "fullWord": ""
+            "fullWord": "",
+            "modalVisible": false,
+            "previousScore":0,
         }
+        // this.resetGame= this.resetGame.bind(this);
     }
 
     componentWillMount(){
@@ -61,15 +63,15 @@ export default class GameScreen extends React.Component {
         );
     }
 
-    //to see if char has been used, if yes do action, push letter in guessed chars
-    // validateLetter()
-    //check if letter exists in secretWordString
-    // isInSecretWord()
-    //if secretWord returns true: update correctChars pop out of correctChars, update dash--> render if in secretWord
-        //if answer == secret: winner
-    //if secretWord returns false: numberofTries--,
-        //draw next animation
-        //if numberofTries == 0; gameover alert
+    checkFullWord(){
+        if(this.state.secretWord == this.state.fullWord.toLowerCase()){
+            this.props.navigation.navigate('HurrayScreen');
+        }else{
+            this.setState({
+                "lives": this.state.lives - 1
+            })
+        }
+    }
 
     findLevel(){
         const { navigation } = this.props;
@@ -104,6 +106,22 @@ export default class GameScreen extends React.Component {
         })
     }
 
+    resetGame() {
+        console.log("Reset")
+        let newScore = this.state.previousScore + this.state.lives;
+        console.log("new score", newScore)
+        this.setState({
+            "previousScore": newScore,
+            "secretWord": "",
+            "lives": 6,
+            "correctChars": [],
+            "guessedChars": [],
+            "fullWord": "",
+            "modalVisible": false,
+        })
+        console.log(this.state)
+    }
+
     validateLetter(guessedChars, letter){
         guessedChars.push(letter);
         console.log("this is array of guessedChars:", guessedChars)
@@ -115,20 +133,7 @@ export default class GameScreen extends React.Component {
                 if(secretWord[i].toUpperCase() == letter)
                     correctChars[i] = letter;
             }
-            if(correctChars.join("").toLowerCase() == secretWord){
-                // Alert.alert(
-                //     'You Win!!',
-                //     '',
-                //     [
-                //       {text: 'Play Again', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                //       {text: 'Cancel', onPress: () => console.log('OK Pressed')},
-                //     ],
-                //     { cancelable: false }
-                // )
-                // this._confettiView.startConfetti();
-                this.props.navigation.navigate('HurrayScreen')}
-        }
-        else{
+        }else{
             lives = lives - 1;
             console.log("number of lives left", lives)
             if(lives == 0){
@@ -148,6 +153,21 @@ export default class GameScreen extends React.Component {
             lives,
             guessedChars,
         })
+        if(correctChars.join("").toLowerCase() == secretWord){
+            console.log("lives: ", this.state.lives)
+            this.resetGame();
+            console.log("this is state not in reset", this.state)
+            // console.log("previous score: ", this.state.previousScore)
+            // Alert.alert(
+            //     'You Win!!',
+            //     '',
+            //     [
+            //       {text: 'Play Again', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            //       {text: 'Cancel', onPress: () => console.log('OK Pressed')},
+            //     ],
+            //     { cancelable: false }
+            // )
+        }
     }
 
     onKeyPress(letter){
@@ -157,18 +177,21 @@ export default class GameScreen extends React.Component {
         }else{
           return;
         }
-        // console.log("this is the pressed letter: ", letter);
     }
     
     static navigationOptions = {
         header: null
-      };
+    };
+
+    setModalVisible(visible) {
+        this.setState({modalVisible: visible});
+    }
 
     render() { //render method
         const keysRows = [
-            ["A","B","C","D","E","F","G","H","I","J"],
-            ["K","L","M","N","O","P","Q","R","S"],
-            [" ","T","U","V","W","X","Y","Z"," "]]
+            ["Q","W","E","R","T","Y","U","I","O","P"],
+            ["A","S","D","F","G","H","J","K","L"],
+            [" ","Z","X","C","V","B","N","M"," "]]
         
         const { navigation } = this.props;
         const level = navigation.getParam('level', 'no-level');
@@ -176,7 +199,7 @@ export default class GameScreen extends React.Component {
         
         return (
             <ImageBackground source={bgImg} style={styles.imgContainer}>
-                <View style={styles.container}>
+                <View style={styles.container} behavior="padding">
                     {/* <View style={styles.information}>  
                         <Text>SecretWord: {this.state.secretWord}</Text>
                         <Text>level: {level}</Text>
@@ -186,15 +209,19 @@ export default class GameScreen extends React.Component {
                         <Text>
                             LIVES:{this.state.lives} 
                         </Text>
+                        <Text>
+                            SCORE:{this.state.previousScore}
+                            {console.log(this.state)} 
+                        </Text>
                     </View>
                     <View>
-                        <Image
+                        <Animated.Image
                             source={balloon}
-                            style={{height:100, width:100}}
+                            style={{height: 100, width: 100}}
                         />
-                        <Image
+                        <Animated.Image
                             source={Hangman}
-                            style={{height:100, width:100}}
+                            style={{height: 100, width: 100}}
                         />
                     </View>
                     <View style={styles.dashes}>
@@ -252,24 +279,70 @@ export default class GameScreen extends React.Component {
                             )
                         })}
                     </View>
+                    <View style={styles.footerButtons}>
+                        <TouchableOpacity>
+                            <Text style={styles.helpTxt}>HELP!!</Text>
+                        </TouchableOpacity> 
+                        <View>
+                            <Modal
+                                animationType="slide"
+                                transparent={false}
+                                visible={this.state.modalVisible}
+                                onRequestClose={() => {
+                                    Alert.alert('Modal has been closed.');
+                            }}>
+                            <View style={{marginTop:300}}>
+                                <View>
+                                <TextInput 
+                                    style={styles.fullWord}
+                                    placeholder="I know the word!"
+                                    onChangeText={(fullWord) => this.setState({fullWord})}
+                                    blurOnSubmit={true}/>
+                                <TouchableHighlight
+                                    onPress={() => {
+                                        this.checkFullWord()
+                                        this.setModalVisible(!this.state.modalVisible);
+                                    }}>
+                                    <Text>Submit</Text>
+                                </TouchableHighlight>
+                                <TouchableHighlight
+                                    onPress={() => {
+                                        this.setModalVisible(!this.state.modalVisible);
+                                    }}>
+                                    <Text>Nevermind</Text>
+                                </TouchableHighlight>
+                                </View>
+                            </View>
+                            </Modal>
+                            <TouchableHighlight
+                                onPress={() => {
+                                    this.setModalVisible(true);
+                                }}>
+                                <Text>I know the Word!</Text>
+                            </TouchableHighlight>
+                        </View>
+                        <TouchableOpacity>
+                            <Text 
+                                style={styles.giveUpTxt}
+                                onPress={() => {
+                                    Alert.alert(
+                                        'Are you sure?',
+                                        '',
+                                        [
+                                          {text: 'Yes', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
+                                          {text: 'Cancel', onPress: () => console.log('cancel Pressed')},
+                                        ],
+                                        { cancelable: false }
+                                    )
+                                }}
+                            >
+                                GIVE UP
+                            </Text>
+                        </TouchableOpacity> 
+                    </View>
                 </View>
-                <View style={styles.footerButtons}>
-                    <TouchableOpacity>
-                        <Text style={styles.helpTxt}>HELP!!</Text>
-                    </TouchableOpacity> 
-                    <TextInput
-                        style={styles.fullWord}
-                        onChangeText={(text) => this.setState({fullWord})}
-                        value={this.state.text}
-                    />
-                    <TouchableOpacity>
-                        <Text style={styles.giveUpTxt}>GIVE UP</Text>
-                    </TouchableOpacity> 
-                </View>
+                
             </ImageBackground>
         );
     }
 }
-    
-    
-

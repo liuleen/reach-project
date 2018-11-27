@@ -59,14 +59,14 @@ We also encourage you to think of these requirements as a starting point, and ju
     - []animation hangman
     - [x]keyboard press colors
     - [x]keyboard can't press faded colors
-    - []function subtract lives (display heart with number of lives)
-    - []give up button that routes to welcome screen
+    - [x]function subtract lives (display heart with number of lives)
+    - [x]give up button that routes to welcome screen
     - []hint
     - []timer
-    - []you lose, try again 
+    - [x]you lose, try again 
     - []you win, play again 
     - [x]get word based on difficulty from api
-    - []support of full words guesses
+    - [x]support of full words guesses
 - Nov 27-28
     - []comment code
     - []sound for start button, image taking, cheering, booing, give up
@@ -92,6 +92,7 @@ We also encourage you to think of these requirements as a starting point, and ju
 - Nov 29-30 
     - []maybe implement leaderboard?
     - []5star rate
+    - []study javascript
 - Dec 1-2
     - []user test
     - []check for bugs
@@ -130,3 +131,13 @@ Component State	Storing data in the state of your components is the simplest way
 #questions
 - how does it recognize that the key can't be pressed anymore
 - what does the key represent in dialog, why do i need it (child props?)
+
+//to see if char has been used, if yes do action, push letter in guessed chars
+    // validateLetter()
+    //check if letter exists in secretWordString
+    // isInSecretWord()
+    //if secretWord returns true: update correctChars pop out of correctChars, update dash--> render if in secretWord
+        //if answer == secret: winner
+    //if secretWord returns false: numberofTries--,
+        //draw next animation
+        //if numberofTries == 0; gameover alert
