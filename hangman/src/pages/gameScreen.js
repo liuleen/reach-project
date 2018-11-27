@@ -108,7 +108,7 @@ export default class GameScreen extends React.Component {
         })
     }
 
-    resetGame() {
+    NewGame() {
         console.log("Reset")
         let newScore = this.state.previousScore + this.state.lives;
         let secretArrayLength = this.state.secretArray.length
@@ -125,6 +125,21 @@ export default class GameScreen extends React.Component {
         })
         this.init();
         // console.log(this.state)
+    }
+
+    resetGame() {
+        let secretArrayLength = this.state.secretArray.length
+        let secretWord = this.state.secretArray[Math.floor(Math.random() * (secretArrayLength))];
+        this.setState({
+            "previousScore": 0,
+            secretWord,
+            "lives": 6,
+            "correctChars": [],
+            "guessedChars": [],
+            "fullWord": "",
+            "modalVisible": false,
+        })
+        this.init();
     }
 
     validateLetter(guessedChars, letter){
@@ -147,8 +162,8 @@ export default class GameScreen extends React.Component {
                     'GAME OVER',
                     '',
                     [
-                      {text: 'Try Again?', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                      {text: 'Cancel', onPress: () => console.log('OK Pressed')},
+                      {text: 'Try Again?', onPress: () => this.resetGame()},
+                      {text: 'Cancel', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
                     ],
                     { cancelable: false }
                   )
@@ -161,9 +176,8 @@ export default class GameScreen extends React.Component {
         })
         if(correctChars.join("").toLowerCase() == secretWord){
             console.log("lives: ", this.state.lives)
-            this.resetGame();
+            this.NewGame();
             console.log("this is state not in reset", this.state)
-            // console.log("previous score: ", this.state.previousScore)
             // Alert.alert(
             //     'You Win!!',
             //     '',
@@ -195,9 +209,9 @@ export default class GameScreen extends React.Component {
 
     render() { //render method
         const keysRows = [
-            ["Q","W","E","R","T","Y","U","I","O","P"],
-            ["A","S","D","F","G","H","J","K","L"],
-            [" ","Z","X","C","V","B","N","M"," "]]
+            ["A","B","C","D","E","F","G","H","I","J"],
+            ["K","L","M","N","O","P","Q","R","S"],
+            [" ","T","U","V","W","X","Y","Z"," "]]
         
         const { navigation } = this.props;
         const level = navigation.getParam('level', 'no-level');
@@ -221,10 +235,16 @@ export default class GameScreen extends React.Component {
                         </Text>
                     </View>
                     <View>
-                        <Animated.Image
-                            source={balloon}
-                            style={{height: 100, width: 100}}
-                        />
+                        <View style={styles.balloon}>
+                            <Animated.Image
+                                source={balloon}
+                                style={{height: 100, width: 100}}
+                            />
+                            <Animated.Image
+                                source={balloon}
+                                style={{height: 100, width: 100}}
+                            />
+                        </View>
                         <Animated.Image
                             source={Hangman}
                             style={{height: 100, width: 100}}
@@ -287,7 +307,7 @@ export default class GameScreen extends React.Component {
                     </View>
                     <View style={styles.footerButtons}>
                         <TouchableOpacity>
-                            <Text style={styles.helpTxt}>HELP</Text>
+                            <Text style={styles.helpTxt}>HINT</Text>
                         </TouchableOpacity> 
                         <View>
                             <Modal

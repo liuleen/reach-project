@@ -3,9 +3,7 @@ import React from 'react';
 import { 
     TouchableOpacity,
     TextInput,
-    StyleSheet,
-    Alert,
-    Picker
+    Picker,
 } from 'react-native';
 
 import KeyboardSpacer from 'react-native-keyboard-spacer';

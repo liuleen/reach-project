@@ -178,6 +178,10 @@ export default StyleSheet.create({
     width: 200,
     borderColor: 'black',
     borderWidth: 5
+  },
+  balloon: {
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   }
 });
   

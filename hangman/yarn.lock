@@ -5318,6 +5318,11 @@ react-native-md-motion-buttons@^1.1.0:
   resolved "https://registry.yarnpkg.com/react-native-md-motion-buttons/-/react-native-md-motion-buttons-1.1.0.tgz#537a6cebf6e0adb50f82ace3686bc18903cd413d"
   integrity sha1-U3ps6/bgrbUPgqzjaGvBiQPNQT0=
 
+react-native-orientation-listener@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-orientation-listener/-/react-native-orientation-listener-0.0.4.tgz#b50de51ab059a5846b5fa15bada29b6d0174c4b7"
+  integrity sha1-tQ3lGrBZpYRrX6FbraKbbQF0xLc=
+
 react-native-picker-dropdown@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/react-native-picker-dropdown/-/react-native-picker-dropdown-0.1.2.tgz#26b62ff0f531a115bc83e011953c5ab78a21b2ae"
@@ -5343,6 +5348,13 @@ react-native-reanimated@1.0.0-alpha.10:
   version "1.0.0-alpha.10"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.0.0-alpha.10.tgz#e9e6fb35a2cf52fdc912b9fbc76f34f80698e530"
   integrity sha512-dbZG/Lh5Q+6zRvS7+gIkZKmXTG7XVqHbpMROL1LApBBMQwuLq/uLtKk/nBSn1+mNmazPrPMTehI7TG3AEkctww==
+
+react-native-responsive-styles@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/react-native-responsive-styles/-/react-native-responsive-styles-0.2.2.tgz#67efc5728199d1a9ed5528d1e335da2af5ad6a57"
+  integrity sha1-Z+/FcoGZ0antVSjR4zXaKvWtalc=
+  dependencies:
+    react-native-orientation-listener "0.0.4"
 
 react-native-safe-area-view@0.11.0:
   version "0.11.0"
