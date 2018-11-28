@@ -11,9 +11,10 @@ import {
     ImageBackground,
     Modal,
     TextInput,
-    Header
+    // Header
  } from 'react-native';
 
+import AwesomeButton from 'react-native-really-awesome-button';
 import { Image, Text, View } from 'react-native-animatable';
 import styles from '../styles/gameStyles';
 import bgImg from '../images/slowgalaxy.gif';
@@ -190,7 +191,7 @@ export default class GameScreen extends React.Component {
                     const username = navigation.getParam('username', 'no-username');
                     Alert.alert(
                         'GAME OVER',
-                        'Good Job ' + username + '! you scored ' + score + ' points!',
+                        'Good Job ' + username + '! You scored ' + score + ' points!',
                         [
                         {text: 'Try Again?', onPress: () => this.resetGame()},
                         {text: 'Cancel', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
@@ -203,7 +204,7 @@ export default class GameScreen extends React.Component {
                     const username = navigation.getParam('username', 'no-username');
                     Alert.alert(
                         'GAME OVER',
-                        'You could do better, ' + username + '! you only scored ' + score + ' points!',
+                        'You could do better, ' + username + '! You only scored ' + score + ' points!',
                         [
                           {text: 'Try Again?', onPress: () => this.resetGame()},
                           {text: 'Cancel', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
@@ -260,7 +261,7 @@ export default class GameScreen extends React.Component {
                         this.setState({"hintPressed": true})
                         Alert.alert(
                             'HINT',
-                            'Try this letter ' + hint,
+                            'Try this letter: "' + hint + '"',
                             [
                             {text: 'Okay'},
                             ],
@@ -278,6 +279,81 @@ export default class GameScreen extends React.Component {
             </View>)
         }
         
+        // let balloon1;
+        // if(this.state.lives == 5){
+        //     balloon1=
+        //     (
+        //         <View style={styles.animation}>
+        //             <View style={styles.balloon}>
+        //                 <Animated.Image
+        //                     animation={'fadeOutBig'}
+        //                     source={balloon}
+        //                     style={{left: 5, top: 10, height: 100, width: 30, zIndex: 1, position:"absolute"}}
+        //                 />
+        //                 <Animated.Image
+        //                     source={balloon}
+        //                     style={{height: 100, width: 30, zIndex: 0}}
+        //                 />
+        //                 <Animated.Image
+        //                     source={balloon}
+        //                     style={{right: 10, height: 100, width: 30}}
+        //                 />
+        //                 <Animated.Image
+        //                     source={balloon}
+        //                     style={{right:15, top:10, height: 100, width: 30}}
+        //                 />
+        //                 <Animated.Image
+        //                     source={balloon}
+        //                     style={{right: 25, top:10, height: 100, width: 30}}
+        //                 />
+        //                 <Animated.Image
+        //                     source={balloon}
+        //                     style={{right: 60, bottom: 10, height: 100, width: 30}}
+        //                 />
+        //             </View>
+        //             <Animated.Image
+        //                 source={Hangman}
+        //                 style={{bottom: 50, height: 100, width: 100}}
+        //             />
+        //         </View>
+        //     )
+        // }else{
+        //     balloon1=
+        //     (
+        //         <View style={styles.animation}>
+        //             <View style={styles.balloon}>
+        //                 <Image
+        //                     source={balloon}
+        //                     style={{left: 5, top: 10, height: 100, width: 30, zIndex: 1, position:"absolute"}}
+        //                 />
+        //                 <Animated.Image
+        //                     source={balloon}
+        //                     style={{height: 100, width: 30, zIndex: 0}}
+        //                 />
+        //                 <Animated.Image
+        //                     source={balloon}
+        //                     style={{right: 10, height: 100, width: 30}}
+        //                 />
+        //                 <Animated.Image
+        //                     source={balloon}
+        //                     style={{right:15, top:10, height: 100, width: 30}}
+        //                 />
+        //                 <Animated.Image
+        //                     source={balloon}
+        //                     style={{right: 25, top:10, height: 100, width: 30}}
+        //                 />
+        //                 <Animated.Image
+        //                     source={balloon}
+        //                     style={{right: 60, bottom: 10, height: 100, width: 30}}
+        //                 />
+        //             </View>
+        //             <Animated.Image
+        //                 source={Hangman}
+        //                 style={{bottom: 50, height: 100, width: 100}}
+        //             />
+        //         </View>
+        //     )
+        // }
         return (
             <ImageBackground source={bgImg} style={styles.imgContainer}>
                 <View style={styles.headerContainer}>
@@ -296,34 +372,35 @@ export default class GameScreen extends React.Component {
                     <View style={styles.balloon}>
                         <Animated.Image
                             source={balloon}
-                            style={{height: 100, width: 20}}
+                            style={{left: 5, top: 10, height: 100, width: 30, zIndex: 1, position:"absolute"}}
                         />
                         <Animated.Image
                             source={balloon}
-                            style={{height: 100, width: 20}}
+                            style={{height: 100, width: 30, zIndex: 0}}
                         />
                         <Animated.Image
                             source={balloon}
-                            style={{height: 100, width: 20}}
+                            style={{right: 10, height: 100, width: 30}}
                         />
                         <Animated.Image
                             source={balloon}
-                            style={{height: 100, width: 20}}
+                            style={{right:15, top:10, height: 100, width: 30}}
                         />
                         <Animated.Image
                             source={balloon}
-                            style={{height: 100, width: 20}}
+                            style={{right: 25, top:10, height: 100, width: 30}}
                         />
                         <Animated.Image
                             source={balloon}
-                            style={{height: 100, width: 20}}
+                            style={{right: 60, bottom: 10, height: 100, width: 30}}
                         />
                     </View>
                     <Animated.Image
                         source={Hangman}
-                        style={{height: 100, width: 100}}
+                        style={{bottom: 50, height: 100, width: 100}}
                     />
                 </View>
+                {balloon1}
                 <View style={styles.dashes}>
                     {this.state.correctChars.map((letter,index)=>{
                         return(
@@ -381,44 +458,44 @@ export default class GameScreen extends React.Component {
                 </View>
                 <View style={styles.footerButtons}>
                     {hintButton}
-                    <View>
-                        <Modal
-                            animationType="slide"
-                            transparent={false}
-                            visible={this.state.modalVisible}
-                            onRequestClose={() => {
-                                Alert.alert('Modal has been closed.');
-                        }}>
-                        <View style={{marginTop:300}}>
-                            <View>
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => {
+                            Alert.alert('Modal has been closed.');
+                    }}>
+                        <View style={{marginTop:300, backgroundColor: '#black'}}>
                             <TextInput 
                                 style={styles.fullWord}
                                 placeholder="I know the word!"
                                 onChangeText={(fullWord) => this.setState({fullWord})}
                                 blurOnSubmit={true}/>
-                            <TouchableHighlight
-                                onPress={() => {
-                                    this.checkFullWord()
-                                    this.setModalVisible(!this.state.modalVisible);
-                                }}>
-                                <Text>Submit</Text>
-                            </TouchableHighlight>
-                            <TouchableHighlight
-                                onPress={() => {
-                                    this.setModalVisible(!this.state.modalVisible);
-                                }}>
-                                <Text>Nevermind</Text>
-                            </TouchableHighlight>
+                            <View style={styles.modalButtons}>
+                                <TouchableHighlight
+                                    style={styles.submitFullWord}
+                                    onPress={() => {
+                                        this.checkFullWord()
+                                        this.setModalVisible(!this.state.modalVisible);
+                                    }}>
+                                    <Text style={{fontSize: 20, fontWeight: "bold"}}>Submit</Text>
+                                </TouchableHighlight>
+                                <TouchableHighlight
+                                    style={styles.nevermind}                          
+                                    onPress={() => {
+                                        this.setModalVisible(!this.state.modalVisible);
+                                    }}>
+                                    <Text style={{fontSize: 20, fontWeight: "bold"}}>Nevermind</Text>
+                                </TouchableHighlight>
                             </View>
                         </View>
-                        </Modal>
-                        <TouchableHighlight
-                            onPress={() => {
-                                this.setModalVisible(true);
-                            }}>
-                            <Text>I know the Word!</Text>
-                        </TouchableHighlight>
-                    </View>
+                    </Modal>
+                    <TouchableHighlight
+                        onPress={() => {
+                            this.setModalVisible(true);
+                        }}>
+                        <Text style={{color: "yellow", fontSize: 20}}>I know the Word!</Text>
+                    </TouchableHighlight>
                     <TouchableOpacity>
                         <Text 
                             style={styles.giveUpTxt}

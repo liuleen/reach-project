@@ -61,17 +61,17 @@ export default StyleSheet.create({
     alignItems: 'center',
     alignSelf:"auto",
     justifyContent: 'center',
-    flexWrap:"wrap"
+    // flexWrap:"wrap"
   },
   dashItemContainer:{
-    flex:0,
+    // flex:0,
     padding:5,
     margin:2,
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
   dashItem:{
-    width:20,
+    width:18,
     color: 'white',
     fontWeight: "bold",
     fontSize:25,
@@ -96,6 +96,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     padding:15,
     margin:2,
+    height: 50,
+    width:45,
     borderWidth: .5,
     borderColor: "black",
     backgroundColor: "#b3ffb3"
@@ -113,6 +115,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     padding:15,
     margin:2,
+    height:50,
+    width:45,
     borderWidth: .5,
     borderColor: "black",
     backgroundColor: "#ff9999"
@@ -140,37 +144,58 @@ export default StyleSheet.create({
   footerButtons: {
     height: 20,
     marginBottom:60,
-    borderColor: "black",
+    marginTop: 30,
     flexDirection: "row",
-    justifyContent: "space-between",
-    color: "white"
+    // justifyContent: "space-between",
   },
   hintText: {
     fontSize:20,
+    marginRight:40,
     fontWeight: "bold",
-    color: "white"
+    color: "#64b260",
   },
   hintTextstatic: {
     fontSize:20,
+    marginRight:40,
     fontWeight: "bold",
-    color: "red"
+    color: "#595959",
+    // alignSelf: 'flex-start',
   },
   fullWord: {
-    height: 40, 
-    width: 200,
+    height: 70, 
+    width: WIDTH,
     borderColor: 'black',
-    borderWidth: 5
+    backgroundColor: 'white',
+    borderWidth: 5,
+    color:"yellow",
+    fontSize: 30
   },
   giveUpTxt: {
     fontSize:20,
+    marginLeft:40,
     fontWeight: "bold",
-    color: "white"
+    color: "#871825",
   },
-  // hintContainer:{
-  //   flexWrap: 'wrap',
-  //   alignItems: "flex-start",
-  //   padding:10,
-  //   backgroundColor:"lightgrey"
-  // },
+  modalButtons:{
+    flexDirection: "row",
+    justifyContent: 'space-between',
+    alignSelf: 'flex-end',
+  },
+  submitFullWord: {
+    width:150,
+    height:50,
+    borderWidth:5,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor:"#64b260"
+  },
+  nevermind: {
+    width: 150,
+    height: 50,
+    borderWidth: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#871825"
+  }
 });
   
