@@ -8,6 +8,7 @@ const { width: WIDTH } = Dimensions.get('window');
 
 export const IMAGE_HEIGHT = window.width / 2;
 export const IMAGE_HEIGHT_SMALL = window.width / 7;
+
 /**
  * css stylesheet for the welcome screen 
  */
@@ -17,36 +18,43 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white'
+        backgroundColor: '#CCE5F6'
     },
-    logoContainer: {
+    logoImg:{
+        marginTop: 50,
+        height:500,
+        width:500
+    },
+    imgContainer: {
+        marginTop: 50,
+        width: 400,
+        height: 400,
+        backgroundColor: '#fff',
         alignItems: 'center',
+        justifyContent: 'center',
     },
     logoText: {
         fontSize: 60,
         fontWeight: "bold",
         textAlign: 'center',
-        marginTop: 25,
+        marginTop: 40,
         color: "black",
         borderBottomColor: "black",
     },
-    // logoImg:{
-    //     height:100,
-    //     width:100
-    // },
     dashText: {
-        fontSize: 55,
+        fontSize: 52,
         fontWeight: "bold",
         textAlign: 'center',
         color: "black",
+        marginBottom: 60
     },
     button: {
         width: WIDTH,
         height: 80,
         borderRadius: 0,
-        backgroundColor: 'green',
+        backgroundColor: 'black',
         justifyContent: 'center',
-        marginBottom: 80
+        marginBottom: 120
     },
     buttonText: {
         color: 'white',
@@ -54,24 +62,10 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center'
     },
-    dialogContentView: {
-        paddingLeft: 18,
-        paddingRight: 18,
-      },
-    customBackgroundDialog: {
-        opacity: .3,
-        width: WIDTH
-      },
     dialogStyle: {
         backgroundColor: 'black',
         width: WIDTH,
         height: 450,
-      },
-    levelContainer: {
-        paddingTop: 10,
-        backgroundColor: 'black',
-        justifyContent: 'center',
-        paddingHorizontal: 10,
     },
     dialogButton: {
         width: WIDTH - 100,
@@ -83,25 +77,28 @@ export default StyleSheet.create({
         marginRight: 45,
         marginTop: 25
     },
-    pickerStyle: {
-    },
-    pickerText: {
-        color: "white"
-    },
-    inputIOS: {
-        fontSize: 16,
-        paddingTop: 13,
-        paddingHorizontal: 10,
-        paddingBottom: 12,
-        borderWidth: 1,
-        borderColor: 'gray',
-        borderRadius: 4,
-        backgroundColor: 'white',
-        color: 'black',
+    dialogContentView: {
+        paddingLeft: 25,
+        paddingRight: 25,
     },
     usernameText: {
         marginTop: 10,
         marginBottom: 10,
         color: "white"
-    }
+    },
+    pickerStyle: {
+    },
+    pickerText: {
+        color: "white",
+    },
+    usernameInput: {
+        fontSize: 16,
+        paddingTop: 13,
+        paddingHorizontal: 10,
+        paddingBottom: 12,
+        borderWidth: 1,
+        borderRadius: 4,
+        backgroundColor: 'white',
+        color: 'black',
+    },
   });

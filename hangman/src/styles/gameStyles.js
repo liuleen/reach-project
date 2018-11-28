@@ -1,10 +1,13 @@
 import { 
     StyleSheet, 
+    Dimensions
 } from 'react-native';
 
 /**
  * css stylesheet for the main game screen 
  */
+const { width: WIDTH } = Dimensions.get('window');
+export const IMAGE_HEIGHT = window.width / 2;
 
 export default StyleSheet.create({
   container: {
@@ -133,34 +136,51 @@ export default StyleSheet.create({
     fontWeight:"500",
   },
   scoreText:{
-    fontSize:13,
-    textAlign:"right",
-    fontWeight:"500",
-    justifyContent:"flex-end",
-    width:"100%"
+    fontSize:40,
+    // textAlign:"right",
+    fontWeight:"bold",
+    // justifyContent:"flex-end",
+    // width:"100%",
+    color: "white"
+  },
+  livesText:{
+    fontSize:40,
+    // textAlign:"left",
+    fontWeight:"bold",
+    // justifyContent:"flex-start",
+    // width:"100%",
+    color: "white"
   },
   footerButtons: {
     height: 20,
     marginBottom:60,
     borderColor: "black",
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    color: "white"
   },
   giveUpTxt: {
     fontSize:20,
     fontWeight: "bold",
+    color: "white"
   },
-  helpTxt: {
+  hintText: {
     fontSize:20,
     fontWeight: "bold",
+    color: "white"
+  },
+  hintTextstatic: {
+    fontSize:20,
+    fontWeight: "bold",
+    color: "red"
   },
   contentContainer: {
     flex: 1
   },
   imgContainer: {
     flex: 1,
-    width: null,
-    height: null,
+    width: 400,
+    height: 400,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',

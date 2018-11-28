@@ -73,13 +73,13 @@ We also encourage you to think of these requirements as a starting point, and ju
     - []sound for start button, image taking, cheering, booing, give up
     - []speed
     - []write readme
-    - []welcome screen UI
-        - []ANIMATION
-        - []TITLE ANIMATION
-        - []DROP DOWN LEVEL SELECTION
-        - []USER NAME
-        - []BUTTONS START
-        - []BUTTONS PLAY
+    - [x]welcome screen UI
+        - [x]ANIMATION
+        - [x]TITLE ANIMATION
+        - [x]DROP DOWN LEVEL SELECTION
+        - [x]USER NAME
+        - [x]BUTTONS START
+        - [x]BUTTONS PLAY
     - []Game screen UI
         - []KEYBOARD
         - []LIVES LEFT
@@ -128,6 +128,7 @@ Component State	Storing data in the state of your components is the simplest way
 - dialog input navigation is wrong
 - implement jest
 - points: depending on how many lives left
+- timer bug
 
 #questions
 - how does it recognize that the key can't be pressed anymore
@@ -145,3 +146,20 @@ Component State	Storing data in the state of your components is the simplest way
     //if secretWord returns false: numberofTries--,
         //draw next animation
         //if numberofTries == 0; gameover alert
+
+###### notes
+- Why not use component will mount for fetch API: componentDidMount is the best place to put calls to fetch data, for two reasons:
+1) Using componentDidMount makes it clear that data won’t be loaded until after the initial render. You need to setup initial state properly, so you don’t get undefined state that causes errors.
+
+2 )If you need to render your app on the server, componentWillMount will be called twice(on the server and again on the client), which is probably not what you want. Putting the data loading code in componentDidMount will ensure that data is only fetched from the client. Generally, you should not add side effects to componentWillMount.
+
+3)If we instead use componentDidMount, then it's clear that the component will render at least once before you get back any data (because the component already did mount). So, by extension, it's also clear that we have to handle the initial state in a way so that the component doesn't break on the first ("empty") render.
+
+- The render() method is the only required method in a class component.
+
+- The constructor for a React component is called before it is mounted. When implementing the constructor for a React.Component subclass, you should call super(props) before any other statement. Otherwise, this.props will be undefined in the constructor, which can lead to bugs.
+
+- Typically, in React constructors are only used for two purposes:
+
+- Initializing local state by assigning an object to this.state.
+- Binding event handler methods to an instance.

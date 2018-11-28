@@ -4,12 +4,14 @@ import {
     TouchableOpacity,
     TextInput,
     Picker,
+    ImageBackground
 } from 'react-native';
 
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { Image, Text, View } from 'react-native-animatable';
 import styles from '../styles/welcomeStyles';
-import bgImg from '../images/hangman.gif'; 
+import logoImg from '../images/hangmanpng.gif'; 
+import bgImg from '../images/croptumble.gif';
 import Dialog, { 
     DialogContent,
     DialogButton
@@ -40,19 +42,19 @@ export default class WelcomeScreen extends React.Component {
         console.log(this.state)
 
         return(
-            <View style={styles.container} behavior="padding">
-                <View style={styles.logoContainer}>
-                    <Image
-                        animation={'slideInDown'}
-                        duration={1200}
-                        delay={200}
-                        style={styles.logoImg}
-                        source={bgImg}
-                    />
+            <View style={styles.container}>
+                <Image
+                    animation={'slideInDown'}
+                    duration={1200}
+                    delay={200}
+                    style={styles.logoImg}
+                    source={logoImg}
+                />
+                <ImageBackground source={bgImg} style={styles.imgContainer}>
                     <AutoTypingText
                         text={`HANGMAN`}
-                        charMovingTime={300}
-                        delay={250}
+                        charMovingTime={200}
+                        delay={150}
                         style={styles.logoText}
                     />
                     <AutoTypingText
@@ -61,7 +63,7 @@ export default class WelcomeScreen extends React.Component {
                         delay={5}
                         style={styles.dashText}
                     />         
-                    <View animation={'fadeInUpBig'} delay={2800} duration={300}>
+                    <View animation={'fadeInUpBig'} delay={2000} duration={300}>
                         <TouchableOpacity
                             style={styles.button}
                             onPress={() => {
@@ -76,18 +78,11 @@ export default class WelcomeScreen extends React.Component {
                             <Text style={styles.buttonText}> START </Text>
                         </TouchableOpacity>
                         <Dialog
-                            // onDismiss={() => {
-                            //     this.setState({ dialog: false });
-                            // }}
                             onTouchOutside={() => {
                                 this.setState({ dialog: false });
                             }}
-                            //zIndex controls which components display on top of others. The higher the number, the more on top
-                            zIndex={1000}
-                            backgroundStyle={styles.dialog}
                             dialogStyle={styles.dialogStyle}
                             visible={this.state.dialog}
-
                             actions={[
                                 <DialogButton
                                     text="PLAY"
@@ -100,68 +95,63 @@ export default class WelcomeScreen extends React.Component {
                                             this.props.navigation.navigate('ChallengeScreen', {
                                                 level: this.state.level,
                                                 username: this.state.username
-                                            } )
+                                            })
                                             this.setState({dialog: false})
-                                        }else{
+                                        } else{
                                             this.props.navigation.navigate('GameScreen', {
                                                 level: this.state.level,
                                                 username: this.state.username
-                                            } )
+                                            })
                                             this.setState({dialog: false})
                                         }
                                     }}
-                                    key="button-1"
+                                    key="button"
                                     style={styles.dialogButton}
-                                />,
+                                />
                             ]}
                         >
                             <DialogContent>
                                 <View style={styles.dialogContentView}>
-                                    <View style={styles.levelContainer}>
-                                        <Text style={styles.usernameText}>Choose a Username</Text>
-                                        <TextInput
-                                            ref={(el) => {
-                                                this.inputRefs.name = el;
-                                            }}
-                                            placeholder="username"
-                                            returnKeyType="next"
-                                            enablesReturnKeyAutomatically
-                                            onChangeText={(username) => this.setState({username})}
-                                            // onSubmitEditing={() => {
-                                            //     this.inputRefs.level.focus();
-                                            // }}
-                                            style={styles.inputIOS}
-                                            blurOnSubmit={true}
-                                        />
-                                        {!!this.state.nameError && (
-                                            <Text style={{ color: "red" }}>{this.state.nameError}</Text>
-                                        )}
-                                        
-                                        <View styles={styles.container}>
-                                            <Picker
-                                                // ref ={(ref) => {this.inputRefs.level = ref}}
-                                                withRef={true}
-                                                style={styles.pickerStyle}
-                                                selectedValue={this.state.level}
-                                                onValueChange={(itemValue,itemIndex) => this.setState({level:itemValue})}
-                                                >
-                                                <Picker.Item color= "white" label="Select a level" value=""/>
-                                                <Picker.Item color= "white" label="Noob" value="easy"/>
-                                                <Picker.Item color= "white" label="Novice" value="medium" />
-                                                <Picker.Item color= "white" label="Expert" value="hard"/>
-                                                <Picker.Item color= "white" label="Challenge" value="challenge"/>
-                                            </Picker>
-                                            {!!this.state.levelError && (
-                                            <Text style={{ color: "red" }}>{this.state.levelError}</Text>
-                                        )}                                       
-                                        </View>
-                                    </View>               
+                                    <Text style={styles.usernameText}>Choose a Username</Text>
+                                    <TextInput
+                                        ref={(el) => {
+                                            this.inputRefs.name = el;
+                                        }}
+                                        placeholder="username"
+                                        returnKeyType="next"
+                                        enablesReturnKeyAutomatically
+                                        onChangeText={(username) => this.setState({username})}
+                                        // onSubmitEditing={() => {
+                                        //     this.inputRefs.level.focus();
+                                        // }}
+                                        style={styles.usernameInput}
+                                        blurOnSubmit={true}
+                                    />
+                                    {!!this.state.nameError && (
+                                        <Text style={{ color: "red" }}>{this.state.nameError}</Text>
+                                    )}
+                                    <Picker
+                                        // ref ={(ref) => {this.inputRefs.level = ref}}
+                                        withRef={true}
+                                        style={styles.pickerStyle}
+                                        selectedValue={this.state.level}
+                                        onValueChange={(itemValue,itemIndex) => this.setState({level:itemValue})}
+                                        >
+                                        <Picker.Item color= "white" label="Select a level" value=""/>
+                                        <Picker.Item color= "white" label="Noob" value="easy"/>
+                                        <Picker.Item color= "white" label="Novice" value="medium" />
+                                        <Picker.Item color= "white" label="Expert" value="hard"/>
+                                        <Picker.Item color= "white" label="Challenge" value="challenge"/>
+                                    </Picker>
+                                    {!!this.state.levelError && (
+                                    <Text style={{ color: "red" }}>{this.state.levelError}</Text>
+                                    )}                                       
                                 </View>             
                             </DialogContent>
                             <KeyboardSpacer/>
                         </Dialog>
                     </View>
-                </View>
+                </ImageBackground>
             </View>
         )
     }

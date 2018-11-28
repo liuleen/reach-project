@@ -13,7 +13,7 @@ import {
  } from 'react-native';
 
 import styles from '../styles/gameStyles';
-import bgImg from '../images/water.gif';
+import bgImg from '../images/tumbleweed.gif';
 import Hangman from '../images/corgi.gif';
 import balloon from '../images/balloon1.gif';
 import { 
@@ -39,7 +39,8 @@ export default class GameScreen extends React.Component {
             "modalVisible": false,
             "previousScore":0,
             "secretArray": [],
-            "hint": ""
+            "hint": "",
+            "hintPressed": false
         }
     }
 
@@ -65,21 +66,26 @@ export default class GameScreen extends React.Component {
     }
 
     giveHint(){
-        console.log("hint1:", this.state.hint)
-        let length = this.state.secretWord;
+        console.log("hint:", this.state.hint)
+        let secretWord = this.state.secretWord;
         let correctChars = this.state.correctChars;
         let hintChar = this.state.hint;
-        for(let i = 0; i<length; i++){
-            if(correctChars[i] == '_'){
-                console.log("correctChar: ", correctChars[i])
-                hintChar = secretWord[i];
+        console.log("hintchar" ,hintChar)
+        console.log("hintpressed?", this.state.hintPressed)
+        if(this.state.hintPressed === false){
+            for(let i = 0; i<secretWord.length; i++){
+                if(correctChars[i] == '_'){
+                    console.log("correctChar: ", correctChars[i])
+                    console.log("secretletter", secretWord[i])
+                    hintChar = secretWord[i];
+                    console.log("hintCHar should be changed to: ", hintChar)
+                    i = secretWord.length ;
+                }
             }
+        }else{
+            return;
         }
-        this.setState({
-            hint: hintChar
-        })
-        console.log("hint1:", this.state.hint)
-        return(this.state.hint);
+        return(hintChar);
     }
 
     checkFullWord(){
@@ -95,9 +101,7 @@ export default class GameScreen extends React.Component {
     findLevel(){
         const { navigation } = this.props;
         const level = navigation.getParam('level', 'no-level');
-        const username = navigation.getParam('username', 'no-username');
         let gameMode;
-
         console.log("this is the level:", level)
         if(level == "easy"){
             gameMode = Math.ceil(Math.random() * 3);
@@ -139,6 +143,8 @@ export default class GameScreen extends React.Component {
             "guessedChars": [],
             "fullWord": "",
             "modalVisible": false,
+            "hint": "",
+            "hintPressed": false
         })
         this.init();
     }
@@ -154,6 +160,8 @@ export default class GameScreen extends React.Component {
             "guessedChars": [],
             "fullWord": "",
             "modalVisible": false,
+            "hint": "",
+            "hintPressed": false
         })
         this.init();
     }
@@ -176,9 +184,11 @@ export default class GameScreen extends React.Component {
             if(lives == 0){
                 if(this.state.previousScore > 5){
                     let score = this.state.previousScore
+                    const { navigation } = this.props;
+                    const username = navigation.getParam('username', 'no-username');
                     Alert.alert(
                         'GAME OVER',
-                        'Good Job! you scored ' + score + ' points!',
+                        'Good Job ' + username + '! you scored ' + score + ' points!',
                         [
                         {text: 'Try Again?', onPress: () => this.resetGame()},
                         {text: 'Cancel', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
@@ -187,9 +197,11 @@ export default class GameScreen extends React.Component {
                     )
                 }else{
                     let score = this.state.previousScore
+                    const { navigation } = this.props;
+                    const username = navigation.getParam('username', 'no-username');
                     Alert.alert(
                         'GAME OVER',
-                        'You could do better! you only scored ' + score + ' points!',
+                        'You could do better, ' + username + '! you only scored ' + score + ' points!',
                         [
                           {text: 'Try Again?', onPress: () => this.resetGame()},
                           {text: 'Cancel', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
@@ -229,21 +241,49 @@ export default class GameScreen extends React.Component {
     }
 
     render() { //render method
+        // let corgi = <image x1="250" y1 = "0" x2="250" y2 = "120" 
         const keysRows = [
             ["A","B","C","D","E","F","G","H","I","J"],
             ["K","L","M","N","O","P","Q","R","S"],
             [" ","T","U","V","W","X","Y","Z"," "]]
         
-        const { navigation } = this.props;
-     
+        let hintButton;
+        if(this.state.hintPressed == false){
+            hintButton =
+            (<TouchableOpacity>
+                <Text 
+                    style={styles.hintText}
+                    onPress={() => {
+                        let hint = this.giveHint();
+                        this.setState({"hintPressed": true})
+                        Alert.alert(
+                            'HINT',
+                            'Try this letter ' + hint,
+                            [
+                            {text: 'Okay'},
+                            ],
+                            { cancelable: false }
+                        )
+                    }}>HINT
+                </Text>
+            </TouchableOpacity>)
+        }else{
+            hintButton =
+            (<View>
+                <Text style={styles.hintTextstatic}>
+                    HINT
+                </Text>
+            </View>)
+        }
+        
         return (
             <ImageBackground source={bgImg} style={styles.imgContainer}>
                 <View style={styles.container}>
                     <View style={styles.information}>
-                        <Text>
+                        <Text style={styles.livesText}>
                             LIVES:{this.state.lives} 
                         </Text>
-                        <Text>
+                        <Text style={styles.scoreText}>
                             SCORE:{this.state.previousScore}
                             {console.log(this.state)} 
                         </Text>
@@ -320,22 +360,7 @@ export default class GameScreen extends React.Component {
                         })}
                     </View>
                     <View style={styles.footerButtons}>
-                        <TouchableOpacity>
-                            <Text 
-                                style={styles.helpTxt}
-                                onPress={() => {
-                                    this.giveHint();
-                                    let hint = this.state.hint
-                                    Alert.alert(
-                                        'HINT',
-                                        'Try this letter ' + hint,
-                                        [
-                                          {text: 'Okay'},
-                                        ],
-                                        { cancelable: false }
-                                    )
-                                }}>HINT</Text>
-                        </TouchableOpacity> 
+                        {hintButton}
                         <View>
                             <Modal
                                 animationType="slide"
