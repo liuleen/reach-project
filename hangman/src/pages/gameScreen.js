@@ -1,19 +1,22 @@
 import React from 'react';
 import {  
-    Text,
-    View,
+    // Text,
+    // View,
     Button,
     Animated,
-    Image,
+    // Image,
     Alert,
     TouchableOpacity,
     TouchableHighlight,
     ImageBackground,
-    Modal
+    Modal,
+    TextInput,
+    Header
  } from 'react-native';
 
+import { Image, Text, View } from 'react-native-animatable';
 import styles from '../styles/gameStyles';
-import bgImg from '../images/tumbleweed.gif';
+import bgImg from '../images/slowgalaxy.gif';
 import Hangman from '../images/corgi.gif';
 import balloon from '../images/balloon1.gif';
 import { 
@@ -23,7 +26,6 @@ import {
     Line,
     Rect 
 } from 'react-native-svg';
-import { TextInput } from 'react-native-gesture-handler';
 
 export default class GameScreen extends React.Component {
     constructor(props) { //constructor method
@@ -278,7 +280,8 @@ export default class GameScreen extends React.Component {
         
         return (
             <ImageBackground source={bgImg} style={styles.imgContainer}>
-                <View style={styles.container}>
+                <View style={styles.headerContainer}>
+                    <Text animation={'slideInDown'} style={styles.gameTitle}>H  A  N  G  M  A  N</Text>
                     <View style={styles.information}>
                         <Text style={styles.livesText}>
                             LIVES:{this.state.lives} 
@@ -288,136 +291,152 @@ export default class GameScreen extends React.Component {
                             {console.log(this.state)} 
                         </Text>
                     </View>
-                    <View>
-                        <View style={styles.balloon}>
-                            <Animated.Image
-                                source={balloon}
-                                style={{height: 100, width: 100}}
-                            />
-                            <Animated.Image
-                                source={balloon}
-                                style={{height: 100, width: 100}}
-                            />
-                        </View>
+                </View>
+                <View style={styles.animation}>
+                    <View style={styles.balloon}>
                         <Animated.Image
-                            source={Hangman}
-                            style={{height: 100, width: 100}}
+                            source={balloon}
+                            style={{height: 100, width: 20}}
+                        />
+                        <Animated.Image
+                            source={balloon}
+                            style={{height: 100, width: 20}}
+                        />
+                        <Animated.Image
+                            source={balloon}
+                            style={{height: 100, width: 20}}
+                        />
+                        <Animated.Image
+                            source={balloon}
+                            style={{height: 100, width: 20}}
+                        />
+                        <Animated.Image
+                            source={balloon}
+                            style={{height: 100, width: 20}}
+                        />
+                        <Animated.Image
+                            source={balloon}
+                            style={{height: 100, width: 20}}
                         />
                     </View>
-                    <View style={styles.dashes}>
-                        {this.state.correctChars.map((letter,index)=>{
-                            return(
-                                <View style={styles.dashItemContainer} key={index}>
-                                    <Text style={styles.dashItem}>
-                                        {letter}
-                                    </Text>
-                                </View>
-                            )
-                        })}
-                    </View>
-                    
-                    <View style={styles.keyboard}>
-                        {keysRows.map((keys,rowIndex)=>{
-                            return(
-                                <View key={rowIndex} style={styles.keyboardRow}>
-                                    {keys.map((letter,index)=>{
-                                        if(letter==" "){
-                                            return (
-                                                <Text key={index}> </Text>
-                                            )
-                                        }else if(this.state.correctChars.indexOf(letter)!=-1){
-                                            return(
-                                                <View style={styles.keyItemUsed} key={index}>
-                                                    <Text key={index} style={styles.usedKey}>
-                                                        {letter}
-                                                    </Text>
-                                                </View>
-                                                )
-                                        }else if(this.state.correctChars.indexOf(letter)==-1 && this.state.guessedChars.indexOf(letter)!=-1){
-                                            return(
-                                                <View style={styles.keyItemUsedWrong} key={index}>
-                                                    <Text key={index} style={styles.usedKey}>
-                                                        {letter}
-                                                    </Text>
-                                                </View>
-                                                )
-                                        }else{
-                                            return(
-                                                <TouchableOpacity 
-                                                    onPress={this.onKeyPress.bind(this, letter)} 
-                                                    style={styles.keyItem} 
-                                                    key={index}>
-                                                        <Text style={styles.letter}>
-                                                            {letter}
-                                                        </Text>
-                                                </TouchableOpacity>
-                                            )
-                                        }
-                                    
-                                    })}
-                                </View>
-                            )
-                        })}
-                    </View>
-                    <View style={styles.footerButtons}>
-                        {hintButton}
-                        <View>
-                            <Modal
-                                animationType="slide"
-                                transparent={false}
-                                visible={this.state.modalVisible}
-                                onRequestClose={() => {
-                                    Alert.alert('Modal has been closed.');
-                            }}>
-                            <View style={{marginTop:300}}>
-                                <View>
-                                <TextInput 
-                                    style={styles.fullWord}
-                                    placeholder="I know the word!"
-                                    onChangeText={(fullWord) => this.setState({fullWord})}
-                                    blurOnSubmit={true}/>
-                                <TouchableHighlight
-                                    onPress={() => {
-                                        this.checkFullWord()
-                                        this.setModalVisible(!this.state.modalVisible);
-                                    }}>
-                                    <Text>Submit</Text>
-                                </TouchableHighlight>
-                                <TouchableHighlight
-                                    onPress={() => {
-                                        this.setModalVisible(!this.state.modalVisible);
-                                    }}>
-                                    <Text>Nevermind</Text>
-                                </TouchableHighlight>
-                                </View>
+                    <Animated.Image
+                        source={Hangman}
+                        style={{height: 100, width: 100}}
+                    />
+                </View>
+                <View style={styles.dashes}>
+                    {this.state.correctChars.map((letter,index)=>{
+                        return(
+                            <View style={styles.dashItemContainer} key={index}>
+                                <Text style={styles.dashItem}>
+                                    {letter}
+                                </Text>
                             </View>
-                            </Modal>
+                        )
+                    })}
+                </View>
+                
+                <View style={styles.keyboard}>
+                    {keysRows.map((keys,rowIndex)=>{
+                        return(
+                            <View key={rowIndex} style={styles.keyboardRow}>
+                                {keys.map((letter,index)=>{
+                                    if(letter==" "){
+                                        return (
+                                            <Text key={index}> </Text>
+                                        )
+                                    }else if(this.state.correctChars.indexOf(letter)!=-1){
+                                        return(
+                                            <View style={styles.keyItemUsed} key={index}>
+                                                <Text key={index} style={styles.usedKey}>
+                                                    {letter}
+                                                </Text>
+                                            </View>
+                                            )
+                                    }else if(this.state.correctChars.indexOf(letter)==-1 && this.state.guessedChars.indexOf(letter)!=-1){
+                                        return(
+                                            <View style={styles.keyItemUsedWrong} key={index}>
+                                                <Text key={index} style={styles.usedKey}>
+                                                    {letter}
+                                                </Text>
+                                            </View>
+                                            )
+                                    }else{
+                                        return(
+                                            <TouchableOpacity 
+                                                onPress={this.onKeyPress.bind(this, letter)} 
+                                                style={styles.keyItem} 
+                                                key={index}>
+                                                    <Text style={styles.letter}>
+                                                        {letter}
+                                                    </Text>
+                                            </TouchableOpacity>
+                                        )
+                                    }
+                                
+                                })}
+                            </View>
+                        )
+                    })}
+                </View>
+                <View style={styles.footerButtons}>
+                    {hintButton}
+                    <View>
+                        <Modal
+                            animationType="slide"
+                            transparent={false}
+                            visible={this.state.modalVisible}
+                            onRequestClose={() => {
+                                Alert.alert('Modal has been closed.');
+                        }}>
+                        <View style={{marginTop:300}}>
+                            <View>
+                            <TextInput 
+                                style={styles.fullWord}
+                                placeholder="I know the word!"
+                                onChangeText={(fullWord) => this.setState({fullWord})}
+                                blurOnSubmit={true}/>
                             <TouchableHighlight
                                 onPress={() => {
-                                    this.setModalVisible(true);
+                                    this.checkFullWord()
+                                    this.setModalVisible(!this.state.modalVisible);
                                 }}>
-                                <Text>I know the Word!</Text>
+                                <Text>Submit</Text>
                             </TouchableHighlight>
-                        </View>
-                        <TouchableOpacity>
-                            <Text 
-                                style={styles.giveUpTxt}
+                            <TouchableHighlight
                                 onPress={() => {
-                                    Alert.alert(
-                                        'Are you sure?',
-                                        '',
-                                        [
-                                          {text: 'Yes', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
-                                          {text: 'Cancel', onPress: () => console.log('cancel Pressed')},
-                                        ],
-                                        { cancelable: false }
-                                    )
+                                    this.setModalVisible(!this.state.modalVisible);
                                 }}>
-                                GIVE UP
-                            </Text>
-                        </TouchableOpacity> 
+                                <Text>Nevermind</Text>
+                            </TouchableHighlight>
+                            </View>
+                        </View>
+                        </Modal>
+                        <TouchableHighlight
+                            onPress={() => {
+                                this.setModalVisible(true);
+                            }}>
+                            <Text>I know the Word!</Text>
+                        </TouchableHighlight>
                     </View>
-                </View>    
+                    <TouchableOpacity>
+                        <Text 
+                            style={styles.giveUpTxt}
+                            onPress={() => {
+                                Alert.alert(
+                                    'Are you sure?',
+                                    '',
+                                    [
+                                      {text: 'Yes', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
+                                      {text: 'Cancel', onPress: () => console.log('cancel Pressed')},
+                                    ],
+                                    { cancelable: false }
+                                )
+                            }}>
+                            GIVE UP
+                        </Text>
+                    </TouchableOpacity> 
+                </View>
             </ImageBackground>
         );
     }

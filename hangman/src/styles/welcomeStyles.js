@@ -40,6 +40,7 @@ export default StyleSheet.create({
         marginTop: 40,
         color: "black",
         borderBottomColor: "black",
+        borderBottomWidth:1,
     },
     dashText: {
         fontSize: 52,

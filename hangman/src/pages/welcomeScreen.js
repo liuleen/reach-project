@@ -23,8 +23,8 @@ export default class WelcomeScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        this.inputRefs = {};
-        this.inputRef = React.createRef()
+        // this.inputRefs = {};
+        // this.inputRef = React.createRef()
         this.state = {
             "level": undefined,
             "dialog": false,   
@@ -39,8 +39,6 @@ export default class WelcomeScreen extends React.Component {
     };
 
     render(){
-        console.log(this.state)
-
         return(
             <View style={styles.container}>
                 <Image
@@ -114,16 +112,13 @@ export default class WelcomeScreen extends React.Component {
                                 <View style={styles.dialogContentView}>
                                     <Text style={styles.usernameText}>Choose a Username</Text>
                                     <TextInput
-                                        ref={(el) => {
-                                            this.inputRefs.name = el;
-                                        }}
+                                        // ref={(el) => {
+                                        //     this.inputRefs.name = el;
+                                        // }}
                                         placeholder="username"
                                         returnKeyType="next"
                                         enablesReturnKeyAutomatically
                                         onChangeText={(username) => this.setState({username})}
-                                        // onSubmitEditing={() => {
-                                        //     this.inputRefs.level.focus();
-                                        // }}
                                         style={styles.usernameInput}
                                         blurOnSubmit={true}
                                     />
@@ -131,7 +126,6 @@ export default class WelcomeScreen extends React.Component {
                                         <Text style={{ color: "red" }}>{this.state.nameError}</Text>
                                     )}
                                     <Picker
-                                        // ref ={(ref) => {this.inputRefs.level = ref}}
                                         withRef={true}
                                         style={styles.pickerStyle}
                                         selectedValue={this.state.level}
@@ -155,5 +149,4 @@ export default class WelcomeScreen extends React.Component {
             </View>
         )
     }
-
 }
