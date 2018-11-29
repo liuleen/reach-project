@@ -1,26 +1,16 @@
 import React from 'react';
 import {  
-    Text,
-    View,
     Animated,
-    Image,
     Alert,
     TouchableOpacity,
     ImageBackground,
  } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from '../styles/gameStyles';
-import bgImg from '../images/water.gif';
+import bgImg from '../images/calm.gif';
 import Hangman from '../images/corgi.gif';
 import balloon from '../images/balloon1.gif';
-import { 
-    Svg,
-    Circle,
-    G,
-    Line,
-    Rect 
-} from 'react-native-svg';
+import { Image,Text, View } from 'react-native-animatable';
 
 export default class ChallengeScreen extends React.Component {
     constructor(props) { //constructor method
@@ -35,31 +25,30 @@ export default class ChallengeScreen extends React.Component {
             "modalVisible": false,
             "previousScore":0,
             "secretArray": [],
-            "timer": 60
+            "timer": 60,
         }
     }
 
     componentDidMount(){
         return fetch(`http://app.linkedin-reach.io/words?difficulty=5&minLength>=5`)
-            .then((response) => {
-                let wordArray = response._bodyText.split('\n');
-                this.setState({
-                    "secretArray": wordArray
-                })
+        .then((response) => {
+            let wordArray = response._bodyText.split('\n');
+            this.setState({
+                "secretArray": wordArray
             })
-            .then(() => {
-                this.init();
-            })
-            .then(() => {
-                this.interval = setInterval(
-                    () => this.setState((prevState)=>({ timer: prevState.timer - 1 }))
-                  , 1000);
-            })
-            .catch((error) =>{
-                console.error(error);
-            }
-        );
-    }
+        })
+        .then(() => {
+            this.init();
+        })
+        .then(() => {
+            this.interval = setInterval(
+                () => this.setState((prevState)=>({ timer: prevState.timer - 1 }))
+              , 1000);
+        })
+        .catch((error) =>{
+            console.error(error);
+        });
+    };
 
     // componentDidMount(){
     //     this.interval = setInterval(
@@ -69,7 +58,6 @@ export default class ChallengeScreen extends React.Component {
 
     componentDidUpdate(){
         if(this.state.timer === 0){ 
-          clearInterval(this.interval);
           let score = this.state.previousScore;
           const { navigation } = this.props;
           const username = navigation.getParam('username', 'no-username');
@@ -83,7 +71,7 @@ export default class ChallengeScreen extends React.Component {
             { cancelable: false }
           )
         }
-    }
+    };
 
     init(){
         let secretArrayLength = this.state.secretArray.length
@@ -108,7 +96,7 @@ export default class ChallengeScreen extends React.Component {
             correctChars,
             secretWord,
         })
-    }
+    };
 
     NewGame() {
         let newScore = this.state.previousScore + this.state.lives;
@@ -121,10 +109,9 @@ export default class ChallengeScreen extends React.Component {
             "correctChars": [],
             "guessedChars": [],
             "modalVisible": false,
-            "timer": 60
         })
         this.init();
-    }
+    };
 
     resetGame() {
         let secretArrayLength = this.state.secretArray.length
@@ -139,7 +126,7 @@ export default class ChallengeScreen extends React.Component {
             "timer": 60
         })
         this.init();
-    }
+    };
 
     validateLetter(guessedChars, letter){
         guessedChars.push(letter);
@@ -177,7 +164,7 @@ export default class ChallengeScreen extends React.Component {
         if(correctChars.join("").toLowerCase() == secretWord){
             this.NewGame();
         }
-    }
+    };
 
     onKeyPress(letter){
         let guessedChars = this.state.guessedChars;
@@ -186,21 +173,12 @@ export default class ChallengeScreen extends React.Component {
         }else{
           return;
         }
-    }
-    
-    // timer(){
-    //     if(this.state.timer == 0){
-    //         Alert.alert(
-    //             'GAME OVER',
-    //             '',
-    //             [
-    //               {text: 'Try Again?', onPress: () => this.resetGame()},
-    //               {text: 'Cancel', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
-    //             ],
-    //             { cancelable: false }
-    //           )
-    //     }
-    // }
+    };
+
+    giveUp() {
+        this.props.navigation.navigate('WelcomeScreen')
+        clearInterval(this.interval)
+    };
 
     static navigationOptions = {
         header: null
@@ -212,122 +190,121 @@ export default class ChallengeScreen extends React.Component {
             ["K","L","M","N","O","P","Q","R","S"],
             [" ","T","U","V","W","X","Y","Z"," "]]
         
-        const { navigation } = this.props;
-       
+        // const { navigation } = this.props;
+        let corgi = <Image source={Hangman} duration={8000} style={{bottom: 40, height: 100, left: 8,width: 100, position: "relative"}}/>
+        let corgiFall = <Image animation={'fadeOutDownBig'} source={Hangman} style={{bottom: 40, height: 100, left:8, width: 100, position: "relative"}}/>
+        let balloon0 = <Image source={balloon} style={{left: 30, top: 20, height: 100, width: 30, position: "relative"}} />
+        let balloon0fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{left: 30, top: 20, height: 100, width: 30,position: "relative"}}/>
+          
         return (
             <ImageBackground source={bgImg} style={styles.imgContainer}>
-                <View style={styles.container}>
+                <View style={styles.headerContainer}>
+                    <Text animation={'slideInDown'} style={styles.gameTitle}>H  A  N  G  M  A  N</Text>
                     <View style={styles.information}>
-                        <Text>
+                        <Text style={styles.livesText}>
                             LIVES:{this.state.lives} 
                         </Text>
-                        <Text>
-                            SCORE:{this.state.previousScore}
-                        </Text>
-                        <Text style={{color: "black", fontSize: 16}}>
+                        <Text style={styles.timer}>
                             {this.state.timer}
                         </Text>
+                        <Text style={styles.scoreText}>
+                            SCORE:{this.state.previousScore}
+                        </Text>
                     </View>
-                    <View>
-                        <View style={styles.balloon}>
-                            <Animated.Image
-                                source={balloon}
-                                style={{height: 100, width: 100}}
-                            />
-                        </View>
-                        <Animated.Image
-                            source={Hangman}
-                            style={{height: 100, width: 100}}
-                        />
+                </View>
+                <View>
+                    <View style={styles.balloon}>
+                        {this.state.lives>0?balloon0:balloon0fly}
                     </View>
-                    <View style={styles.dashes}>
-                        {this.state.correctChars.map((letter,index)=>{
-                            return(
-                                <View style={styles.dashItemContainer} key={index}>
-                                    <Text style={styles.dashItem}>
-                                        {letter}
-                                    </Text>
-                                </View>
-                            )
-                        })}
-                    </View>
-                    
-                    <View style={styles.keyboard}>
-                        {keysRows.map((keys,rowIndex)=>{
-                            return(
-                                <View key={rowIndex} style={styles.keyboardRow}>
-                                    {keys.map((letter,index)=>{
-                                        if(letter==" "){
-                                            return (
-                                                <Text key={index}> </Text>
+                    {this.state.lives==0?corgiFall:corgi}
+                </View>
+                <View style={styles.dashes}>
+                    {this.state.correctChars.map((letter,index)=>{
+                        return(
+                            <View style={styles.dashItemContainer} key={index}>
+                                <Text style={styles.dashItem}>
+                                    {letter}
+                                </Text>
+                            </View>
+                        )
+                    })}
+                </View>     
+                <View style={styles.keyboard}>
+                    {keysRows.map((keys,rowIndex)=>{
+                        return(
+                            <View key={rowIndex} style={styles.keyboardRow}>
+                                {keys.map((letter,index)=>{
+                                    if(letter==" "){
+                                        return (
+                                            <Text key={index}> </Text>
+                                        )
+                                    }else if(this.state.correctChars.indexOf(letter)!=-1){
+                                        return(
+                                            <View style={styles.keyItemUsed} key={index}>
+                                                <Text key={index} style={styles.usedKey}>
+                                                    {letter}
+                                                </Text>
+                                            </View>
                                             )
-                                        }else if(this.state.correctChars.indexOf(letter)!=-1){
-                                            return(
-                                                <View style={styles.keyItemUsed} key={index}>
-                                                    <Text key={index} style={styles.usedKey}>
+                                    }else if(this.state.correctChars.indexOf(letter)==-1 && this.state.guessedChars.indexOf(letter)!=-1){
+                                        return(
+                                            <View style={styles.keyItemUsedWrong} key={index}>
+                                                <Text key={index} style={styles.usedKey}>
+                                                    {letter}
+                                                </Text>
+                                            </View>
+                                            )
+                                    }else{
+                                        return(
+                                            <TouchableOpacity 
+                                                onPress={this.onKeyPress.bind(this, letter)} 
+                                                style={styles.keyItem} 
+                                                key={index}>
+                                                    <Text style={styles.letter}>
                                                         {letter}
                                                     </Text>
-                                                </View>
-                                                )
-                                        }else if(this.state.correctChars.indexOf(letter)==-1 && this.state.guessedChars.indexOf(letter)!=-1){
-                                            return(
-                                                <View style={styles.keyItemUsedWrong} key={index}>
-                                                    <Text key={index} style={styles.usedKey}>
-                                                        {letter}
-                                                    </Text>
-                                                </View>
-                                                )
-                                        }else{
-                                            return(
-                                                <TouchableOpacity 
-                                                    onPress={this.onKeyPress.bind(this, letter)} 
-                                                    style={styles.keyItem} 
-                                                    key={index}>
-                                                        <Text style={styles.letter}>
-                                                            {letter}
-                                                        </Text>
-                                                </TouchableOpacity>
-                                            )
-                                        }
-                                    
-                                    })}
-                                </View>
-                            )
-                        })}
-                    </View>
-                    <View style={styles.footerButtons}>
-                        <TouchableOpacity>
-                            <Text 
-                                style={styles.helpTxt}
-                                onPress={() => {
-                                    Alert.alert(
-                                        'You only have 1 letter left',
-                                        '',
-                                        [
-                                          {text: 'Thanks'},
-                                        ],
-                                        { cancelable: false }
-                                    )
-                                }}>HINT</Text>
-                        </TouchableOpacity> 
-                        <TouchableOpacity>
-                            <Text 
-                                style={styles.giveUpTxt}
-                                onPress={() => {
-                                    Alert.alert(
-                                        'Are you sure?',
-                                        '',
-                                        [
-                                          {text: 'Yes', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
-                                          {text: 'Cancel', onPress: () => console.log('cancel Pressed')},
-                                        ],
-                                        { cancelable: false }
-                                    )
-                                }}>
-                                GIVE UP
-                            </Text>
-                        </TouchableOpacity> 
-                    </View>
+                                            </TouchableOpacity>
+                                        )
+                                    }
+                                })}
+                            </View>
+                        )
+                    })}
+                </View>
+                <View style={styles.footerButtons}>
+                    <TouchableOpacity>
+                        <Text 
+                            style={styles.hintText}
+                            onPress={() => {
+                                Alert.alert(
+                                    'You only have 1 letter left',
+                                    '',
+                                    [
+                                      {text: 'Thanks'},
+                                    ],
+                                    { cancelable: false }
+                                )
+                            }}>
+                        USELESS HINT
+                        </Text>
+                    </TouchableOpacity> 
+                    <TouchableOpacity>
+                        <Text 
+                            style={styles.giveUpTxt}
+                            onPress={() => {
+                                Alert.alert(
+                                    'Are you sure?',
+                                    '',
+                                    [
+                                      {text: 'Yes', onPress: () => this.giveUp()},
+                                      {text: 'Cancel', onPress: () => console.log('cancel Pressed')},
+                                    ],
+                                    { cancelable: false }
+                                )
+                            }}>
+                            GIVE UP
+                        </Text>
+                    </TouchableOpacity> 
                 </View>
             </ImageBackground>
         );

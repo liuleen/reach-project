@@ -61,8 +61,8 @@ We also encourage you to think of these requirements as a starting point, and ju
     - [x]keyboard can't press faded colors
     - [x]function subtract lives (display heart with number of lives)
     - [x]give up button that routes to welcome screen
-    - []hint
-    - []timer
+    - [x]hint
+    - [x]timer
     - [x]you lose, try again 
     - [x]you win, play again 
     - [x]get word based on difficulty from api
@@ -70,8 +70,7 @@ We also encourage you to think of these requirements as a starting point, and ju
 - Nov 27-28
     - []refactor the code
     - []comment code
-    - []sound for start button, image taking, cheering, booing, give up
-    - []speed
+    - []sound 
     - []write readme
     - [x]welcome screen UI
         - [x]ANIMATION
@@ -81,7 +80,7 @@ We also encourage you to think of these requirements as a starting point, and ju
         - [x]BUTTONS START
         - [x]BUTTONS PLAY
     - []Game screen UI
-        - []KEYBOARD
+        - [x]KEYBOARD
         - []LIVES LEFT
         - []HINT
         - []HANGMAN
@@ -99,7 +98,6 @@ We also encourage you to think of these requirements as a starting point, and ju
     - []check for bugs
     - []make sure everything is flawless
     - []error management
-    - []finish whatever was left unfinished
 - Dec 3-4 
     - practice
     - breathe
@@ -129,6 +127,7 @@ Component State	Storing data in the state of your components is the simplest way
 - implement jest
 - points: depending on how many lives left
 - timer bug
+- how can i make it faster
 
 #questions
 - how does it recognize that the key can't be pressed anymore
@@ -163,3 +162,5 @@ Component State	Storing data in the state of your components is the simplest way
 
 - Initializing local state by assigning an object to this.state.
 - Binding event handler methods to an instance.
+
+- a ref is a reference to the React component

@@ -26,10 +26,9 @@ export default StyleSheet.create({
   // },
   gameTitle:{
     fontSize:35,
-    borderBottomWidth:1,
     marginTop:50,
     color: "white",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   information: {
     marginTop: 20,
@@ -48,9 +47,9 @@ export default StyleSheet.create({
     color: "white",
     alignSelf: 'flex-end'
   },
-  animation: {
+  // animation: {
 
-  },
+  // },
   balloon: {
     flexDirection: 'row',
     // flexWrap: 'wrap'
@@ -197,5 +196,11 @@ export default StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#871825"
   },
+  timer: {
+    color: "red",
+    fontSize: 20,
+    fontWeight: "bold",
+
+  }
 });
   

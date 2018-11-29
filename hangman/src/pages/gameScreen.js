@@ -36,7 +36,7 @@ export default class GameScreen extends React.Component {
         }
     }
 
-    componentWillMount(){
+    componentDidMount(){
         let gameMode = this.findLevel()
         console.log("this is gameMode: ", gameMode)
         return fetch(`http://app.linkedin-reach.io/words?difficulty=${gameMode}`)
@@ -234,7 +234,7 @@ export default class GameScreen extends React.Component {
 
     render() { //render method
         let corgi = <Image source={Hangman} duration={8000} style={{bottom: 50, height: 100, left: 30,width: 100, position: "relative"}}/>
-        let corgiFall = <Image animation={'fadeOutDownBig'} source={Hangman} style={{bottom: 50, height: 100, width: 100, position: "relative"}}/>
+        let corgiFall = <Image animation={'fadeOutDownBig'} source={Hangman} style={{bottom: 50, height: 100,left: 30, width: 100, position: "relative"}}/>
         let balloon0 = <Image source={balloon} style={{left: 30, top: 20, height: 100, width: 30, position: "relative"}} />
         let balloon0fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{left: 30, top: 20, height: 100, width: 30,position: "relative"}}/>
         let balloon1 = <Image source={balloon} style={{height: 100, width: 30, position: "relative"}}/>
@@ -291,7 +291,6 @@ export default class GameScreen extends React.Component {
                         </Text>
                         <Text style={styles.scoreText}>
                             SCORE:{this.state.previousScore}
-                            {console.log(this.state)} 
                         </Text>
                     </View>
                 </View>
