@@ -65,15 +65,15 @@ export default StyleSheet.create({
   dashItemContainer:{
     // flex:0,
     padding:5,
-    margin:2,
+    margin:1,
     // alignItems: 'center',
     // justifyContent: 'center',
   },
   dashItem:{
-    width:23,
+    width:20,
     color: 'white',
     fontWeight: "bold",
-    fontSize:23,
+    fontSize:20,
   },
   keyboard: {
     flex: 1,
@@ -166,7 +166,7 @@ export default StyleSheet.create({
     borderColor: 'black',
     backgroundColor: 'white',
     borderWidth: 5,
-    color:"yellow",
+    color:"black",
     fontSize: 30
   },
   giveUpTxt: {
@@ -178,7 +178,6 @@ export default StyleSheet.create({
   modalButtons:{
     flexDirection: "row",
     justifyContent: 'space-between',
-    alignSelf: 'flex-end',
   },
   submitFullWord: {
     width:150,

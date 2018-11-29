@@ -179,7 +179,7 @@ export default class GameScreen extends React.Component {
                     const { navigation } = this.props;
                     const username = navigation.getParam('username', 'no-username');
                     Alert.alert(
-                        'GAME OVER',
+                        'GAME OVER! Your word was ' + this.state.secretWord + '.',
                         'Good Job ' + username + '! You scored ' + score + ' points!',
                         [
                         {text: 'Try Again?', onPress: () => this.resetGame()},
@@ -192,7 +192,7 @@ export default class GameScreen extends React.Component {
                     const { navigation } = this.props;
                     const username = navigation.getParam('username', 'no-username');
                     Alert.alert(
-                        'GAME OVER',
+                        'GAME OVER! Your word was ' + this.state.secretWord + '.',
                         'You could do better, ' + username + '! You only scored ' + score + ' points!',
                         [
                           {text: 'Try Again?', onPress: () => this.resetGame()},
@@ -235,18 +235,18 @@ export default class GameScreen extends React.Component {
     render() { //render method
         let corgi = <Image source={Hangman} duration={8000} style={{bottom: 50, height: 100, left: 30,width: 100, position: "relative"}}/>
         let corgiFall = <Image animation={'fadeOutDownBig'} source={Hangman} style={{bottom: 50, height: 100,left: 30, width: 100, position: "relative"}}/>
-        let balloon0 = <Image source={balloon} style={{left: 30, top: 20, height: 100, width: 30, position: "relative"}} />
-        let balloon0fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{left: 30, top: 20, height: 100, width: 30,position: "relative"}}/>
-        let balloon1 = <Image source={balloon} style={{height: 100, width: 30, position: "relative"}}/>
-        let balloon1fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{height: 100, width: 30, position: "relative"}}/>
-        let balloon2 = <Image source={balloon} style={{right: 10, bottom: 10, height: 100, width: 30,position: "relative"}}/>
-        let balloon2fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right: 10, bottom:10, height: 100, width: 30,position: "relative"}}/>
-        let balloon3 = <Image source={balloon} style={{right:15, top:10, height: 100, width: 30, position: "relative"}}/>
-        let balloon3fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right:15, top:10, height: 100, width: 30, position: "relative"}}/>
+        let balloon0 = <Image source={balloon} style={{left: 50, top: 20, height: 100, width: 30, position: "relative"}} />
+        let balloon0fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{left: 50, top: 20, height: 100, width: 30,position: "relative"}}/>
+        let balloon1 = <Image source={balloon} style={{height: 100, left:45, width: 30, position: "relative"}}/>
+        let balloon1fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{height: 100, left: 45,width: 30, position: "relative"}}/>
+        let balloon2 = <Image source={balloon} style={{right: 20, bottom: 10, height: 100, width: 30,position: "relative"}}/>
+        let balloon2fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right: 20, bottom:10, height: 100, width: 30,position: "relative"}}/>
+        let balloon3 = <Image source={balloon} style={{right:65, top:10, height: 100, width: 30, position: "relative"}}/>
+        let balloon3fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right:65, top:10, height: 100, width: 30, position: "relative"}}/>
         let balloon4 = <Image source={balloon} style={{right: 25, top:10, height: 100, width: 30, position: "relative"}}/>
         let balloon4fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right: 25, top:10, height: 100, width: 30, position: "relative"}}/>
-        let balloon5 = <Image source={balloon} style={{right: 60, bottom: 10, height: 100, width: 30, position: "relative"}}/>
-        let balloon5fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right: 60, bottom: 10, height: 100, width: 30, position: "relative"}}/>
+        let balloon5 = <Image source={balloon} style={{right: 80, bottom: 20, height: 100, width: 30, position: "relative"}}/>
+        let balloon5fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right: 80, bottom: 20, height: 100, width: 30, position: "relative"}}/>
         const keysRows = [
             ["A","B","C","D","E","F","G","H","I","J"],
             ["K","L","M","N","O","P","Q","R","S"],
