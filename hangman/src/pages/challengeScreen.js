@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     ImageBackground,
  } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from '../styles/gameStyles';
 import bgImg from '../images/water.gif';
@@ -74,7 +75,7 @@ export default class ChallengeScreen extends React.Component {
           const username = navigation.getParam('username', 'no-username');
           Alert.alert(
             'GAME OVER',
-            'Wow! Great job ' + username + 'you scored ' + score + ' points!',
+            'Wow! Great job ' + username + ', you scored ' + score + ' points!',
             [
               {text: 'Try Again?', onPress: () => this.resetGame()},
               {text: 'Cancel', onPress: () => this.props.navigation.navigate('WelcomeScreen')},

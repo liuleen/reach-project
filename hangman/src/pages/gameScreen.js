@@ -1,32 +1,21 @@
 import React from 'react';
 import {  
-    // Text,
-    // View,
     Button,
-    Animated,
-    // Image,
     Alert,
     TouchableOpacity,
     TouchableHighlight,
     ImageBackground,
     Modal,
     TextInput,
-    // Header
+    Animated,
  } from 'react-native';
 
 import AwesomeButton from 'react-native-really-awesome-button';
-import { Image, Text, View } from 'react-native-animatable';
+import { Image,Text, View } from 'react-native-animatable';
 import styles from '../styles/gameStyles';
 import bgImg from '../images/slowgalaxy.gif';
 import Hangman from '../images/corgi.gif';
 import balloon from '../images/balloon1.gif';
-import { 
-    Svg,
-    Circle,
-    G,
-    Line,
-    Rect 
-} from 'react-native-svg';
 
 export default class GameScreen extends React.Component {
     constructor(props) { //constructor method
@@ -244,7 +233,20 @@ export default class GameScreen extends React.Component {
     }
 
     render() { //render method
-        // let corgi = <image x1="250" y1 = "0" x2="250" y2 = "120" 
+        let corgi = <Image source={Hangman} duration={8000} style={{bottom: 50, height: 100, left: 30,width: 100, position: "relative"}}/>
+        let corgiFall = <Image animation={'fadeOutDownBig'} source={Hangman} style={{bottom: 50, height: 100, width: 100, position: "relative"}}/>
+        let balloon0 = <Image source={balloon} style={{left: 30, top: 20, height: 100, width: 30, position: "relative"}} />
+        let balloon0fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{left: 30, top: 20, height: 100, width: 30,position: "relative"}}/>
+        let balloon1 = <Image source={balloon} style={{height: 100, width: 30, position: "relative"}}/>
+        let balloon1fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{height: 100, width: 30, position: "relative"}}/>
+        let balloon2 = <Image source={balloon} style={{right: 10, bottom: 10, height: 100, width: 30,position: "relative"}}/>
+        let balloon2fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right: 10, bottom:10, height: 100, width: 30,position: "relative"}}/>
+        let balloon3 = <Image source={balloon} style={{right:15, top:10, height: 100, width: 30, position: "relative"}}/>
+        let balloon3fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right:15, top:10, height: 100, width: 30, position: "relative"}}/>
+        let balloon4 = <Image source={balloon} style={{right: 25, top:10, height: 100, width: 30, position: "relative"}}/>
+        let balloon4fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right: 25, top:10, height: 100, width: 30, position: "relative"}}/>
+        let balloon5 = <Image source={balloon} style={{right: 60, bottom: 10, height: 100, width: 30, position: "relative"}}/>
+        let balloon5fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right: 60, bottom: 10, height: 100, width: 30, position: "relative"}}/>
         const keysRows = [
             ["A","B","C","D","E","F","G","H","I","J"],
             ["K","L","M","N","O","P","Q","R","S"],
@@ -278,82 +280,7 @@ export default class GameScreen extends React.Component {
                 </Text>
             </View>)
         }
-        
-        // let balloon1;
-        // if(this.state.lives == 5){
-        //     balloon1=
-        //     (
-        //         <View style={styles.animation}>
-        //             <View style={styles.balloon}>
-        //                 <Animated.Image
-        //                     animation={'fadeOutBig'}
-        //                     source={balloon}
-        //                     style={{left: 5, top: 10, height: 100, width: 30, zIndex: 1, position:"absolute"}}
-        //                 />
-        //                 <Animated.Image
-        //                     source={balloon}
-        //                     style={{height: 100, width: 30, zIndex: 0}}
-        //                 />
-        //                 <Animated.Image
-        //                     source={balloon}
-        //                     style={{right: 10, height: 100, width: 30}}
-        //                 />
-        //                 <Animated.Image
-        //                     source={balloon}
-        //                     style={{right:15, top:10, height: 100, width: 30}}
-        //                 />
-        //                 <Animated.Image
-        //                     source={balloon}
-        //                     style={{right: 25, top:10, height: 100, width: 30}}
-        //                 />
-        //                 <Animated.Image
-        //                     source={balloon}
-        //                     style={{right: 60, bottom: 10, height: 100, width: 30}}
-        //                 />
-        //             </View>
-        //             <Animated.Image
-        //                 source={Hangman}
-        //                 style={{bottom: 50, height: 100, width: 100}}
-        //             />
-        //         </View>
-        //     )
-        // }else{
-        //     balloon1=
-        //     (
-        //         <View style={styles.animation}>
-        //             <View style={styles.balloon}>
-        //                 <Image
-        //                     source={balloon}
-        //                     style={{left: 5, top: 10, height: 100, width: 30, zIndex: 1, position:"absolute"}}
-        //                 />
-        //                 <Animated.Image
-        //                     source={balloon}
-        //                     style={{height: 100, width: 30, zIndex: 0}}
-        //                 />
-        //                 <Animated.Image
-        //                     source={balloon}
-        //                     style={{right: 10, height: 100, width: 30}}
-        //                 />
-        //                 <Animated.Image
-        //                     source={balloon}
-        //                     style={{right:15, top:10, height: 100, width: 30}}
-        //                 />
-        //                 <Animated.Image
-        //                     source={balloon}
-        //                     style={{right: 25, top:10, height: 100, width: 30}}
-        //                 />
-        //                 <Animated.Image
-        //                     source={balloon}
-        //                     style={{right: 60, bottom: 10, height: 100, width: 30}}
-        //                 />
-        //             </View>
-        //             <Animated.Image
-        //                 source={Hangman}
-        //                 style={{bottom: 50, height: 100, width: 100}}
-        //             />
-        //         </View>
-        //     )
-        // }
+
         return (
             <ImageBackground source={bgImg} style={styles.imgContainer}>
                 <View style={styles.headerContainer}>
@@ -370,37 +297,15 @@ export default class GameScreen extends React.Component {
                 </View>
                 <View style={styles.animation}>
                     <View style={styles.balloon}>
-                        <Animated.Image
-                            source={balloon}
-                            style={{left: 5, top: 10, height: 100, width: 30, zIndex: 1, position:"absolute"}}
-                        />
-                        <Animated.Image
-                            source={balloon}
-                            style={{height: 100, width: 30, zIndex: 0}}
-                        />
-                        <Animated.Image
-                            source={balloon}
-                            style={{right: 10, height: 100, width: 30}}
-                        />
-                        <Animated.Image
-                            source={balloon}
-                            style={{right:15, top:10, height: 100, width: 30}}
-                        />
-                        <Animated.Image
-                            source={balloon}
-                            style={{right: 25, top:10, height: 100, width: 30}}
-                        />
-                        <Animated.Image
-                            source={balloon}
-                            style={{right: 60, bottom: 10, height: 100, width: 30}}
-                        />
+                        {this.state.lives>5?balloon0:balloon0fly}
+                        {this.state.lives>4?balloon1:balloon1fly}
+                        {this.state.lives>3?balloon2:balloon2fly}
+                        {this.state.lives>2?balloon3:balloon3fly}
+                        {this.state.lives>1?balloon4:balloon4fly}
+                        {this.state.lives>0?balloon5:balloon5fly}
                     </View>
-                    <Animated.Image
-                        source={Hangman}
-                        style={{bottom: 50, height: 100, width: 100}}
-                    />
+                    {this.state.lives==0?corgiFall:corgi}
                 </View>
-                {balloon1}
                 <View style={styles.dashes}>
                     {this.state.correctChars.map((letter,index)=>{
                         return(

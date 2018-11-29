@@ -71,10 +71,10 @@ export default StyleSheet.create({
     // justifyContent: 'center',
   },
   dashItem:{
-    width:18,
+    width:23,
     color: 'white',
     fontWeight: "bold",
-    fontSize:25,
+    fontSize:23,
   },
   keyboard: {
     flex: 1,
@@ -196,6 +196,6 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#871825"
-  }
+  },
 });
   
