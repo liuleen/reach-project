@@ -108,6 +108,14 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  usedKeyWrong:{
+    color:"#cccccc",
+    fontSize:20,
+    // fontWeight: "bold",
+    width:20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   keyItemUsedWrong: {
     flex: 1,
     justifyContent: 'center',

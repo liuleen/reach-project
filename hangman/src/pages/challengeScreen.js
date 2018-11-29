@@ -52,18 +52,19 @@ export default class ChallengeScreen extends React.Component {
 
     componentDidUpdate(){
         if(this.state.timer === 0){ 
-          let score = this.state.previousScore;
-          const { navigation } = this.props;
-          const username = navigation.getParam('username', 'no-username');
-          Alert.alert(
-            'Wow! Great job ' + username + '',
-            'you scored ' + score + ' points!',
-            [
-              {text: 'Try Again?', onPress: () => this.resetGame()},
-              {text: 'Cancel', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
-            ],
-            { cancelable: false }
-          )
+            clearInterval(this.interval)
+            let score = this.state.previousScore;
+            const { navigation } = this.props;
+            const username = navigation.getParam('username', 'no-username');
+            Alert.alert(
+                'Wow! Great job ' + username + '! The word was "' + this.state.secretWord + '".',
+                'You scored ' + score + ' points!',
+                [
+                {text: 'Try Again?', onPress: () => this.resetGame()},
+                {text: 'Cancel', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
+                ],
+                { cancelable: false }
+            )
         }
     };
 
@@ -119,6 +120,9 @@ export default class ChallengeScreen extends React.Component {
             "modalVisible": false,
             "timer": 60
         })
+        this.interval = setInterval(
+            () => this.setState((prevState)=>({ timer: prevState.timer - 1 }))
+          , 1000);
         this.init();
     };
 
@@ -136,6 +140,7 @@ export default class ChallengeScreen extends React.Component {
         }else{
             lives = lives - 1;
             if(lives == 0){
+                clearInterval(this.interval)
                 let score = this.state.previousScore;
                 const { navigation } = this.props;
                 const username = navigation.getParam('username', 'no-username');

@@ -34,6 +34,8 @@ export default class GameScreen extends React.Component {
             "hint": "",
             "hintPressed": false
         }
+        this.showAlertDelay = this.showAlertDelay.bind(this);
+        this.resetGame = this.resetGame.bind(this);
     }
 
     componentDidMount(){
@@ -174,33 +176,7 @@ export default class GameScreen extends React.Component {
             lives = lives - 1;
             console.log("number of lives left", lives)
             if(lives == 0){
-                if(this.state.previousScore > 5){
-                    let score = this.state.previousScore
-                    const { navigation } = this.props;
-                    const username = navigation.getParam('username', 'no-username');
-                    Alert.alert(
-                        'GAME OVER! Your word was ' + this.state.secretWord + '.',
-                        'Good Job ' + username + '! You scored ' + score + ' points!',
-                        [
-                        {text: 'Try Again?', onPress: () => this.resetGame()},
-                        {text: 'Cancel', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
-                        ],
-                        { cancelable: false }
-                    )
-                }else{
-                    let score = this.state.previousScore
-                    const { navigation } = this.props;
-                    const username = navigation.getParam('username', 'no-username');
-                    Alert.alert(
-                        'GAME OVER! Your word was ' + this.state.secretWord + '.',
-                        'You could do better, ' + username + '! You only scored ' + score + ' points!',
-                        [
-                          {text: 'Try Again?', onPress: () => this.resetGame()},
-                          {text: 'Cancel', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
-                        ],
-                        { cancelable: false }
-                    )
-                }
+                this.showAlertDelay();
             }
         }
         this.setState({
@@ -223,6 +199,24 @@ export default class GameScreen extends React.Component {
           return;
         }
     }
+
+    showAlertDelay(){
+        let score = this.state.previousScore
+        const { navigation } = this.props;
+        const username = navigation.getParam('username', 'no-username');
+        let secretWord = this.state.secretWord;
+        setTimeout(() => {
+            Alert.alert(
+                'GAME OVER! Your word was: "' + secretWord + '".',
+                'Good Job ' + username + '! You scored ' + score + ' points!',
+                [
+                {text: 'Try Again?', onPress: () => this.resetGame()},
+                {text: 'Cancel', onPress: () => navigation.navigate('WelcomeScreen')},
+                ],
+                { cancelable: false }
+            )
+        }, 1500);
+    }
     
     static navigationOptions = {
         header: null
@@ -234,7 +228,7 @@ export default class GameScreen extends React.Component {
 
     render() { //render method
         let corgi = <Image source={Hangman} duration={8000} style={{bottom: 50, height: 100, left: 30,width: 100, position: "relative"}}/>
-        let corgiFall = <Image animation={'fadeOutDownBig'} source={Hangman} style={{bottom: 50, height: 100,left: 30, width: 100, position: "relative"}}/>
+        let corgiFall = <Image animation={'fadeOutDownBig'} duration={2000} source={Hangman} style={{bottom: 50, height: 100,left: 30, width: 100, position: "relative"}}/>
         let balloon0 = <Image source={balloon} style={{left: 50, top: 20, height: 100, width: 30, position: "relative"}} />
         let balloon0fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{left: 50, top: 20, height: 100, width: 30,position: "relative"}}/>
         let balloon1 = <Image source={balloon} style={{height: 100, left:45, width: 30, position: "relative"}}/>
@@ -337,8 +331,9 @@ export default class GameScreen extends React.Component {
                                     }else if(this.state.correctChars.indexOf(letter)==-1 && this.state.guessedChars.indexOf(letter)!=-1){
                                         return(
                                             <View style={styles.keyItemUsedWrong} key={index}>
-                                                <Text key={index} style={styles.usedKey}>
+                                                <Text key={index} style={styles.usedKeyWrong}>
                                                     {letter}
+                                                    {/* X */}
                                                 </Text>
                                             </View>
                                             )
