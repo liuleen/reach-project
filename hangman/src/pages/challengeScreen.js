@@ -11,6 +11,21 @@ import Hangman from '../images/corgi.gif';
 import balloon from '../images/balloon1.gif';
 import { Image,Text, View } from 'react-native-animatable';
 
+/**
+ * The Challenge component of the application.
+ * The User will be routed to this challenge screen if she/he chooses the challenge level
+ * The difference between this level and the other ones is 
+ *      -that there is a 60 second timer,
+ *      -the hint is useless
+ *      -no full word guessing
+ *      -only 1 life, to guess 1 letter (fair right?)
+ *      -difficulty level is 5 with words longer than 5 
+**/
+
+/**
+ * Inside the state:
+ *  the only difference here is the timer in the state.
+ */
 export default class ChallengeScreen extends React.Component {
     constructor(props) { //constructor method
         super(props);
@@ -30,6 +45,9 @@ export default class ChallengeScreen extends React.Component {
         this.resetGame = this.resetGame.bind(this);
     }
 
+    /**
+     * Added a setInterval function for the timer
+     */
     componentDidMount(){
         return fetch(`http://app.linkedin-reach.io/words?difficulty=5&minLength>=5`)
         .then((response) => {
@@ -51,6 +69,9 @@ export default class ChallengeScreen extends React.Component {
         });
     };
 
+    /**
+     * A componenet lifecycle to check on timer, once timer runs out, game is over. 
+     */
     componentDidUpdate(){
         if(this.state.timer === 0){ 
             clearInterval(this.interval)
@@ -88,6 +109,40 @@ export default class ChallengeScreen extends React.Component {
         })
     };
 
+    onKeyPress(letter){
+        let guessedChars = this.state.guessedChars;
+        if(guessedChars.indexOf(letter)==-1){
+          this.validateLetter(guessedChars, letter);
+        }else{
+          return;
+        }
+    };
+
+    validateLetter(guessedChars, letter){
+        guessedChars.push(letter);
+        let { correctChars, secretWord, lives} = this.state;
+        if(secretWord.toUpperCase().indexOf(letter)!=-1){
+            for(let i = 0; i < secretWord.length; i++){
+                if(secretWord[i].toUpperCase() == letter)
+                    correctChars[i] = letter;
+            }
+        }else{
+            lives = lives - 1;
+            if(lives == 0){
+                clearInterval(this.interval)
+                this.showAlertDelay();
+            }
+        }
+        this.setState({
+            correctChars,
+            lives,
+            guessedChars,
+        })
+        if(correctChars.join("").toLowerCase() == secretWord){
+            this.NewGame();
+        }
+    };
+
     NewGame() {
         let newScore = this.state.previousScore + this.state.lives;
         let secretWord = this.state.secretArray[Math.floor(Math.random() * (this.state.secretArray.length))];
@@ -119,40 +174,6 @@ export default class ChallengeScreen extends React.Component {
         this.init();
     };
 
-    validateLetter(guessedChars, letter){
-        guessedChars.push(letter);
-        let { correctChars, secretWord, lives} = this.state;
-        if(secretWord.toUpperCase().indexOf(letter)!=-1){
-            for(let i = 0; i < secretWord.length; i++){
-                if(secretWord[i].toUpperCase() == letter)
-                    correctChars[i] = letter;
-            }
-        }else{
-            lives = lives - 1;
-            if(lives == 0){
-                clearInterval(this.interval)
-                this.showAlertDelay();
-            }
-        }
-        this.setState({
-            correctChars,
-            lives,
-            guessedChars,
-        })
-        if(correctChars.join("").toLowerCase() == secretWord){
-            this.NewGame();
-        }
-    };
-
-    onKeyPress(letter){
-        let guessedChars = this.state.guessedChars;
-        if(guessedChars.indexOf(letter)==-1){
-          this.validateLetter(guessedChars, letter);
-        }else{
-          return;
-        }
-    };
-
     giveUp() {
         this.props.navigation.navigate('WelcomeScreen')
         clearInterval(this.interval)
@@ -179,7 +200,8 @@ export default class ChallengeScreen extends React.Component {
         }, 1500);
     }
 
-    render() { //render method
+    render() {
+        
         const keysRows = [
             ["A","B","C","D","E","F","G","H","I","J"],
             ["K","L","M","N","O","P","Q","R","S"],

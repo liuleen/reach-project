@@ -66,10 +66,42 @@ Here is a list of features I added:
 - Add a database, to store user progress, words guessed already, highscores per level. 
 - Sound! I have no idea how to do that. But I'm sure google would be helpful with this. 
 - More animations in the front end. 
-- better background
+- better background / aka not a gif
+- LEARN HOW TO INCORPORATE SOUND with onPress and scene changes, lose and win sounds, background sounds
+- learn about making my own animations through svg? 
 
 # What I learned/What I want to learn
 
-- 
+- Overall this project has been a huge step towards what I've always wanted to do since entering the tech field. The first language I learned was C so most of the projects I've worked on have been terminal based and algorithm heavy and no database or UI componenets in it. Since stepping into the software development role, I've been looking for that opportunity to learn mobile app development and this project has really helped me to start it. I could've done a project terminal based with a language I'm more familiar with but I knew that I had to use this opportunity to do something I've pushed back for too long. 
+- In this week, I learned:
+    - Javascript syntax, basic javascript programming
+    - React Native framework syntax and project layout
+    - Component lifecycles (i have more learning to do here)
+    - How to pass props and states
+    - User input
+    - Styling
+    - How to debug a mobile app built with JS and RN
+    - Navigation between pages, builtin features such as onPress and setState
+    - How to make use of packages
+
+What I want to learn: 
+- I want to learn how to integrate an actual DB into the app 
+- I want to learn about async and await 
+- I want to learn about asynchronage storage 
+- I want to learn how to more effectively debug
+
 # Challenges I faced
+
+- Understanding how to use componenet lifecycle methods more powerfully. I think I used component lifecycles in a basic form but I want to be able to learn and use it more efficiently and powerfully.
+- Between Nov 2017-March 2018 I primarily coded in C and after that between April 2018-July 2018 I started learning Ruby and some basic api scripting for automating tasks at work, then after that I started to run coding bootcamps so most of my time went towards project management. Switching gears towards mobile development with javascript and react native took a few days for me to get familiarized and comfortable. I didn't know any React Native or Javascript coming into this project and had to learn a ton about how a component works, how to use component lifecycles and setting the state, how to get api using fetch method, etc. 
+- The hardest challenge I faced was understanding how to properly setState and pass props in order to make the project flow properly. This part caused a lot of bugs. 
+- As for the logic part, rendering the dashes in order to switch it with the correct letters guessed was the toughest part since for this part I truly had to understand at which point each component was rendering. 
+- Sometimes my app would run a little laggy so I'd love to learn more about how to optimize my code so that it can run more smoothly and faster overall. I'm guessing I have to make use of component lifecycles for this part. Or maybe I'm using it wrong?
+
+###### Conclusion
+Overall, I'm very proud of what I've done. Only a week ago, I didn't even know how to initialize a React Native project and run a simulator. I got to design and plan out my game logic and then an actual user interface! The projects I've worked on the past never had a visual so this part was really fun and a breathe of fresh air. Building the app definitely had it's moments of frustration, but without those frustrations there would be no feeling of complete satisfaction with the result. I'm super proud of it and have been showing all my friends the challenge round. I'm not sure if that version of the challenge round exists on the internet (maybe I should google it) , but creating that was really exciting for me. I hope this project was able to show my creativity, ambitions, and determination to continue expanding my knowledge and seek out answers to things I'm curious about. 
+
+Thank you for this opportunity and I hope you have a lot of fun playing it. 
+
+I'm looking forward to discussing this project with you during the interview! 
 

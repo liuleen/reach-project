@@ -12,16 +12,14 @@ import ChallengeScreen from './src/pages/challengeScreen';
 
 /**
  * The root component of the application.
- * In this component I am handling the entire application state.
 **/
 
 export default class App extends Component {
   
   /**
    * routing from {start button} welcomeScreen
-   * -> to select level popup dialog, username creation (drop down level selection)
-   * -> to game screen
-   * -> to top scores screen
+   * -> to select level popup dialog, username creation
+   * -> to game screen depending on level chosen
    */
 
   render() {
@@ -30,6 +28,10 @@ export default class App extends Component {
     )
   }
 }
+
+/**
+ * StackNavigator imported from react navigation used to navigate between different scenes of the game
+ */
 
 const Hangman = new StackNavigator({
   WelcomeScreen:{

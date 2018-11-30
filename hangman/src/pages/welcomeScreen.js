@@ -18,6 +18,13 @@ import Dialog, {
 } from 'react-native-popup-dialog';
 import AutoTypingText from 'react-native-auto-typing-text';
 
+/**
+ * The Welcome component of the application.
+ * The first page the user sees, User can press the START button.
+ * The START button will open up a dialog that prompts the user to input a username and 
+ *     select a level. There are three difficulty levels and one challenge level
+**/
+
 export default class WelcomeScreen extends React.Component {
     constructor(props) {
         super(props);
