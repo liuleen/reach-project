@@ -89,7 +89,7 @@ We also encourage you to think of these requirements as a starting point, and ju
     - [x] comment code
     - [x] write readme
     - [] user test
-    - [] check for bugs
+    - [x] check for bugs
     - [] error management with jest
 - Dec 1
     -YOU GOT THIS!!! :]

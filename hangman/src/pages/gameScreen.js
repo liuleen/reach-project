@@ -171,6 +171,8 @@ export default class GameScreen extends React.Component {
     checkFullWord(){
         if(this.state.secretWord == this.state.fullWord.toLowerCase()){
             this.newGame();
+        }else if(this.state.fullWord.trim() === ""){
+            return ;
         }else{
             this.setState({
                 "lives": this.state.lives - 1

@@ -41,6 +41,12 @@ export default class WelcomeScreen extends React.Component {
         header: null
     };
 
+    saveData() {
+        let user = this.state.username;
+        AsyncStorage.setItem('username', user);
+    }
+    
+
     render(){
         return(
             <View style={styles.container}>

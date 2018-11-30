@@ -75,18 +75,7 @@ export default class ChallengeScreen extends React.Component {
     componentDidUpdate(){
         if(this.state.timer === 0){ 
             clearInterval(this.interval)
-            let score = this.state.previousScore;
-            const { navigation } = this.props;
-            const username = navigation.getParam('username', 'no-username');
-            Alert.alert(
-                'Wow! Great job ' + username + '! The word was "' + this.state.secretWord + '".',
-                'You scored ' + score + ' points!',
-                [
-                {text: 'Try Again?', onPress: () => this.resetGame()},
-                {text: 'Cancel', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
-                ],
-                { cancelable: false }
-            )
+            this.showAlertDelay();
         }
     };
 
@@ -183,6 +172,22 @@ export default class ChallengeScreen extends React.Component {
         header: null
     };
 
+    // showAlertDelay(){
+    //     let score = this.state.previousScore
+    //     const { navigation } = this.props;
+    //     const username = navigation.getParam('username', 'no-username');
+    //     setTimeout(() => {
+    //         Alert.alert(
+    //             'GAME OVER! Your word was: "' + this.state.secretWord + '".',
+    //             'Good Job ' + username + '! You scored ' + score + ' points!',
+    //             [
+    //             {text: 'Try Again?', onPress: () => this.resetGame()},
+    //             {text: 'Cancel', onPress: () => navigation.navigate('WelcomeScreen')},
+    //             ],
+    //             { cancelable: false }
+    //         )
+    //     }, 1500);
+    // }
     showAlertDelay(){
         let score = this.state.previousScore
         const { navigation } = this.props;
@@ -193,8 +198,12 @@ export default class ChallengeScreen extends React.Component {
                 'Good Job ' + username + '! You scored ' + score + ' points!',
                 [
                 {text: 'Try Again?', onPress: () => this.resetGame()},
-                {text: 'Cancel', onPress: () => navigation.navigate('WelcomeScreen')},
-                ],
+                {text: 'Cancel', onPress: () => navigation.navigate('LeaderboardScreen', 
+                    {
+                        username: username,
+                        score: score
+                    }),
+                }],
                 { cancelable: false }
             )
         }, 1500);
@@ -207,8 +216,8 @@ export default class ChallengeScreen extends React.Component {
             ["K","L","M","N","O","P","Q","R","S"],
             [" ","T","U","V","W","X","Y","Z"," "]]
         
-        let corgi = <Image source={Hangman} duration={8000} style={{bottom: 40, height: 100, left: 8,width: 100, position: "relative"}}/>
-        let corgiFall = <Image animation={'fadeOutDownBig'} source={Hangman} style={{bottom: 40, height: 100, left:8, width: 100, position: "relative"}}/>
+        let corgi = <Image source={Hangman} style={{bottom: 40, height: 100, left: 8,width: 100, position: "relative"}}/>
+        let corgiFall = <Image animation={'fadeOutDownBig'} duration={5000} source={Hangman} style={{bottom: 40, height: 100, left:8, width: 100, position: "relative"}}/>
         let balloon0 = <Image source={balloon} style={{left: 30, top: 20, height: 100, width: 30, position: "relative"}} />
         let balloon0fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{left: 30, top: 20, height: 100, width: 30,position: "relative"}}/>
           
@@ -232,7 +241,7 @@ export default class ChallengeScreen extends React.Component {
                     <View style={styles.balloon}>
                         {this.state.lives>0?balloon0:balloon0fly}
                     </View>
-                    {this.state.lives==0?corgiFall:corgi}
+                    {this.state.lives==0 || this.state.timer == 0 ?corgiFall:corgi}
                 </View>
                 <View style={styles.dashes}>
                     {this.state.correctChars.map((letter,index)=>{
