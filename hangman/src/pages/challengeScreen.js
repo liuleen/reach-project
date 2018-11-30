@@ -1,13 +1,12 @@
 import React from 'react';
 import {  
-    Animated,
     Alert,
     TouchableOpacity,
     ImageBackground,
  } from 'react-native';
 
 import styles from '../styles/gameStyles';
-import bgImg from '../images/calm.gif';
+import bgImg from '../images/sparkles.gif';
 import Hangman from '../images/corgi.gif';
 import balloon from '../images/balloon1.gif';
 import { Image,Text, View } from 'react-native-animatable';
@@ -27,6 +26,8 @@ export default class ChallengeScreen extends React.Component {
             "secretArray": [],
             "timer": 60,
         }
+        this.showAlertDelay = this.showAlertDelay.bind(this);
+        this.resetGame = this.resetGame.bind(this);
     }
 
     componentDidMount(){
@@ -69,24 +70,18 @@ export default class ChallengeScreen extends React.Component {
     };
 
     init(){
-        let secretArrayLength = this.state.secretArray.length
-        let secretWord = this.state.secretArray[Math.floor(Math.random() * (secretArrayLength))];
-        console.log("this is secret word in init: ", secretWord)
+        let secretWord = this.state.secretArray[Math.floor(Math.random() * (this.state.secretArray.length))];
         let correctChars = [];
         for(let i = 0; i < secretWord.length; i++){
             correctChars[i] = secretWord[i].toUpperCase();
         }
         let randomIndex = Math.floor(Math.random() * secretWord.length);
-        console.log("randomIndex", randomIndex)
         let char = correctChars[randomIndex];
-        console.log("char: ", char)
         for(let i = 0; i < secretWord.length; i++){
-            console.log("correct char :", correctChars[i])
             if(correctChars[i] == char){
                 correctChars[i] = '_';
             }
         }
-        console.log("this is array of correctChars:", correctChars)
         this.setState({
             correctChars,
             secretWord,
@@ -95,8 +90,7 @@ export default class ChallengeScreen extends React.Component {
 
     NewGame() {
         let newScore = this.state.previousScore + this.state.lives;
-        let secretArrayLength = this.state.secretArray.length
-        let secretWord = this.state.secretArray[Math.floor(Math.random() * (secretArrayLength))];
+        let secretWord = this.state.secretArray[Math.floor(Math.random() * (this.state.secretArray.length))];
         this.setState({
             "previousScore": newScore,
             secretWord,
@@ -109,8 +103,7 @@ export default class ChallengeScreen extends React.Component {
     };
 
     resetGame() {
-        let secretArrayLength = this.state.secretArray.length
-        let secretWord = this.state.secretArray[Math.floor(Math.random() * (secretArrayLength))];
+        let secretWord = this.state.secretArray[Math.floor(Math.random() * (this.state.secretArray.length))];
         this.setState({
             "previousScore": 0,
             secretWord,
@@ -128,10 +121,7 @@ export default class ChallengeScreen extends React.Component {
 
     validateLetter(guessedChars, letter){
         guessedChars.push(letter);
-        console.log("this is array of guessedChars:", guessedChars)
-        let correctChars = this.state.correctChars;
-        let secretWord = this.state.secretWord;
-        let lives = this.state.lives;
+        let { correctChars, secretWord, lives} = this.state;
         if(secretWord.toUpperCase().indexOf(letter)!=-1){
             for(let i = 0; i < secretWord.length; i++){
                 if(secretWord[i].toUpperCase() == letter)
@@ -141,18 +131,7 @@ export default class ChallengeScreen extends React.Component {
             lives = lives - 1;
             if(lives == 0){
                 clearInterval(this.interval)
-                let score = this.state.previousScore;
-                const { navigation } = this.props;
-                const username = navigation.getParam('username', 'no-username');
-                Alert.alert(
-                    'GAME OVER! Your word was ' + this.state.secretWord + '.',
-                    'Good Job ' + username + '! you scored ' + score + ' points!',
-                    [
-                    {text: 'Try Again?', onPress: () => this.resetGame()},
-                    {text: 'Cancel', onPress: () => this.props.navigation.navigate('WelcomeScreen')},
-                    ],
-                    { cancelable: false }
-                )
+                this.showAlertDelay();
             }
         }
         this.setState({
@@ -183,13 +162,29 @@ export default class ChallengeScreen extends React.Component {
         header: null
     };
 
+    showAlertDelay(){
+        let score = this.state.previousScore
+        const { navigation } = this.props;
+        const username = navigation.getParam('username', 'no-username');
+        setTimeout(() => {
+            Alert.alert(
+                'GAME OVER! Your word was: "' + this.state.secretWord + '".',
+                'Good Job ' + username + '! You scored ' + score + ' points!',
+                [
+                {text: 'Try Again?', onPress: () => this.resetGame()},
+                {text: 'Cancel', onPress: () => navigation.navigate('WelcomeScreen')},
+                ],
+                { cancelable: false }
+            )
+        }, 1500);
+    }
+
     render() { //render method
         const keysRows = [
             ["A","B","C","D","E","F","G","H","I","J"],
             ["K","L","M","N","O","P","Q","R","S"],
             [" ","T","U","V","W","X","Y","Z"," "]]
         
-        // const { navigation } = this.props;
         let corgi = <Image source={Hangman} duration={8000} style={{bottom: 40, height: 100, left: 8,width: 100, position: "relative"}}/>
         let corgiFall = <Image animation={'fadeOutDownBig'} source={Hangman} style={{bottom: 40, height: 100, left:8, width: 100, position: "relative"}}/>
         let balloon0 = <Image source={balloon} style={{left: 30, top: 20, height: 100, width: 30, position: "relative"}} />
@@ -198,15 +193,15 @@ export default class ChallengeScreen extends React.Component {
         return (
             <ImageBackground source={bgImg} style={styles.imgContainer}>
                 <View style={styles.headerContainer}>
-                    <Text animation={'slideInDown'} style={styles.gameTitle}>H  A  N  G  M  A  N</Text>
+                    <Text animation={'slideInDown'} style={styles.challengeGameTitle}>H  A  N  G  M  A  N</Text>
                     <View style={styles.information}>
-                        <Text style={styles.livesText}>
+                        <Text style={styles.challengeLivesText}>
                             LIVES:{this.state.lives} 
                         </Text>
                         <Text style={styles.timer}>
                             {this.state.timer}
                         </Text>
-                        <Text style={styles.scoreText}>
+                        <Text style={styles.challengeScoreText}>
                             SCORE:{this.state.previousScore}
                         </Text>
                     </View>
@@ -221,7 +216,7 @@ export default class ChallengeScreen extends React.Component {
                     {this.state.correctChars.map((letter,index)=>{
                         return(
                             <View style={styles.dashItemContainer} key={index}>
-                                <Text style={styles.dashItem}>
+                                <Text style={styles.challengeDashItem}>
                                     {letter}
                                 </Text>
                             </View>

@@ -17,14 +17,16 @@ export default StyleSheet.create({
     height: 500,
     backgroundColor: 'black',
     alignItems: 'center',
-    // justifyContent: 'center',
     flexDirection: 'column',
     paddingRight:20
   },
-  // headerContainer: {
-  //   flexDirection: 'column'
-  // },
   gameTitle:{
+    fontSize:35,
+    marginTop:50,
+    color: "black",
+    fontWeight: "bold",
+  },
+  challengeGameTitle:{
     fontSize:35,
     marginTop:50,
     color: "white",
@@ -38,21 +40,29 @@ export default StyleSheet.create({
   livesText: {
     fontSize:20,
     fontWeight:"bold",
+    color: "black",
+    alignSelf: 'flex-start'
+  },
+  challengeLivesText: {
+    fontSize:20,
+    fontWeight:"bold",
     color: "white",
     alignSelf: 'flex-start'
   },
   scoreText: {
     fontSize:20,
     fontWeight:"bold",
+    color: "black",
+    alignSelf: 'flex-end'
+  },
+  challengeScoreText: {
+    fontSize:20,
+    fontWeight:"bold",
     color: "white",
     alignSelf: 'flex-end'
   },
-  // animation: {
-
-  // },
   balloon: {
     flexDirection: 'row',
-    // flexWrap: 'wrap'
   },
   dashes:{
     flex: 1,
@@ -60,16 +70,18 @@ export default StyleSheet.create({
     alignItems: 'center',
     alignSelf:"auto",
     justifyContent: 'center',
-    // flexWrap:"wrap"
   },
   dashItemContainer:{
-    // flex:0,
     padding:5,
     margin:1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
   dashItem:{
+    width:20,
+    color: 'black',
+    fontWeight: "bold",
+    fontSize:20,
+  },
+  challengeDashItem:{
     width:20,
     color: 'white',
     fontWeight: "bold",
@@ -77,10 +89,8 @@ export default StyleSheet.create({
   },
   keyboard: {
     flex: 1,
-    // backgroundColor: 'white',
     justifyContent: 'center',
     flexDirection:"column",
-    // position: "fixed"
   },
   keyboardRow: {
     flex: 1,
@@ -137,8 +147,6 @@ export default StyleSheet.create({
     borderWidth: .5,
     borderColor: "black",
     backgroundColor: "black"
-    // maxHeight: 20,
-    // maxWidth: 20
   },
   letter:{
     color:"white",
@@ -153,7 +161,6 @@ export default StyleSheet.create({
     marginBottom:60,
     marginTop: 30,
     flexDirection: "row",
-    // justifyContent: "space-between",
   },
   hintText: {
     fontSize:20,
@@ -166,7 +173,6 @@ export default StyleSheet.create({
     marginRight:40,
     fontWeight: "bold",
     color: "#595959",
-    // alignSelf: 'flex-start',
   },
   fullWord: {
     height: 70, 
@@ -188,17 +194,15 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   submitFullWord: {
-    width:150,
+    width:190,
     height:50,
-    borderWidth:5,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor:"#64b260"
   },
   nevermind: {
-    width: 150,
+    width: 200,
     height: 50,
-    borderWidth: 5,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#871825"

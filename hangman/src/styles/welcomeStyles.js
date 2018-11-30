@@ -18,17 +18,19 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#CCE5F6'
+        // backgroundColor: '#CCE5F6',
+        backgroundColor: 'white'
     },
     logoImg:{
-        marginTop: 50,
-        height:500,
-        width:500
+        marginTop: 80,
+        height:400,
+        width:400,
+        position: 'relative'
     },
     imgContainer: {
         marginTop: 50,
-        width: 400,
-        height: 400,
+        width: 500,
+        height: 500,
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
@@ -37,17 +39,20 @@ export default StyleSheet.create({
         fontSize: 60,
         fontWeight: "bold",
         textAlign: 'center',
-        marginTop: 40,
+        marginTop: 70,
         color: "black",
         borderBottomColor: "black",
         borderBottomWidth:1,
+        position: 'relative',
+        bottom: 120
     },
     dashText: {
         fontSize: 52,
         fontWeight: "bold",
         textAlign: 'center',
         color: "black",
-        marginBottom: 60
+        // marginBottom: 100,
+        bottom:140
     },
     button: {
         width: WIDTH,
@@ -55,7 +60,7 @@ export default StyleSheet.create({
         borderRadius: 0,
         backgroundColor: 'black',
         justifyContent: 'center',
-        marginBottom: 120
+        marginBottom: 160
     },
     buttonText: {
         color: 'white',

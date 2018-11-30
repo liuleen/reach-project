@@ -1,19 +1,16 @@
 import React from 'react';
 import {  
-    Button,
     Alert,
     TouchableOpacity,
     TouchableHighlight,
     ImageBackground,
     Modal,
     TextInput,
-    Animated,
  } from 'react-native';
 
-import AwesomeButton from 'react-native-really-awesome-button';
-import { Image,Text, View } from 'react-native-animatable';
+import { Image, Text, View } from 'react-native-animatable';
 import styles from '../styles/gameStyles';
-import bgImg from '../images/slowgalaxy.gif';
+import bgImg from '../images/cartoonclouds.gif';
 import Hangman from '../images/corgi.gif';
 import balloon from '../images/balloon1.gif';
 
@@ -29,7 +26,7 @@ export default class GameScreen extends React.Component {
             "level": "",
             "fullWord": "",
             "modalVisible": false,
-            "previousScore":0,
+            "previousScore": 0,
             "secretArray": [],
             "hint": "",
             "hintPressed": false
@@ -40,51 +37,38 @@ export default class GameScreen extends React.Component {
 
     componentDidMount(){
         let gameMode = this.findLevel()
-        console.log("this is gameMode: ", gameMode)
         return fetch(`http://app.linkedin-reach.io/words?difficulty=${gameMode}`)
             .then((response) => {
                 let wordArray = response._bodyText.split('\n');
-                // let word = wordArray[Math.floor(Math.random() * (wordArray.length -1))];
                 this.setState({
                     "secretArray": wordArray
                 })
-                console.log("this is le secret array: ", this.state.secretArray);
             })
             .then(() => {
                 this.init();
             })
-            .catch((error) =>{
+            .catch((error) => {
                 console.error(error);
             }
         );
     }
 
     giveHint(){
-        console.log("hint:", this.state.hint)
-        let secretWord = this.state.secretWord;
-        let correctChars = this.state.correctChars;
-        let hintChar = this.state.hint;
-        console.log("hintchar" ,hintChar)
-        console.log("hintpressed?", this.state.hintPressed)
+        let { secretWord, correctChars, hintChar } = this.state;
         if(this.state.hintPressed === false){
             for(let i = 0; i<secretWord.length; i++){
                 if(correctChars[i] == '_'){
-                    console.log("correctChar: ", correctChars[i])
-                    console.log("secretletter", secretWord[i])
                     hintChar = secretWord[i];
-                    console.log("hintCHar should be changed to: ", hintChar)
                     i = secretWord.length ;
                 }
             }
-        }else{
-            return;
         }
-        return(hintChar);
+        return(hintChar.toUpperCase());
     }
 
     checkFullWord(){
         if(this.state.secretWord == this.state.fullWord.toLowerCase()){
-            this.NewGame();
+            this.newGame();
         }else{
             this.setState({
                 "lives": this.state.lives - 1
@@ -96,7 +80,6 @@ export default class GameScreen extends React.Component {
         const { navigation } = this.props;
         const level = navigation.getParam('level', 'no-level');
         let gameMode;
-        console.log("this is the level:", level)
         if(level == "easy"){
             gameMode = Math.ceil(Math.random() * 3);
         }else if(level == "medium"){
@@ -104,31 +87,24 @@ export default class GameScreen extends React.Component {
         }else{
             gameMode = 6 + Math.ceil(Math.random() * 3);
         }
-        console.log("random number: ", gameMode)
         return gameMode;
     }
 
     init(){
-        let secretArrayLength = this.state.secretArray.length
-        let secretWord = this.state.secretArray[Math.floor(Math.random() * (secretArrayLength))];
-        console.log("this is secret word in init: ", secretWord)
+        let secretWord = this.state.secretArray[Math.floor(Math.random() * (this.state.secretArray.length))];
         let correctChars = [];
         for(let i = 0; i < secretWord.length; i++){
             correctChars.push("_");
         }
-        console.log("this is array of correctChars:", correctChars)
         this.setState({
             correctChars,
             secretWord
         })
     }
 
-    NewGame() {
-        console.log("Reset")
+    newGame() {
         let newScore = this.state.previousScore + this.state.lives;
-        let secretArrayLength = this.state.secretArray.length
-        let secretWord = this.state.secretArray[Math.floor(Math.random() * (secretArrayLength))];
-        console.log("new score", newScore)
+        let secretWord = this.state.secretArray[Math.floor(Math.random() * (this.state.secretArray.length))];
         this.setState({
             "previousScore": newScore,
             secretWord,
@@ -144,8 +120,7 @@ export default class GameScreen extends React.Component {
     }
 
     resetGame() {
-        let secretArrayLength = this.state.secretArray.length
-        let secretWord = this.state.secretArray[Math.floor(Math.random() * (secretArrayLength))];
+        let secretWord = this.state.secretArray[Math.floor(Math.random() * (this.state.secretArray.length))];
         this.setState({
             "previousScore": 0,
             secretWord,
@@ -162,11 +137,7 @@ export default class GameScreen extends React.Component {
 
     validateLetter(guessedChars, letter){
         guessedChars.push(letter);
-        console.log("this is array of guessedChars:", guessedChars)
-        let correctChars = this.state.correctChars;
-        let secretWord = this.state.secretWord;
-        let lives = this.state.lives;
-        console.log("secret word in validateletter:", secretWord)
+        let { correctChars, secretWord, lives } = this.state;
         if(secretWord.toUpperCase().indexOf(letter)!=-1){
             for(let i = 0; i < secretWord.length; i++){
                 if(secretWord[i].toUpperCase() == letter)
@@ -174,7 +145,6 @@ export default class GameScreen extends React.Component {
             }
         }else{
             lives = lives - 1;
-            console.log("number of lives left", lives)
             if(lives == 0){
                 this.showAlertDelay();
             }
@@ -185,9 +155,7 @@ export default class GameScreen extends React.Component {
             guessedChars,
         })
         if(correctChars.join("").toLowerCase() == secretWord){
-            console.log("lives: ", this.state.lives)
-            this.NewGame();
-            console.log("this is state not in reset", this.state)
+            this.newGame();
         }
     }
 
@@ -204,10 +172,9 @@ export default class GameScreen extends React.Component {
         let score = this.state.previousScore
         const { navigation } = this.props;
         const username = navigation.getParam('username', 'no-username');
-        let secretWord = this.state.secretWord;
         setTimeout(() => {
             Alert.alert(
-                'GAME OVER! Your word was: "' + secretWord + '".',
+                'GAME OVER! Your word was: "' + this.state.secretWord + '".',
                 'Good Job ' + username + '! You scored ' + score + ' points!',
                 [
                 {text: 'Try Again?', onPress: () => this.resetGame()},
@@ -227,20 +194,22 @@ export default class GameScreen extends React.Component {
     }
 
     render() { //render method
+        
         let corgi = <Image source={Hangman} duration={8000} style={{bottom: 50, height: 100, left: 30,width: 100, position: "relative"}}/>
         let corgiFall = <Image animation={'fadeOutDownBig'} duration={2000} source={Hangman} style={{bottom: 50, height: 100,left: 30, width: 100, position: "relative"}}/>
-        let balloon0 = <Image source={balloon} style={{left: 50, top: 20, height: 100, width: 30, position: "relative"}} />
-        let balloon0fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{left: 50, top: 20, height: 100, width: 30,position: "relative"}}/>
+        let balloon0 = <Image source={balloon} style={{left: 50, top: 10, height: 100, width: 30, position: "relative"}} />
+        let balloon0fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{left: 50, top: 10, height: 100, width: 30,position: "relative"}}/>
         let balloon1 = <Image source={balloon} style={{height: 100, left:45, width: 30, position: "relative"}}/>
         let balloon1fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{height: 100, left: 45,width: 30, position: "relative"}}/>
-        let balloon2 = <Image source={balloon} style={{right: 20, bottom: 10, height: 100, width: 30,position: "relative"}}/>
-        let balloon2fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right: 20, bottom:10, height: 100, width: 30,position: "relative"}}/>
-        let balloon3 = <Image source={balloon} style={{right:65, top:10, height: 100, width: 30, position: "relative"}}/>
-        let balloon3fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right:65, top:10, height: 100, width: 30, position: "relative"}}/>
-        let balloon4 = <Image source={balloon} style={{right: 25, top:10, height: 100, width: 30, position: "relative"}}/>
-        let balloon4fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right: 25, top:10, height: 100, width: 30, position: "relative"}}/>
+        let balloon2 = <Image source={balloon} style={{right: 10, bottom: 10, height: 100, width: 30,position: "relative"}}/>
+        let balloon2fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right:10, bottom:10, height: 100, width: 30,position: "relative"}}/>
+        let balloon3 = <Image source={balloon} style={{right:25, top:25, height: 100, width: 30, position: "relative"}}/>
+        let balloon3fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right:25, top:25, height: 100, width: 30, position: "relative"}}/>
+        let balloon4 = <Image source={balloon} style={{right: 45, top:10, height: 100, width: 30, position: "relative"}}/>
+        let balloon4fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right: 45, top:10, height: 100, width: 30, position: "relative"}}/>
         let balloon5 = <Image source={balloon} style={{right: 80, bottom: 20, height: 100, width: 30, position: "relative"}}/>
         let balloon5fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{right: 80, bottom: 20, height: 100, width: 30, position: "relative"}}/>
+        
         const keysRows = [
             ["A","B","C","D","E","F","G","H","I","J"],
             ["K","L","M","N","O","P","Q","R","S"],
@@ -256,8 +225,8 @@ export default class GameScreen extends React.Component {
                         let hint = this.giveHint();
                         this.setState({"hintPressed": true})
                         Alert.alert(
-                            'HINT',
-                            'Try this letter: "' + hint + '"',
+                            'HINT: "' + hint + '"',
+                             '',
                             [
                             {text: 'Okay'},
                             ],
@@ -310,7 +279,6 @@ export default class GameScreen extends React.Component {
                         )
                     })}
                 </View>
-                
                 <View style={styles.keyboard}>
                     {keysRows.map((keys,rowIndex)=>{
                         return(
@@ -364,7 +332,7 @@ export default class GameScreen extends React.Component {
                         onRequestClose={() => {
                             Alert.alert('Modal has been closed.');
                     }}>
-                        <View style={{marginTop:300, backgroundColor: '#black'}}>
+                        <View style={{marginTop:270}}>
                             <TextInput 
                                 style={styles.fullWord}
                                 placeholder="I know the word!"
@@ -393,7 +361,7 @@ export default class GameScreen extends React.Component {
                         onPress={() => {
                             this.setModalVisible(true);
                         }}>
-                        <Text style={{color: "yellow", fontSize: 20}}>I know the Word!</Text>
+                        <Text style={{color: "yellow", fontSize: 20}}>I know the word!</Text>
                     </TouchableHighlight>
                     <TouchableOpacity>
                         <Text 

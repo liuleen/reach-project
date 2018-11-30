@@ -11,7 +11,7 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { Image, Text, View } from 'react-native-animatable';
 import styles from '../styles/welcomeStyles';
 import logoImg from '../images/hangmanpng.gif'; 
-import bgImg from '../images/croptumble.gif';
+import bgImg from '../images/back8.gif';
 import Dialog, { 
     DialogContent,
     DialogButton
@@ -19,12 +19,8 @@ import Dialog, {
 import AutoTypingText from 'react-native-auto-typing-text';
 
 export default class WelcomeScreen extends React.Component {
-
     constructor(props) {
         super(props);
-
-        // this.inputRefs = {};
-        // this.inputRef = React.createRef()
         this.state = {
             "level": undefined,
             "dialog": false,   
@@ -112,9 +108,6 @@ export default class WelcomeScreen extends React.Component {
                                 <View style={styles.dialogContentView}>
                                     <Text style={styles.usernameText}>Choose a Username</Text>
                                     <TextInput
-                                        // ref={(el) => {
-                                        //     this.inputRefs.name = el;
-                                        // }}
                                         placeholder="username"
                                         returnKeyType="next"
                                         enablesReturnKeyAutomatically

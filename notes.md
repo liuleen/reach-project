@@ -39,69 +39,61 @@ We also encourage you to think of these requirements as a starting point, and ju
 
 ###### TimeLine
 - Nov 22
-    - [x]design UI
-    - [x]data requirements
-    - [x]welcome screen UI
-    - [x]user prompt difficulty dialog
-    - [x]route to game screen with PLAY button
-    - []finish image upload screen [optional]
+    - [x] design UI
+    - [x] data requirements
+    - [x] welcome screen UI
+    - [x] user prompt difficulty dialog
+    - [x] route to game screen with PLAY button
 - Nov 23-24
-    - [x]pass variables from welcome screen to game screen
-    - [x]input field filled in for both required
-    - [x]get word function from api
-    - [x]keyboard
-    - [x]validate letters
-    - [x]dashes
-    - [x]function check used letters
-    - [x]function to fill in word with letters guessed
+    - [x] pass variables from welcome screen to game screen
+    - [x] input field filled in for both required
+    - [x] get word function from api
+    - [x] keyboard
+    - [x] validate letters
+    - [x] dashes
+    - [x] function check used letters
+    - [x] function to fill in word with letters guessed
 - Nov 25-26
-    - [x]reset state when START button pressed for back button feature
-    - []animation hangman
-    - [x]keyboard press colors
-    - [x]keyboard can't press faded colors
-    - [x]function subtract lives (display heart with number of lives)
-    - [x]give up button that routes to welcome screen
-    - [x]hint
-    - [x]timer
-    - [x]you lose, try again 
-    - [x]you win, play again 
-    - [x]get word based on difficulty from api
-    - [x]support of full words guesses
+    - [x] reset state when START button pressed for back button feature
+    - [x] animation hangman
+    - [x] keyboard press colors
+    - [x] keyboard can't press faded colors
+    - [x] function subtract lives (display heart with number of lives)
+    - [x] give up button that routes to welcome screen
+    - [x] hint
+    - [x] timer
+    - [x] you lose, try again 
+    - [x] you win, play again 
+    - [x] get word based on difficulty from api
+    - [x] support of full words guesses
 - Nov 27-28
-    - []refactor the code
-    - []comment code
-    - []sound 
-    - []write readme
-    - [x]welcome screen UI
-        - [x]ANIMATION
-        - [x]TITLE ANIMATION
-        - [x]DROP DOWN LEVEL SELECTION
-        - [x]USER NAME
-        - [x]BUTTONS START
-        - [x]BUTTONS PLAY
-    - []Game screen UI
-        - [x]KEYBOARD
-        - []LIVES LEFT
-        - []HINT
-        - []HANGMAN
-        - []TIMER
-        - []GAMEOVER
-        - []YOU WIN
-        - []GIVE UP
-    - []challenge level with increasing difficulty and timer (guess word with letters given)
+    - [x] welcome screen UI
+        - [x] ANIMATION
+        - [x] TITLE ANIMATION
+        - [x] DROP DOWN LEVEL SELECTION
+        - [x] USER NAME
+        - [x] BUTTONS START
+        - [x] BUTTONS PLAY
+    - [x]Game screen UI
+        - [x] KEYBOARD
+        - [x] LIVES LEFT
+        - [x] HINT
+        - [x] HANGMAN
+        - [x] TIMER
+        - [x] GAMEOVER
+        - [x] YOU WIN
+        - [x] GIVE UP
+    - [x] challenge level with increasing difficulty and timer (guess word with letters given)
 - Nov 29-30 
-    - []maybe implement leaderboard?
-    - []5star rate
-    - []study javascript
-- Dec 1-2
-    - []user test
-    - []check for bugs
-    - []make sure everything is flawless
-    - []error management
-- Dec 3-4 
-    - practice
-    - breathe
-    - you can do this :) 
+    - [x] refactor the code
+    - [x] comment code
+    - [x] write readme
+    - [] user test
+    - [] check for bugs
+    - [] error management with jest
+- Dec 1
+    -YOU GOT THIS!!! :]
+    -DON'T BE NERVOUS OR STRESSED, OK MAYBE A LITTLE STRESSED
 
 ###### Data
 - API - word bank GET /words
@@ -109,33 +101,33 @@ We also encourage you to think of these requirements as a starting point, and ju
 - max number of tries; == 6
 - guessedChars = []; //array of unique chars, stores letters user already guessed
 - hiddenWord = ""; //stores the word user has to guess
-- remainingGuesses = 0; //start with val of tries and decrement for wrong guesses, stores how many guesses a user has left
+- lives = 6; //start with val of tries and decrement for wrong guesses, stores how many guesses a user has left
+- correctChars : array of corretly guess chars
 - startedGame = false; //state --> sound? 
 - finishedGame = false; //state (try again button, give up button)
-- wins = 0; //number of wins, how many words guessed successfully
-- image uplaod 
-- leaderboard scores
-- sound
+- tmpScore: to add scores total
+- score = 0; //number of lives left after each roud, how many words guessed successfully
+- level: which level of difficulty did user choose
+- fullWord: user to input fullWord feature
+- leaderboard scores?
 - if key letter is pressed? : false
-- uselessHint: ""
+- hint: to store the char in secret word that hasn't been guessed yet by the user
 
-
-Component State	Storing data in the state of your components is the simplest way to manage data throughout your app. Every time the user interacts with the app, update the state of a component, or use function props to update the state in parent components. It can be advantageous to maintain all state in the root component of the app, so that all state is managed in one place, making it easier to reason about the app and enabling you to easily switch to Redux if necessary.
-
-#fix
+###### fix
 - dialog input navigation is wrong
 - implement jest
 - points: depending on how many lives left
-- timer bug
-- how can i make it faster
+- timer bug!!!
+- how can i make it faster?
 
-#questions
+###### questions
 - how does it recognize that the key can't be pressed anymore
 - what does the key represent in dialog, why do i need it (child props?)
 - await/async
 - try catch
 - lifecycle of component
 
+###### logic
 //to see if char has been used, if yes do action, push letter in guessed chars
     // validateLetter()
     //check if letter exists in secretWordString
@@ -164,3 +156,5 @@ Component State	Storing data in the state of your components is the simplest way
 - Binding event handler methods to an instance.
 
 - a ref is a reference to the React component
+
+Component State	Storing data in the state of your components is the simplest way to manage data throughout your app. Every time the user interacts with the app, update the state of a component, or use function props to update the state in parent components. It can be advantageous to maintain all state in the root component of the app, so that all state is managed in one place, making it easier to reason about the app and enabling you to easily switch to Redux if necessary.
