@@ -52,7 +52,7 @@ Here is a list of features I added:
 - Support for guessing full words instead of just letters one at a time. Wrong guesses will count towards the users lives.
 - A diagram animation to represent the users wrong guesses. The balloons represent his/her number of lives. The corgi being floated represents the "hangman".
 - Color for the keyboard to represent correct guesses in green and incorrect guesses in red. 
-- A configurable difficulty level adjust the secret words based on the difficulty chosen by the user
+- A configurable difficulty level to adjust the secret words based on the difficulty chosen by the user
 - A hint button that parses through the secret word string to find a letter that has not been guessed yet, and gives it to the User as a hint. 
 - A give up button, in case the User wants to stop playing
 - A score that adds up all the lives the User was able to accumulate over the course of one game session. 
