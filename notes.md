@@ -27,12 +27,14 @@ Implement a word guessing game, which can be played by a user "against" the comp
 ###### TimeLine
 - Nov 23
     - [x] design UI
+    - [x] write out logic if possible
     - [x] data requirements
-    - [x] welcome screen UI
+    - [x] welcome screen UI sketch
+    - [x] game screen UI sketch
     - [x] user prompt difficulty dialog
-    - [x] route to game screen with PLAY button
+    - [x] route to game screen with PLAY button (how do i route)
 - Nov 24-25
-    - [x] pass variables from welcome screen to game screen
+    - [x] pass variables from welcome screen to game screen (THEY'RE CALLED PROPS!!)
     - [x] input field filled in for both required
     - [x] get word function from api
     - [x] keyboard
@@ -54,14 +56,14 @@ Implement a word guessing game, which can be played by a user "against" the comp
     - [x] get word based on difficulty from api
     - [x] support of full words guesses
 - Nov 28-29
-    - [x] welcome screen UI
+    - [x] Welcome screen UI
         - [x] ANIMATION
         - [x] TITLE ANIMATION
         - [x] DROP DOWN LEVEL SELECTION
         - [x] USER NAME
         - [x] BUTTONS START
         - [x] BUTTONS PLAY
-    - [x]Game screen UI
+    - [x] Game screen UI
         - [x] KEYBOARD
         - [x] LIVES LEFT
         - [x] HINT
@@ -70,7 +72,7 @@ Implement a word guessing game, which can be played by a user "against" the comp
         - [x] GAMEOVER
         - [x] YOU WIN
         - [x] GIVE UP
-    - [x] challenge level with increasing difficulty and timer (guess word with letters given)
+    - [x] Challenge level with increasing difficulty and timer (guess word with letters given)
 - Nov 30-Dec1 
     - [x] refactor the code
     - [x] comment code
@@ -125,18 +127,18 @@ Implement a word guessing game, which can be played by a user "against" the comp
  1. onKeyPress - to see if char has been used, if yes do action->
  2. push letter in guessed chars ->
  3. validateLetter() ->
-        -->check if letter exists in secretWordString
+        - -->check if letter exists in secretWordString
  5. isInSecretWord() 
-    -->if secretWord returns true: update correctChars pop out of correctChars, update dash--> render if in secretWord
-        -->if answer == secret: winner
-            --> start new game
-            --> add old remaining number of lives to score
-            --> reset everything except score
-    -->if secretWord returns false: numberofTries--,
-        --> subract lives: lives = lives - 1
-        --> check number of lives isnt 0 (aka game over) (corgi falls)
+    - -->if secretWord returns true: update correctChars pop out of correctChars, update dash--> render if in secretWord
+        - -->if answer == secret: winner
+            - --> start new game
+            - --> add old remaining number of lives to score
+            - --> reset everything except score
+    - -->if secretWord returns false: numberofTries--,
+        - --> subract lives: lives = lives - 1
+        - --> check number of lives isnt 0 (aka game over) (corgi falls)
             --> alert game over (restart and leave options
-        --> make balloon float away
+        - --> make balloon float away
 
 ###### notes
 - Why not use component will mount for fetch API: componentDidMount is the best place to put calls to fetch data, for two reasons:

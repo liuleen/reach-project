@@ -4,8 +4,8 @@ import {
   Text
 } from 'react-native';
 
-import WelcomeScreen from './src/components/welcomeScreen';
 import {StackNavigator} from 'react-navigation';
+import WelcomeScreen from './src/components/welcomeScreen';
 import GameScreen from './src/components/gameScreen';
 import LeaderboardScreen from './src/components/leaderboardScreen';
 import ChallengeScreen from './src/components/challengeScreen';
@@ -43,7 +43,4 @@ const Hangman = new StackNavigator({
   ChallengeScreen:{
     screen: ChallengeScreen
   },
-  LeaderboardScreen:{
-    screen: LeaderboardScreen
-  }
 })
