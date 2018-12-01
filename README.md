@@ -74,7 +74,7 @@ Here is a list of features I added:
 
 - Overall this project has been a huge step towards what I've always wanted to do since entering the tech field. The first language I learned was C so most of the projects I've worked on have been terminal based and algorithm heavy and no database or UI componenets in it. Since stepping into the software development role, I've been looking for that opportunity to learn mobile app development and this project has really helped me to start it. I could've done a project terminal based with a language I'm more familiar with but I knew that I had to use this opportunity to do something I've pushed back for too long. 
 - In this week, I learned:
-    - Javascript syntax, basic javascript programming
+    - Javascript syntax
     - React Native framework syntax and project layout
     - Component lifecycles (i have more learning to do here)
     - How to pass props and states
