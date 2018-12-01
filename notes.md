@@ -12,39 +12,26 @@ Implement a word guessing game, which can be played by a user "against" the comp
 - The guesser loses the game if they guess 6 letters that are not in the secret word
 - The guesser wins the game if they guess all letters in the secret word correctly and have not already lost the game per the conditions above
 
-###### Features: 
-
-We also encourage you to think of these requirements as a starting point, and just use your creativity/imagination to expand the game in any way that you want to showcase your talents and passion for programming. Sample extension ideas include:
-
-- [] Track users/scores over time and show a leaderboard
-- [] Add support for guessing full words instead of just letters one at a time, and count those against the guesses total
-- [] Add support for phrases instead of just words, and numbers in addition to letters
-- [] Create a diagram (that can be drawn with 6 attempt) that gets filled in as the user guesses incorrectly
-- []Add a configurable “difficulty level” and adjust the words that are used based on the user’s preference
-- []Anything else that you come up with to make the game more fun/interesting!
-
 ###### My Features
 - user prompt level difficulty page
-- image upload for hangme face
-- themes? if i have time
 - persistent data for leaderboard scores
 - alerts for lives left
 - sound (cheering/booing)
 - useless hints
+- useful hints
+- give up option
+- full word guesses
 - letters displayed in green or red to show if used
 - challenge level -> how many levels you can get in 3 min (length of word gets longer, difficulty gets harder)
 
-###### Users:
-- User1
-
 ###### TimeLine
-- Nov 22
+- Nov 23
     - [x] design UI
     - [x] data requirements
     - [x] welcome screen UI
     - [x] user prompt difficulty dialog
     - [x] route to game screen with PLAY button
-- Nov 23-24
+- Nov 24-25
     - [x] pass variables from welcome screen to game screen
     - [x] input field filled in for both required
     - [x] get word function from api
@@ -53,7 +40,7 @@ We also encourage you to think of these requirements as a starting point, and ju
     - [x] dashes
     - [x] function check used letters
     - [x] function to fill in word with letters guessed
-- Nov 25-26
+- Nov 26-27
     - [x] reset state when START button pressed for back button feature
     - [x] animation hangman
     - [x] keyboard press colors
@@ -66,7 +53,7 @@ We also encourage you to think of these requirements as a starting point, and ju
     - [x] you win, play again 
     - [x] get word based on difficulty from api
     - [x] support of full words guesses
-- Nov 27-28
+- Nov 28-29
     - [x] welcome screen UI
         - [x] ANIMATION
         - [x] TITLE ANIMATION
@@ -84,16 +71,15 @@ We also encourage you to think of these requirements as a starting point, and ju
         - [x] YOU WIN
         - [x] GIVE UP
     - [x] challenge level with increasing difficulty and timer (guess word with letters given)
-- Nov 29-30 
+- Nov 30-Dec1 
     - [x] refactor the code
     - [x] comment code
     - [x] write readme
-    - [] user test
+    - [x] user test
     - [x] check for bugs
-    - [] error management with jest
 - Dec 1
-    -YOU GOT THIS!!! :]
-    -DON'T BE NERVOUS OR STRESSED, OK MAYBE A LITTLE STRESSED
+    - YOU GOT THIS!!! :]
+    - DON'T BE NERVOUS OR STRESSED, OK MAYBE A LITTLE STRESSED, AND A LITTLE NERVOUS
 
 ###### Data
 - API - word bank GET /words
@@ -115,36 +101,48 @@ We also encourage you to think of these requirements as a starting point, and ju
 
 ###### fix
 - dialog input navigation is wrong
-- implement jest
+- timer is going crazy
+- keys are still pressable after game is over
+- full word dialog can submit empty string, makes user lose a life...
+- score accumulation is not resetting
+- balloons are way too messy
+- HOW DO I OVERLAP BALLOONS
+- slow down the alert box for game over so the user can see corgi fall
 - points: depending on how many lives left
 - timer bug!!!
 - how can i make it faster?
 
 ###### questions
 - how does it recognize that the key can't be pressed anymore
+- difference between component didmount and willmount
+- what does binding this in state do
 - what does the key represent in dialog, why do i need it (child props?)
 - await/async
 - try catch
 - lifecycle of component
 
 ###### logic
-//to see if char has been used, if yes do action, push letter in guessed chars
-    // validateLetter()
-    //check if letter exists in secretWordString
-    // isInSecretWord()
-    //if secretWord returns true: update correctChars pop out of correctChars, update dash--> render if in secretWord
-        //if answer == secret: winner
-    //if secretWord returns false: numberofTries--,
-        //draw next animation
-        //if numberofTries == 0; gameover alert
+ 1. onKeyPress - to see if char has been used, if yes do action->
+ 2. push letter in guessed chars ->
+ 3. validateLetter() ->
+        -->check if letter exists in secretWordString
+ 5. isInSecretWord() 
+    -->if secretWord returns true: update correctChars pop out of correctChars, update dash--> render if in secretWord
+        -->if answer == secret: winner
+            --> start new game
+            --> add old remaining number of lives to score
+            --> reset everything except score
+    -->if secretWord returns false: numberofTries--,
+        --> subract lives: lives = lives - 1
+        --> check number of lives isnt 0 (aka game over) (corgi falls)
+            --> alert game over (restart and leave options
+        --> make balloon float away
 
 ###### notes
 - Why not use component will mount for fetch API: componentDidMount is the best place to put calls to fetch data, for two reasons:
 1) Using componentDidMount makes it clear that data won’t be loaded until after the initial render. You need to setup initial state properly, so you don’t get undefined state that causes errors.
 
-2 )If you need to render your app on the server, componentWillMount will be called twice(on the server and again on the client), which is probably not what you want. Putting the data loading code in componentDidMount will ensure that data is only fetched from the client. Generally, you should not add side effects to componentWillMount.
-
-3)If we instead use componentDidMount, then it's clear that the component will render at least once before you get back any data (because the component already did mount). So, by extension, it's also clear that we have to handle the initial state in a way so that the component doesn't break on the first ("empty") render.
+2) If we instead use componentDidMount, then it's clear that the component will render at least once before you get back any data (because the component already did mount). So, by extension, it's also clear that we have to handle the initial state in a way so that the component doesn't break on the first ("empty") render.
 
 - The render() method is the only required method in a class component.
 
@@ -152,9 +150,7 @@ We also encourage you to think of these requirements as a starting point, and ju
 
 - Typically, in React constructors are only used for two purposes:
 
-- Initializing local state by assigning an object to this.state.
-- Binding event handler methods to an instance.
-
-- a ref is a reference to the React component
+    - Initializing local state by assigning an object to this.state.
+    - Binding event handler methods to an instance.
 
 Component State	Storing data in the state of your components is the simplest way to manage data throughout your app. Every time the user interacts with the app, update the state of a component, or use function props to update the state in parent components. It can be advantageous to maintain all state in the root component of the app, so that all state is managed in one place, making it easier to reason about the app and enabling you to easily switch to Redux if necessary.
