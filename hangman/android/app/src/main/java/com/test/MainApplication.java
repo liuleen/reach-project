@@ -1,13 +1,8 @@
-package com.hangman;
+package com.test;
 
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.walmartreact.ReactOrientationListener.ReactOrientationListener;
-import com.horcrux.svg.SvgPackage;
-import com.zmxv.RNSound.RNSoundPackage;
-import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -27,12 +22,7 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new VectorIconsPackage(),
-            new ReactOrientationListener(),
-            new SvgPackage(),
-            new RNSoundPackage(),
-            new RNGestureHandlerPackage()
+          new MainReactPackage()
       );
     }
 

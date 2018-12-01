@@ -111,6 +111,18 @@ export default StyleSheet.create({
     borderColor: "black",
     backgroundColor: "#b3ffb3"
   },
+  keyItemUsedGameOver: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding:15,
+    margin:2,
+    height: 50,
+    width:45,
+    borderWidth: .5,
+    borderColor: "black",
+    backgroundColor: "black"
+  },
   usedKey:{
     color:"#cccccc",
     fontSize:20,
@@ -120,6 +132,14 @@ export default StyleSheet.create({
   },
   usedKeyWrong:{
     color:"#cccccc",
+    fontSize:20,
+    // fontWeight: "bold",
+    width:20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  gameOverKey:{
+    color:"black",
     fontSize:20,
     // fontWeight: "bold",
     width:20,

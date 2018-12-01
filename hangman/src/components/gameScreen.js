@@ -343,7 +343,7 @@ export default class GameScreen extends React.Component {
                         {this.state.lives>1?balloon4:balloon4fly}
                         {this.state.lives>0?balloon5:balloon5fly}
                     </View>
-                    {this.state.lives==0?corgiFall:corgi}
+                    {this.state.lives<1?corgiFall:corgi}
                 </View>
                 <View style={styles.dashes}>
                     {this.state.correctChars.map((letter,index)=>{
@@ -379,6 +379,14 @@ export default class GameScreen extends React.Component {
                                                 <Text key={index} style={styles.usedKeyWrong}>
                                                     {letter}
                                                     {/* X */}
+                                                </Text>
+                                            </View>
+                                            )
+                                    }else if(this.state.lives < 1){
+                                        return(
+                                            <View style={styles.keyItemUsedGameOver} key={index}>
+                                                <Text key={index} style={styles.gameOverKey}>
+                                                    {letter}
                                                 </Text>
                                             </View>
                                             )

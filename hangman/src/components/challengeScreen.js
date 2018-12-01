@@ -186,7 +186,7 @@ export default class ChallengeScreen extends React.Component {
                 ],
                 { cancelable: false }
             )
-        }, 1000);
+        }, 1500);
     }
     
     render() {
@@ -255,6 +255,14 @@ export default class ChallengeScreen extends React.Component {
                                         return(
                                             <View style={styles.keyItemUsedWrong} key={index}>
                                                 <Text key={index} style={styles.usedKey}>
+                                                    {letter}
+                                                </Text>
+                                            </View>
+                                            )
+                                    }else if(this.state.lives < 1){
+                                        return(
+                                            <View style={styles.keyItemUsedGameOver} key={index}>
+                                                <Text key={index} style={styles.gameOverKey}>
                                                     {letter}
                                                 </Text>
                                             </View>
