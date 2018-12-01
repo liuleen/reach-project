@@ -27,7 +27,7 @@ import { Image,Text, View } from 'react-native-animatable';
  *  the only difference here is the timer in the state.
  */
 export default class ChallengeScreen extends React.Component {
-    constructor(props) { //constructor method
+    constructor(props) {
         super(props);
         this.state = {
             "secretWord": "",
@@ -172,22 +172,6 @@ export default class ChallengeScreen extends React.Component {
         header: null
     };
 
-    // showAlertDelay(){
-    //     let score = this.state.previousScore
-    //     const { navigation } = this.props;
-    //     const username = navigation.getParam('username', 'no-username');
-    //     setTimeout(() => {
-    //         Alert.alert(
-    //             'GAME OVER! Your word was: "' + this.state.secretWord + '".',
-    //             'Good Job ' + username + '! You scored ' + score + ' points!',
-    //             [
-    //             {text: 'Try Again?', onPress: () => this.resetGame()},
-    //             {text: 'Cancel', onPress: () => navigation.navigate('WelcomeScreen')},
-    //             ],
-    //             { cancelable: false }
-    //         )
-    //     }, 1500);
-    // }
     showAlertDelay(){
         let score = this.state.previousScore
         const { navigation } = this.props;
@@ -198,17 +182,13 @@ export default class ChallengeScreen extends React.Component {
                 'Good Job ' + username + '! You scored ' + score + ' points!',
                 [
                 {text: 'Try Again?', onPress: () => this.resetGame()},
-                {text: 'Cancel', onPress: () => navigation.navigate('LeaderboardScreen', 
-                    {
-                        username: username,
-                        score: score
-                    }),
-                }],
+                {text: 'Cancel', onPress: () => navigation.navigate('WelcomeScreen')},
+                ],
                 { cancelable: false }
             )
-        }, 1500);
+        }, 1000);
     }
-
+    
     render() {
         
         const keysRows = [
@@ -335,3 +315,4 @@ export default class ChallengeScreen extends React.Component {
         );
     }
 }
+

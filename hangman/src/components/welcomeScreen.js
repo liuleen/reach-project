@@ -39,13 +39,7 @@ export default class WelcomeScreen extends React.Component {
 
     static navigationOptions = {
         header: null
-    };
-
-    saveData() {
-        let user = this.state.username;
-        AsyncStorage.setItem('username', user);
-    }
-    
+    };  
 
     render(){
         return(

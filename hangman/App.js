@@ -4,11 +4,11 @@ import {
   Text
 } from 'react-native';
 
-import WelcomeScreen from './src/pages/welcomeScreen';
+import WelcomeScreen from './src/components/welcomeScreen';
 import {StackNavigator} from 'react-navigation';
-import GameScreen from './src/pages/gameScreen';
-import LeaderboardScreen from './src/pages/leaderboardScreen';
-import ChallengeScreen from './src/pages/challengeScreen';
+import GameScreen from './src/components/gameScreen';
+import LeaderboardScreen from './src/components/leaderboardScreen';
+import ChallengeScreen from './src/components/challengeScreen';
 
 /**
  * The root component of the application.

@@ -127,7 +127,7 @@ export default class GameScreen extends React.Component {
     validateLetter(guessedChars, letter){
         guessedChars.push(letter);
         let { correctChars, secretWord, lives } = this.state;
-        if(secretWord.toUpperCase().indexOf(letter)!=-1){
+        if(secretWord.toUpperCase().indexOf(letter) != -1){
             for(let i = 0; i < secretWord.length; i++){
                 if(secretWord[i].toUpperCase() == letter)
                     correctChars[i] = letter;
