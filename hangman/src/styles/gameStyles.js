@@ -71,17 +71,17 @@ export default StyleSheet.create({
     alignSelf:"auto",
     justifyContent: 'center',
   },
-  dashItemContainer:{
+  dashContainer:{
     padding:5,
     margin:1,
   },
-  dashItem:{
+  dash:{
     width:20,
     color: 'black',
     fontWeight: "bold",
     fontSize:20,
   },
-  challengeDashItem:{
+  challengeDash:{
     width:20,
     color: 'white',
     fontWeight: "bold",
@@ -99,7 +99,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     maxHeight: 60
   },
-  keyItemUsed: {
+  usedKeyContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -111,7 +111,7 @@ export default StyleSheet.create({
     borderColor: "black",
     backgroundColor: "#b3ffb3"
   },
-  keyItemUsedGameOver: {
+  usedKeyGameOver: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -146,7 +146,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  keyItemUsedWrong: {
+  wrongUsedKey: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -158,7 +158,7 @@ export default StyleSheet.create({
     borderColor: "black",
     backgroundColor: "#ff9999"
   },
-  keyItem:{
+  key:{
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

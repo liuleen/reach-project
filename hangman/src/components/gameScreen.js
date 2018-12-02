@@ -352,8 +352,8 @@ export default class GameScreen extends React.Component {
                 <View style={styles.dashes}>
                     {this.state.correctChars.map((letter,index)=>{
                         return(
-                            <View style={styles.dashItemContainer} key={index}>
-                                <Text style={styles.dashItem}>
+                            <View style={styles.dashContainer} key={index}>
+                                <Text style={styles.dash}>
                                     {letter}
                                 </Text>
                             </View>
@@ -371,7 +371,7 @@ export default class GameScreen extends React.Component {
                                         )
                                     }else if(this.state.correctChars.indexOf(letter)!=-1){
                                         return(
-                                            <View style={styles.keyItemUsed} key={index}>
+                                            <View style={styles.usedKeyContainer} key={index}>
                                                 <Text key={index} style={styles.usedKey}>
                                                     {letter}
                                                 </Text>
@@ -379,16 +379,15 @@ export default class GameScreen extends React.Component {
                                             )
                                     }else if(this.state.correctChars.indexOf(letter)==-1 && this.state.guessedChars.indexOf(letter)!=-1){
                                         return(
-                                            <View style={styles.keyItemUsedWrong} key={index}>
+                                            <View style={styles.wrongUsedKey} key={index}>
                                                 <Text key={index} style={styles.usedKeyWrong}>
                                                     {letter}
-                                                    {/* X */}
                                                 </Text>
                                             </View>
                                             )
                                     }else if(this.state.lives < 1){
                                         return(
-                                            <View style={styles.keyItemUsedGameOver} key={index}>
+                                            <View style={styles.usedKeyGameOver} key={index}>
                                                 <Text key={index} style={styles.gameOverKey}>
                                                     {letter}
                                                 </Text>
@@ -398,7 +397,7 @@ export default class GameScreen extends React.Component {
                                         return(
                                             <TouchableOpacity 
                                                 onPress={this.onKeyPress.bind(this, letter)} 
-                                                style={styles.keyItem} 
+                                                style={styles.key} 
                                                 key={index}>
                                                     <Text style={styles.letter}>
                                                         {letter}
