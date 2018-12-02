@@ -35,7 +35,6 @@ export default class ChallengeScreen extends React.Component {
             "correctChars": [],
             "guessedChars": [],
             "gameMode": 0,
-            "level": "",
             "modalVisible": false,
             "previousScore":0,
             "secretArray": [],
@@ -74,6 +73,10 @@ export default class ChallengeScreen extends React.Component {
      */
     componentDidUpdate(){
         if(this.state.timer === 0){ 
+            clearInterval(this.interval)
+            this.showAlertDelay();
+        }
+        if(this.state.lives == 0){
             clearInterval(this.interval)
             this.showAlertDelay();
         }
@@ -117,10 +120,6 @@ export default class ChallengeScreen extends React.Component {
             }
         }else{
             lives = lives - 1;
-            if(lives == 0){
-                clearInterval(this.interval)
-                this.showAlertDelay();
-            }
         }
         this.setState({
             correctChars,
@@ -197,7 +196,7 @@ export default class ChallengeScreen extends React.Component {
             [" ","T","U","V","W","X","Y","Z"," "]]
         
         let corgi = <Image source={Hangman} style={{bottom: 40, height: 100, left: 8,width: 100, position: "relative"}}/>
-        let corgiFall = <Image animation={'fadeOutDownBig'} duration={5000} source={Hangman} style={{bottom: 40, height: 100, left:8, width: 100, position: "relative"}}/>
+        let corgiFall = <Image animation={'fadeOutDownBig'} duration={3000} source={Hangman} style={{bottom: 40, height: 100, left:8, width: 100, position: "relative"}}/>
         let balloon0 = <Image source={balloon} style={{left: 30, top: 20, height: 100, width: 30, position: "relative"}} />
         let balloon0fly = <Image animation={'fadeOutUpBig'} duration={8000} source={balloon} style={{left: 30, top: 20, height: 100, width: 30,position: "relative"}}/>
           

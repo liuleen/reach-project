@@ -101,10 +101,16 @@ Implement a word guessing game, which can be played by a user "against" the comp
 - if key letter is pressed? : false
 - hint: to store the char in secret word that hasn't been guessed yet by the user
 
-###### fix
+###### bug fixes
 - dialog input navigation is wrong
-- timer is going crazy
+- lets user continue without username or level selection
+- back button needs to be disabled
+- timer is going crazy, when game over timer continues, when new game starts timer stops and doesnt restart
 - keys are still pressable after game is over
+- full word guessed wrong at the last life doesnt invoke game over alert...do a component did update?
+- don't let timer stop on give up button bc of them hackers
+- trim full word inputs for the extra spaces
+- disable the autocomplete on keyboard?? gives answers away lol
 - full word dialog can submit empty string, makes user lose a life...
 - score accumulation is not resetting
 - balloons are way too messy

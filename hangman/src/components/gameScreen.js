@@ -54,6 +54,7 @@ export default class GameScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            "secretArray": [],
             "secretWord": "",
             "lives": 6,
             "correctChars": [],
@@ -63,8 +64,7 @@ export default class GameScreen extends React.Component {
             "fullWord": "",
             "modalVisible": false,
             "previousScore": 0,
-            "secretArray": [],
-            "hint": "",
+            "hint": '',
             "hintPressed": false
         }
         this.showAlertDelay = this.showAlertDelay.bind(this);
@@ -88,6 +88,13 @@ export default class GameScreen extends React.Component {
                 console.error(error);
             }
         );
+        
+    }
+
+    componentDidUpdate(){
+        if(this.state.lives == 0){
+            this.showAlertDelay();
+        }
     }
 
     /**
@@ -134,9 +141,6 @@ export default class GameScreen extends React.Component {
             }
         }else{
             lives = lives - 1;
-            if(lives == 0){
-                this.showAlertDelay();
-            }
         }
         this.setState({
             correctChars,
@@ -169,7 +173,7 @@ export default class GameScreen extends React.Component {
      * Helper function to compare the full word inputted by user with the secretWord.
      */
     checkFullWord(){
-        if(this.state.secretWord == this.state.fullWord.toLowerCase()){
+        if(this.state.secretWord == this.state.fullWord.toLowerCase().trim()){
             this.newGame();
         }else if(this.state.fullWord.trim() === ""){
             return ;
