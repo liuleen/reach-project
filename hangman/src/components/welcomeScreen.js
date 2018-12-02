@@ -26,8 +26,8 @@ import AutoTypingText from 'react-native-auto-typing-text';
 **/
 
 export default class WelcomeScreen extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             "level": undefined,
             "dialog": false,   
@@ -117,6 +117,7 @@ export default class WelcomeScreen extends React.Component {
                                     <TextInput
                                         placeholder="username"
                                         returnKeyType="next"
+                                        autoCorrect={false}
                                         enablesReturnKeyAutomatically
                                         onChangeText={(username) => this.setState({username})}
                                         style={styles.usernameInput}

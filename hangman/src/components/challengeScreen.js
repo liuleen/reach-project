@@ -35,13 +35,10 @@ export default class ChallengeScreen extends React.Component {
             "correctChars": [],
             "guessedChars": [],
             "gameMode": 0,
-            "modalVisible": false,
             "previousScore":0,
             "secretArray": [],
             "timer": 60,
         }
-        this.showAlertDelay = this.showAlertDelay.bind(this);
-        this.resetGame = this.resetGame.bind(this);
     }
 
     /**
@@ -82,7 +79,7 @@ export default class ChallengeScreen extends React.Component {
         }
     };
 
-    init(){
+    init = () => {
         let secretWord = this.state.secretArray[Math.floor(Math.random() * (this.state.secretArray.length))];
         let correctChars = [];
         for(let i = 0; i < secretWord.length; i++){
@@ -101,7 +98,7 @@ export default class ChallengeScreen extends React.Component {
         })
     };
 
-    onKeyPress(letter){
+    onKeyPress = (letter) => {
         let guessedChars = this.state.guessedChars;
         if(guessedChars.indexOf(letter)==-1){
           this.validateLetter(guessedChars, letter);
@@ -110,7 +107,7 @@ export default class ChallengeScreen extends React.Component {
         }
     };
 
-    validateLetter(guessedChars, letter){
+    validateLetter = (guessedChars, letter) => {
         guessedChars.push(letter);
         let { correctChars, secretWord, lives} = this.state;
         if(secretWord.toUpperCase().indexOf(letter)!=-1){
@@ -131,7 +128,7 @@ export default class ChallengeScreen extends React.Component {
         }
     };
 
-    NewGame() {
+    NewGame= () => {
         let newScore = this.state.previousScore + this.state.lives;
         let secretWord = this.state.secretArray[Math.floor(Math.random() * (this.state.secretArray.length))];
         this.setState({
@@ -140,12 +137,11 @@ export default class ChallengeScreen extends React.Component {
             "lives": 1,
             "correctChars": [],
             "guessedChars": [],
-            "modalVisible": false,
         })
         this.init();
     };
 
-    resetGame() {
+    resetGame = () => {
         let secretWord = this.state.secretArray[Math.floor(Math.random() * (this.state.secretArray.length))];
         this.setState({
             "previousScore": 0,
@@ -153,7 +149,6 @@ export default class ChallengeScreen extends React.Component {
             "lives": 1,
             "correctChars": [],
             "guessedChars": [],
-            "modalVisible": false,
             "timer": 60
         })
         this.interval = setInterval(
@@ -162,7 +157,7 @@ export default class ChallengeScreen extends React.Component {
         this.init();
     };
 
-    giveUp() {
+    giveUp = () => {
         this.props.navigation.navigate('WelcomeScreen')
         clearInterval(this.interval)
     };
@@ -171,21 +166,21 @@ export default class ChallengeScreen extends React.Component {
         header: null
     };
 
-    showAlertDelay(){
+    showAlertDelay = () =>{
         let score = this.state.previousScore
         const { navigation } = this.props;
         const username = navigation.getParam('username', 'no-username');
         setTimeout(() => {
             Alert.alert(
                 'GAME OVER! Your word was: "' + this.state.secretWord + '".',
-                'Good Job ' + username + '! You scored ' + score + ' points!',
+                'Good job, ' + username + '! You scored ' + score + ' points!',
                 [
                 {text: 'Try Again?', onPress: () => this.resetGame()},
                 {text: 'Cancel', onPress: () => navigation.navigate('WelcomeScreen')},
                 ],
                 { cancelable: false }
             )
-        }, 1500);
+        },500);
     }
     
     render() {

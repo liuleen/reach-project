@@ -67,8 +67,6 @@ export default class GameScreen extends React.Component {
             "hint": '',
             "hintPressed": false
         }
-        this.showAlertDelay = this.showAlertDelay.bind(this);
-        this.resetGame = this.resetGame.bind(this);
     }
 
     // Uses gameMode variable to fetch the right array of words from the API. Sets the array into state.
@@ -101,7 +99,7 @@ export default class GameScreen extends React.Component {
      * Helper function to render the dashes. Will find the length of the secret word, and stores that length of dashes
      * into the correctChars array, which will later be swapped with letters that are guessed correctly
      */
-    init(){
+    init = () => {
         let secretWord = this.state.secretArray[Math.floor(Math.random() * (this.state.secretArray.length))];
         let correctChars = [];
         for(let i = 0; i < secretWord.length; i++){
@@ -117,7 +115,7 @@ export default class GameScreen extends React.Component {
      * Once a letter is pressed on the keyboard, it'll check if the letter exists in guessedChars array, if not
      * it'll get validated.
     */
-    onKeyPress(letter){
+    onKeyPress = (letter) => {
         let guessedChars = this.state.guessedChars;
         if(guessedChars.indexOf(letter)==-1){
           this.validateLetter(guessedChars, letter);
@@ -131,7 +129,7 @@ export default class GameScreen extends React.Component {
      * if that letter pushed exists, if so, swap that letter with a dash in correctChars array, if not
      * subtract a life. Lastly check if the array of correctChars = secretWord
      */
-    validateLetter(guessedChars, letter){
+    validateLetter = (guessedChars, letter) => {
         guessedChars.push(letter);
         let { correctChars, secretWord, lives } = this.state;
         if(secretWord.toUpperCase().indexOf(letter) != -1){
@@ -156,7 +154,7 @@ export default class GameScreen extends React.Component {
      * Helper function to parse through correctChars array, find the index of the letters that have not
      * been guessed and set hint to that letter index from the secretWord.
      */
-    giveHint(){
+    giveHint = () => {
         let { secretWord, correctChars, hintChar } = this.state;
         if(this.state.hintPressed === false){
             for(let i = 0; i<secretWord.length; i++){
@@ -172,7 +170,7 @@ export default class GameScreen extends React.Component {
     /**
      * Helper function to compare the full word inputted by user with the secretWord.
      */
-    checkFullWord(){
+    checkFullWord = () => {
         if(this.state.secretWord == this.state.fullWord.toLowerCase().trim()){
             this.newGame();
         }else if(this.state.fullWord.trim() === ""){
@@ -190,7 +188,7 @@ export default class GameScreen extends React.Component {
      * easy was assigned to 1-3, medium 4-6, hard 7-10. GameMode is the result of a random number
      * generated between those numbers for each level.
      */
-    findLevel(){
+    findLevel = () => {
         const { navigation } = this.props;
         const level = navigation.getParam('level', 'no-level');
         let gameMode;
@@ -209,7 +207,7 @@ export default class GameScreen extends React.Component {
      * I wanted to score to add up for lives saved. This is specifically for when the user
      * guesses the right word and moves onto next word (a new game)
      */
-    newGame() {
+    newGame = () => {
         let newScore = this.state.previousScore + this.state.lives;
         let secretWord = this.state.secretArray[Math.floor(Math.random() * (this.state.secretArray.length))];
         this.setState({
@@ -230,7 +228,7 @@ export default class GameScreen extends React.Component {
      * Function to reset game completely including score. This is used specifically for when the User
      * loses and needs to start over from the beginning
      */
-    resetGame() {
+    resetGame = () => {
         let secretWord = this.state.secretArray[Math.floor(Math.random() * (this.state.secretArray.length))];
         this.setState({
             "previousScore": 0,
@@ -249,30 +247,28 @@ export default class GameScreen extends React.Component {
     /**
      * Helper functiont o delay the alert box so that the corgi falling animation can be properly shown.
      */
-    showAlertDelay(){
+    showAlertDelay = () => {
         let score = this.state.previousScore
         const { navigation } = this.props;
         const username = navigation.getParam('username', 'no-username');
         setTimeout(() => {
             Alert.alert(
                 'GAME OVER! Your word was: "' + this.state.secretWord + '".',
-                'Good Job ' + username + '! You scored ' + score + ' points!',
+                'Good job, ' + username + '! You scored ' + score + ' points!',
                 [
                 {text: 'Try Again?', onPress: () => this.resetGame()},
                 {text: 'Cancel', onPress: () => navigation.navigate('WelcomeScreen')},
                 ],
                 { cancelable: false }
             )
-        }, 1500);
+        }, 500);
     }
     
     static navigationOptions = {
         header: null
     };
 
-    setModalVisible(visible) {
-        this.setState({modalVisible: visible});
-    }
+    setModalVisible = (visible) => this.setState({modalVisible: visible});
 
     render() {
         
@@ -422,6 +418,7 @@ export default class GameScreen extends React.Component {
                             <TextInput 
                                 style={styles.fullWord}
                                 placeholder="I know the word!"
+                                autoCorrect={false}
                                 onChangeText={(fullWord) => this.setState({fullWord})}
                                 blurOnSubmit={true}/>
                             <View style={styles.modalButtons}>
