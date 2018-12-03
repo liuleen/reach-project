@@ -118,7 +118,7 @@ export default class WelcomeScreen extends React.Component {
                                         placeholder="username"
                                         returnKeyType="next"
                                         autoCorrect={false}
-                                        enablesReturnKeyAutomatically
+                                        // enablesReturnKeyAutomatically
                                         onChangeText={(username) => this.setState({username})}
                                         style={styles.usernameInput}
                                         blurOnSubmit={true}

@@ -177,6 +177,7 @@ export default class GameScreen extends React.Component {
             return ;
         }else{
             this.setState({
+                "fullWord": "",
                 "lives": this.state.lives - 1
             })
         }
@@ -209,10 +210,8 @@ export default class GameScreen extends React.Component {
      */
     newGame = () => {
         let newScore = this.state.previousScore + this.state.lives;
-        let secretWord = this.state.secretArray[Math.floor(Math.random() * (this.state.secretArray.length))];
         this.setState({
             "previousScore": newScore,
-            secretWord,
             "lives": 6,
             "correctChars": [],
             "guessedChars": [],
@@ -229,10 +228,8 @@ export default class GameScreen extends React.Component {
      * loses and needs to start over from the beginning
      */
     resetGame = () => {
-        let secretWord = this.state.secretArray[Math.floor(Math.random() * (this.state.secretArray.length))];
         this.setState({
             "previousScore": 0,
-            secretWord,
             "lives": 6,
             "correctChars": [],
             "guessedChars": [],
