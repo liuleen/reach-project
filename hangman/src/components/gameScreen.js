@@ -242,7 +242,7 @@ export default class GameScreen extends React.Component {
     }
 
     /**
-     * Helper functiont o delay the alert box so that the corgi falling animation can be properly shown.
+     * Helper function to delay the alert box so that the corgi falling animation can be properly shown.
      */
     showAlertDelay = () => {
         let score = this.state.previousScore
