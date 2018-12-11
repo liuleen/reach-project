@@ -8,6 +8,7 @@ import {StackNavigator} from 'react-navigation';
 import WelcomeScreen from './src/components/welcomeScreen';
 import GameScreen from './src/components/gameScreen';
 import ChallengeScreen from './src/components/challengeScreen';
+import LeaderboardScreen from './src/components/leaderboardScreen';
 
 /**
  * The root component of the application.
@@ -42,4 +43,7 @@ const Hangman = new StackNavigator({
   ChallengeScreen:{
     screen: ChallengeScreen
   },
+  LeaderboardScreen:{
+    screen: LeaderboardScreen
+  }
 })

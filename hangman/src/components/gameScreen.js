@@ -152,15 +152,23 @@ export default class GameScreen extends React.Component {
 
     /**
      * Helper function to parse through correctChars array, find the index of the letters that have not
-     * been guessed and set hint to that letter index from the secretWord.
+     * been guessed and set hint to that letter index from the secretWord. 
+     * 
+     * FIXED: gives a completely random letter from the word rather than the first
+     * one missing
      */
     giveHint = () => {
         let { secretWord, correctChars, hintChar } = this.state;
         if(this.state.hintPressed === false){
-            for(let i = 0; i<secretWord.length; i++){
-                if(correctChars[i] == '_'){
-                    hintChar = secretWord[i];
-                    i = secretWord.length ;
+            let randomInt = Math.floor(Math.random() * secretWord.length)
+            if(correctChars[randomInt] == '_'){
+                hintChar = secretWord[randomInt];
+            }else{
+                for(let i = 0; i<secretWord.length; i++){
+                    if(correctChars[i] == '_'){
+                        hintChar = secretWord[i];
+                        i = secretWord.length ;
+                    }
                 }
             }
         }
@@ -248,13 +256,18 @@ export default class GameScreen extends React.Component {
         let score = this.state.previousScore
         const { navigation } = this.props;
         const username = navigation.getParam('username', 'no-username');
+        const level = navigation.getParam('level', 'no-level');
         setTimeout(() => {
             Alert.alert(
                 'GAME OVER! Your word was: "' + this.state.secretWord + '".',
                 'Good job, ' + username + '! You scored ' + score + ' points!',
                 [
                 {text: 'Try Again?', onPress: () => this.resetGame()},
-                {text: 'Cancel', onPress: () => navigation.navigate('WelcomeScreen')},
+                {text: 'Cancel', onPress: () => navigation.navigate('LeaderboardScreen', {
+                    level: level,
+                    username: username,
+                    score: score
+                })},
                 ],
                 { cancelable: false }
             )

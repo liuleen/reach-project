@@ -34,7 +34,6 @@ export default class ChallengeScreen extends React.Component {
             "lives": 1,
             "correctChars": [],
             "guessedChars": [],
-            "gameMode": 0,
             "previousScore":0,
             "secretArray": [],
             "timer": 60,
@@ -176,7 +175,11 @@ export default class ChallengeScreen extends React.Component {
                 'Good job, ' + username + '! You scored ' + score + ' points!',
                 [
                 {text: 'Try Again?', onPress: () => this.resetGame()},
-                {text: 'Cancel', onPress: () => navigation.navigate('WelcomeScreen')},
+                {text: 'Cancel', onPress: () => navigation.navigate('LeaderboardScreen', {
+                    username: username,
+                    score: score,
+                    level: "challenge"
+                })},
                 ],
                 { cancelable: false }
             )
