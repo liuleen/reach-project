@@ -25,7 +25,7 @@ Install necessary packages
 ```
 Run the ios simulator
 ```
->react-native run-ios
+>react-native run-ios --simulator="iPhone X"
 ```
 A terminal should open up and a simulator should also open up at this point loading the app. Have fun playing! :) 
 
